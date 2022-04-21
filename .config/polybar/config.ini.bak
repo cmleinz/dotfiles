@@ -1,0 +1,403 @@
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+;;
+;;	    ____        __      __              
+;;	   / __ \____  / /_  __/ /_  ____ ______
+;;	  / /_/ / __ \/ / / / / __ \/ __ `/ ___/
+;;	 / ____/ /_/ / / /_/ / /_/ / /_/ / /    
+;;	/_/    \____/_/\__, /_.___/\__,_/_/     
+;;	              /____/                    
+;;
+;; Created By Aditya Shakya @adi1090x
+;;
+;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+[color]
+
+bg = #181818
+fg = #FFFFFF
+fg-alt = #A9ABB0
+bg-alt = #AD192C
+;;bg-alt = #1e88e5
+
+acolor = #AD192C
+;; acolor = #1e88e5
+curgent = #AD192C
+coccupied = EF7C8E
+;; coccupied = #1e88e5
+
+## Material Colors
+
+red = #e53935
+pink = #d81b60
+purple = #8e24aa
+deep-purple = #5e35b1
+indigo = #3949ab
+blue = #1e88e5
+light-blue = #039be5
+cyan = #00acc1
+teal = #00897b
+green = #43a047
+light-green = #7cb342
+lime = #c0ca33
+yellow = #fdd835
+amber = #ffb300
+orange = #fb8c00
+deep-orange = #f4511e
+brown = #6d4c41
+grey = #757575
+blue-gray = #546e7a
+
+;==========================================================
+
+[bar/main]
+monitor = 
+width = 90%
+height = 30
+offset-x = 5%
+offset-y = 96.5%
+bottom = true
+fixed-center = true
+line-size = 2
+override-redirect = true
+wm-restack = i3
+background = ${color.bg}
+foreground = ${color.fg}
+
+enable-ipc = true
+
+border-size = 3
+border-color = ${color.bg}
+
+module-margin-left = 1
+module-margin-right = 1
+
+tray-position = right
+tray-padding = 1
+tray-background = ${color.bg}
+tray-offset-x = 0
+tray-offset-y = 0
+tray-scale = 1.0
+
+;==========================================================
+
+font-0 = "Iosevka Nerd Font Mono:style=Medium:size=10;3"
+font-1 = "Iosevka Nerd Font Mono:style=Bold Oblique:size=10;3"
+font-2 = "Iosevka Nerd Font:size=12;3"
+font-3 = "Material Icons:size=13;3"
+
+;==========================================================
+
+cursor-click = pointer
+
+;tray-position = right
+;tray-padding = 0
+;tray-maxsize = 16
+;enable-ipc = true
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+;== Module Location ========================================================
+
+modules-left = menu powermenu i3
+modules-right = volume date
+modules-center = mpd 
+ 
+;== Modules ========================================================
+
+[module/i3]
+type = internal/i3
+index-sort = true
+
+format = <label-state> <label-mode>
+
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-foreground = ${color.fg}
+
+label-focused = %{T2}%index%%{T-}
+label-focused-foreground = ${color.fg}
+label-focused-padding = 1
+
+label-unfocused = %{T2}%index%%{T-}
+label-unfocused-foreground = ${color.bg-alt}
+label-unfocused-padding = 1
+
+label-visible = %{T2}%index%%{T-}
+label-visible-foreground = ${color.bg-alt}
+label-visible-padding = 1
+
+label-urgent = %{T2}%index%%{T-}
+label-urgent-foreground = ${color.red}
+label-urgent-padding = 1
+
+
+[module/menu]
+type = custom/text
+content = 
+;alt-icon = 
+content-padding = 2
+content-background = ${color.acolor}
+content-foreground = ${color.fg}
+click-left = $HOME/.config/polybar/scripts/menu
+click-middle = $HOME/.config/polybar/scripts/menu_full
+click-right = $HOME/.config/polybar/scripts/color-switch.sh
+
+[module/workspaces]
+type = internal/xworkspaces
+pin-workspaces = false
+enable-click = true
+enable-scroll = true
+format-padding = 0
+
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+icon-5 = 6
+icon-6 = 7
+icon-7 = 8
+icon-8 = 9
+icon-9 = 10
+
+icon-default = 
+
+format = <label-state>
+label-active = %icon%
+label-occupied = %icon%
+label-urgent = %icon%
+label-empty = %icon%
+
+label-occupied-padding = 2
+label-empty-padding = 2
+label-urgent-padding = 2
+label-active-padding = 2
+
+label-active-foreground = ${color.acolor}
+label-urgent-foreground = ${color.curgent}
+label-empty-foreground = ${color.fg}
+label-occupied-foreground = ${color.coccupied}
+
+label-active-underline = ${color.acolor}
+label-urgent-underline = ${color.curgent}
+label-occupied-underline = ${color.coccupied}
+
+
+[module/term]
+type = custom/text
+content = 
+content-foreground = ${color.fg-alt}
+click-left = mate-terminal &
+click-middle = urxvt &
+click-right = xfce4-terminal &
+
+[module/files]
+type = custom/text
+content = 
+content-padding = 1
+content-foreground = ${color.fg-alt}
+click-left = thunar &
+click-right = ranger &
+
+[module/browser]
+type = custom/text
+content = 
+content-padding = 1
+content-foreground = ${color.fg-alt}
+click-left = brave &
+click-right = firefox &
+
+[module/settings]
+type = custom/text
+content = 
+content-padding = 1
+content-foreground = ${color.fg-alt}
+click-left = spotify &
+click-right = lxappearance &
+
+;==========================================================
+
+;[module/mpd]
+;type = internal/mpd
+;format-online = <toggle> <label-song> 
+;format-online =  <label-song> 
+
+;icon-play = 
+;icon-pause = 
+
+;label-song-maxlen = 25
+;label-song-ellipsis = true
+
+[module/mpd]
+type = internal/mpd
+
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+host = 127.0.0.1
+port = 6600
+
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 2
+
+; Available tags:
+;   <label-song> (default)
+;   <label-time>
+;   <bar-progress>
+;   <toggle> - gets replaced with <icon-(pause|play)>
+;   <toggle-stop> - gets replaced with <icon-(stop|play)>
+;   <icon-random>
+;   <icon-repeat>
+;   <icon-repeatone> (deprecated)
+;   <icon-single> - Toggle playing only a single song. Replaces <icon-repeatone>
+;   <icon-consume>
+;   <icon-prev>
+;   <icon-stop>
+;   <icon-play>
+;   <icon-pause>
+;   <icon-next>
+;   <icon-seekb>
+;   <icon-seekf>
+format-online = <icon-prev> <icon-play> <icon-pause> <icon-next> <icon-repeat> <icon-random> <label-song>
+;format-online = <icon-prev> <icon-play> <icon-pause> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+;format-playing = ${self.format-online}
+;format-paused = ${self.format-online}
+;format-stopped = ${self.format-online}
+
+; Available tags:
+;   <label-offline>
+; Default: ""
+;format-offline = <label-offline>
+
+; Available tokens:
+;   %artist%
+;   %album-artist%
+;   %album%
+;   %date%
+;   %title%
+; Default: %artist% - %title%
+label-song = %artist% - %title%
+
+; Available tokens:
+;   %elapsed%
+;   %total%
+; Default: %elapsed% / %total%
+;label-time = %elapsed% / %total%
+
+; Available tokens:
+;   None
+label-offline = 🎜 mpd is offline
+
+; Only applies if <icon-X> is used
+;icon-play = 
+icon-play = ▷
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+icon-seekb = Q
+icon-seekf = Q
+icon-random = 
+icon-repeat = 
+icon-repeatone = Q
+icon-single = Q
+icon-consume = ✀
+
+; Used to display the state of random/repeat/repeatone/single
+; Only applies if <icon-[random|repeat|repeatone|single]> is used
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+; Only applies if <bar-progress> is used
+bar-progress-width = 30
+bar-progress-indicator = >
+bar-progress-fill = ─
+bar-progress-empty = ─
+
+;==========================================================
+
+[module/pkg]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/updates.sh
+;exec-if = "ping -q -w 2 -c 1 176.34.135.167 > /dev/null"
+;label = %{A1:termite -e "aurman -Syyu" & disown:} %{A3:termite -e "aurman -Syyu" & disown:}%output%%{A} %{A}
+tail = true
+
+[module/battery]
+type = internal/battery
+full-at = 99
+time-format = %H:%M
+battery = BAT1
+adapter = AC
+format-charging = <animation-charging> <label-charging>
+;label-charging = %percentage%% (%time%)
+label-charging = %percentage%%
+format-discharging = <ramp-capacity> <label-discharging>
+;label-discharging = %percentage%% (%time%)
+label-discharging = %percentage%%
+format-full = <label-full>
+
+format-full-prefix = " "
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+ramp-capacity-0-foreground = ${color.red}
+ramp-capacity-foreground   = ${color.fg}
+bar-capacity-width = 10
+
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
+animation-charging-3 = ""
+animation-charging-4 = ""
+
+animation-charging-framerate = 750
+
+[module/volume]
+type = internal/pulseaudio
+;speaker-mixer = Speaker
+;headphone-mixer = Headphone
+;headphone-id = 16
+;mapped = true
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%%
+format-muted-prefix = " "
+label-muted = MUTE
+click-right = pavucontrol &
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+ramp-volume-5 = 
+ramp-volume-6 = 
+
+[module/network]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/check-network
+click-left = networkmanager_dmenu &
+click-right = networkmanager_dmenu &
+tail = true
+
+[module/date]
+type = internal/date
+interval = 30
+label =  %time%
+time =  %B %d, %Y - %H:%M
+time-alt =  %Y-%m-%d
+
+[module/powermenu]
+type = custom/text
+content = 
+content-padding = 2
+content-background = ${color.bg}
+content-foreground = ${color.fg}
+click-left = $HOME/.config/polybar/scripts/sysmenu
+click-right = $HOME/.config/polybar/scripts/sysmenu
+
+;== EOF ========================================================

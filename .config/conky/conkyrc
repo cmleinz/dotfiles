@@ -1,0 +1,87 @@
+
+conky.config = {
+	use_xft = true,
+	font = 'Ubuntu:bold:size=10',
+	xftalpha = 0.9,
+	update_interval = 3.0,
+	total_run_times = 0,
+	own_window = true,
+	own_window_transparent = true,
+	own_window_type = 'override',
+	own_window_argb_visual = true, 
+	own_window_class = 'Conky',
+	background = true,
+	double_buffer = true,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	minimum_width = 300,
+	draw_graph_borders = yes,
+	default_color = '#eeeeee',
+	default_shade_color = 'black',
+	default_outline_color = 'green',
+	alignment = 'top_right',
+	gap_x = 25,
+	gap_y = 45,
+	no_buffers = true,
+	uppercase = false,
+	cpu_avg_samples = 4,
+	override_utf8_locale = false,
+	uppercase = false
+}
+conky.text = [[
+#	CPU: ${alignr}${freq} MHz
+	Core 1 ${alignr}${cpu cpu1}%
+	${cpubar 4 cpu1}
+	Core 2 ${alignr}${cpu cpu2}%
+	${cpubar 4 cpu2}
+	Core 3 ${alignr}${cpu cpu3}%
+	${cpubar 4 cpu3}
+	Core 4 ${alignr}${cpu cpu4}%
+	${cpubar 4 cpu4}
+	Core 5 ${alignr}${cpu cpu5}%
+	${cpubar 4 cpu5}
+	Core 6 ${alignr}${cpu cpu6}%
+	${cpubar 4 cpu6}
+	Core 7 ${alignr}${cpu cpu7}%
+	${cpubar 4 cpu7}
+	Core 8 ${alignr}${cpu cpu8}%
+	${cpubar 4 cpu8}
+	Core 9 ${alignr}${cpu cpu9}%
+	${cpubar 4 cpu9}
+	Core 10 ${alignr}${cpu cpu10}%
+	${cpubar 4 cpu10}
+	Core 11 ${alignr}${cpu cpu11}%
+	${cpubar 4 cpu11}
+	Core 12 ${alignr}${cpu cpu12}%
+	${cpubar 4 cpu12}
+	${top name 1}$alignr${top cpu 1}
+	${top name 2}$alignr${top cpu 2}
+	${top name 3}$alignr${top cpu 3}
+#	${top name 4}$alignr${top cpu 4}
+#	${top name 5}$alignr${top cpu 5}
+#	RAM: ${alignr}  $memmax
+
+	RAM: ${alignr}$mem/$memmax ($memperc%)
+	${membar 4}
+	${top_mem name 1}$alignr${top_mem mem 1}
+	${top_mem name 2}$alignr${top_mem mem 2}
+	${top_mem name 3}$alignr${top_mem mem 3}
+#	${top_mem name 4}$alignr${top_mem mem 4}
+#	${top_mem name 5}$alignr${top_mem mem 5}
+#	Filesystem
+
+#	Root: ${alignr}${fs_used /} / ${fs_size /}
+#	${fs_bar 4 /}
+#	Home: ${alignr}${fs_used /home} / ${fs_size /home}
+#	${fs_bar 4 /home}
+#	Amp: ${alignr}${fs_used /} / ${fs_size /}
+#	${fs_bar 4 /}
+
+	Network: ${alignr}(${if_empty ${exec cat /proc/net/route | grep tun0}}${color E07FC0}VPN DOWN${color}${else}${color 7FE09F}VPN UP${color}${endif})${hr 2}
+	
+	Down: ${downspeed enp8s0}/s ${alignr}(${totaldown wlp5s0})
+	${downspeedgraph enp8s0 000000 6272a4}
+	Up: ${upspeed enp8s0}/s ${alignr}(${totalup wlp5s0})
+	${upspeedgraph enp8s0 000000 6272a4}$color
+]]
