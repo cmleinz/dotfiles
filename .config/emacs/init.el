@@ -133,6 +133,7 @@
     "re" '((lambda () (interactive) (find-file "~/dotfiles/.config/emacs/init.el")) :which-key "open init.el")
     "/"  '(comment-dwim :which-key "Toggle comments in region")
     "d"  '(treemacs :which-key "treemacs toggle")
+    "x"  '(counsel-M-x :which-key "counsel executer")
     )
   
   (cl/leader-keys-files
