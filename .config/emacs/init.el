@@ -53,12 +53,10 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-Iosvkem t)
+  (load-theme 'doom-gruvbox t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
   ;; or for treemacs users
   (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
   (doom-themes-treemacs-config)
@@ -132,7 +130,8 @@
     "s"  '(save-buffer :which-key "save file")
     "c"  '(centaur-tabs-mode :which-key "display centaur tabs")
     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "reload init.el")
-    "re" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :which-key "open init.el")
+    "re" '((lambda () (interactive) (find-file "~/dotfiles/.config/emacs/init.el")) :which-key "open init.el")
+    "/"  '(comment-dwim :which-key "Toggle comments in region")
     "d"  '(treemacs :which-key "treemacs toggle")
     )
   
@@ -165,7 +164,7 @@
 
 ;; Enable autopairs in prog hook
 (use-package smartparens
-  :hook (prog-hook . smartparens-mode))
+  :hook (prog-mode . smartparens-mode))
 
 (use-package evil-smartparens
   :hook (smartparens-mode . evil-smartparens-mode))
@@ -202,7 +201,7 @@
   (flyspell-mode 1))
 
 (use-package org
-  :hook (org-mode . efs/org-mode-setup)
+  :hook (org-mode . cl/org-mode-setup)
   :config
 
     (use-package evil-org
@@ -243,6 +242,34 @@
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
  ;; ----------------DEVELOPMENT SETUP----------------
+;; Use yasnippets
+(use-package yasnippet
+  :ensure
+  :config
+  (setq yas-snippet-dirs
+	'("~/.config/emacs/snippets/"))
+  (yas-reload-all)
+  (yas-global-mode)
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  (add-hook 'text-mode-hook 'yas-minor-mode)
+  (use-package yasnippet-snippets))
+
+(defun autoinsert-yas-expand()
+  "Replace text in yasnippet template."
+  (evil-insert-state)
+  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+
+(use-package autoinsert
+  :init
+  (setq auto-insert-query nil)
+  (setq auto-insert-directory (locate-user-emacs-file "templates"))
+  (add-hook 'find-file-hook 'auto-insert)
+  (auto-insert-mode 1)
+
+  :config
+  (define-auto-insert "\\.org$" [ "default-org.org" autoinsert-yas-expand ])
+  )
+
 (use-package smartparens
   :hook (prog-mode . smartparens-mode))
 
@@ -259,18 +286,7 @@
   :init (setq treemacs-show-hidden-files nil)
   :config
   (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs)
-  (use-package treemacs-evil))
-
-;; Use yasnippets
-(use-package yasnippet
-  :ensure
-  :config
-  (setq yas-snippet-dirs
-	'("~/.config/emacs/snippets/"))
-  (yas-reload-all)
-  (yas-global-mode)
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
-  (add-hook 'text-mode-hook 'yas-minor-mode)
+  (use-package treemacs-evil)
   (use-package yasnippet-snippets))
 
 ;; Flycheck conducts on-the-fly syntax checking
@@ -299,6 +315,13 @@
   (setq elpy-rpc-python-command "python3")
   (add-hook 'elpy-mode-hook 'ligature-mode)
   )
+
+;; Jupyter Notebook support via ein
+;; (use-package ein
+;; :defer t
+;; :config
+;; (setq ein:jupyter-default-server-command "jupyter notebook"))
+(use-package jupyter)
 
 ;; Code formatting on save with black
 (use-package blacken
@@ -346,9 +369,9 @@
   (lsp-rust-analyzer-server-display-inlay-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
   (lsp-rust-analyzer-display-chaining-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names t)
   (lsp-rust-analyzer-display-closure-return-type-hints t)
-  (lsp-rust-analyzer-display-parameter-hints nil)
+  (lsp-rust-analyzer-display-parameter-hints t)
   (lsp-rust-analyzer-display-reborrow-hints nil)
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
@@ -366,6 +389,7 @@
   :custom
   (company-idle-delay 0.5) ;; how long to wait until popup
   ;; (company-begin-commands nil) ;; uncomment to disable popup
+  :hook (prog-mode . company-mode)
   :bind
   (:map company-active-map
 	      ("C-n". company-select-next)
@@ -376,3 +400,16 @@
   (use-package company-jedi)
 )
 ;;; 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
