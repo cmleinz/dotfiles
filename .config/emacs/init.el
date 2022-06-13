@@ -105,21 +105,26 @@
   :config
   (general-evil-setup t)
   (general-create-definer cl/leader-keys
-    :keymaps '(normal insert visual emacs)
+    :keymaps '(normal insert visual emacs magit)
     :prefix "SPC"
     :global-prefix "C-SPC")
  
   (general-create-definer cl/leader-keys-files
-    :keymaps '(normal emacs visual)
+    :keymaps '(normal emacs visual magit)
     :prefix "SPC f")
 
   (general-create-definer cl/leader-keys-git
-    :keymaps '(normal emacs visual)
+    :keymaps '(normal emacs visual magit)
     :prefix "SPC g")
 
   (general-create-definer cl/leader-keys-win
-    :keymaps '(normal emacs visual)
+    :keymaps '(normal emacs visual magit)
     :prefix "SPC w")
+
+  (general-create-definer cl/leader-keys-lsp
+    :keymaps '(normal emacs visual xref--xref-buffer-mode)
+    :prefix "SPC l")
+
 
   ;; The most common function calls, typically bound to a prefex and a single key press
   (cl/leader-keys
@@ -130,7 +135,7 @@
     "s"  '(save-buffer :which-key "save file")
     "c"  '(centaur-tabs-mode :which-key "display centaur tabs")
     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "reload init.el")
-    "re" '((lambda () (interactive) (find-file "~/dotfiles/.config/emacs/init.el")) :which-key "open init.el")
+    "re" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :which-key "open init.el")
     "/"  '(comment-dwim :which-key "Toggle comments in region")
     "d"  '(treemacs :which-key "treemacs toggle")
     "x"  '(counsel-M-x :which-key "counsel executer")
@@ -151,6 +156,12 @@
    "/"  '(split-window-below :which-key "split window horizontally")
    "s"  '(split-window-right :which-key "split window vertically")
    )
+
+  (cl/leader-keys-lsp
+   "f"  '(xref-find-definitions :which-key "show function definition")
+   "l"  '(xref-go-back :which-key "return to the point in the file you were at last")
+   )
+  
   )
 
 ;; Enable rainbow-delimiters
@@ -243,6 +254,12 @@
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
  ;; ----------------DEVELOPMENT SETUP----------------
+(use-package tree-sitter
+  :config
+  (use-package tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
 ;; Use yasnippets
 (use-package yasnippet
   :ensure
@@ -314,15 +331,15 @@
   :init (add-hook 'python-mode-hook #'elpy-enable)
   :config
   (setq elpy-rpc-python-command "python3")
-  (add-hook 'elpy-mode-hook 'ligature-mode)
+  (setq python-shell-interpreter "python3")
+;;  (add-hook 'elpy-mode-hook 'ligature-mode)
   )
 
 ;; Jupyter Notebook support via ein
-;; (use-package ein
-;; :defer t
-;; :config
-;; (setq ein:jupyter-default-server-command "jupyter notebook"))
-(use-package jupyter)
+(use-package ein
+  :defer t
+  :config
+  (setq ein:jupyter-default-server-command "jupyter"))
 
 ;; Code formatting on save with black
 (use-package blacken
@@ -349,7 +366,9 @@
 
   ;; comment to disable rustfmt on save
   (setq rustic-format-on-save t)
-  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook))
+  (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook)
+  (add-hook 'rust-mode-hook #'tree-sitter-mode)
+  (setq lsp-rust-analyzer-server-command '("~/.local/bin/rust-analyzer")))
 
 (defun rk/rustic-mode-hook ()
   ;; so that run C-c C-c C-r works without having to confirm, but don't try to
@@ -365,8 +384,8 @@
   :custom
   ;; what to use when checking on-save. "check" is default, I prefer clippy
   (lsp-rust-analyzer-cargo-watch-command "clippy")
-  (lsp-eldoc-render-all t)
-  (lsp-idle-delay 0.6)
+  ;;(lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.5)
   (lsp-rust-analyzer-server-display-inlay-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
   (lsp-rust-analyzer-display-chaining-hints t)
@@ -381,22 +400,38 @@
   :commands lsp-ui-mode
   :custom
   (lsp-ui-peek-always-show t)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-doc-enable nil))
+  ;; When peeking definitions it will look for them with lsp-peek, nice!
+  (lsp-ui-peek-enable t)
+  ;; I might remove this option, it's quite messy/distracting
+  (lsp-ui-sideline-show-hover nil)
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline--push-info nil)
+  ;; Read docs with hover
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-delay 2)
+  (lsp-ui-doc-show-with-cursor t)
+  ;; Show file directory when peeking definitions
+  (lsp-ui-peek-show-directory t)
+  :bind
+  (:map lsp-mode-map
+	([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+	([remap xref-find-references] . lsp-ui-peek-find-references))
+  )
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 
 (use-package company
   :ensure
   :custom
-  (company-idle-delay 0.5) ;; how long to wait until popup
+  (company-idle-delay 0.0) ;; how long to wait until popup
   ;; (company-begin-commands nil) ;; uncomment to disable popup
   :hook (prog-mode . company-mode)
   :bind
   (:map company-active-map
-	      ("C-n". company-select-next)
-	      ("C-p". company-select-previous)
-	      ("M-<". company-select-first)
-	      ("M->". company-select-last))
+	("<tab>" . company-complete-selection)
+	("C-n" . company-select-next)
+	("C-p" . company-select-previous)
+	("M-<" . company-select-first)
+	("M->" . company-select-last))
   :config
   (use-package company-jedi)
 )
@@ -407,7 +442,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package)))
+   '(tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
