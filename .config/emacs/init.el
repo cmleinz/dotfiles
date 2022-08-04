@@ -41,6 +41,11 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
 
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 (save-place-mode 1) 
 
 ;; Set font to Fira Code
@@ -94,18 +99,29 @@
   :config
   (ivy-mode 1))
 
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
+
 ;; Enable the doom modeline
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :custom (
+	   (doom-modeline-height 15)
+	   (doom-modeline-lsp t)
+	   (doom-modeline-minor-modes t)
+	   ))
+
+
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 ;; Use the general package to setup space bindings
 (use-package general
   :config
   (general-evil-setup t)
   (general-create-definer cl/leader-keys
-    :keymaps '(normal insert visual emacs magit)
+    :keymaps '(normal visual emacs magit)
     :prefix "SPC"
     :global-prefix "C-SPC")
  
@@ -128,45 +144,49 @@
 
   ;; The most common function calls, typically bound to a prefex and a single key press
   (cl/leader-keys
-    "t"  '(:ignore t :which-key "toggles")
-    "tt" '(counsel-load-theme :which-key "choose theme")
     "b"  '(counsel-switch-buffer :which-key "switch buffer")
     "o"  '(other-window :which-key "switch window")
     "s"  '(save-buffer :which-key "save file")
-    "c"  '(centaur-tabs-mode :which-key "display centaur tabs")
+    "t"  '(centaur-tabs-mode :which-key "display centaur tabs")
     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "reload init.el")
     "re" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :which-key "open init.el")
-    "/"  '(comment-dwim :which-key "Toggle comments in region")
+    "/"  '(evilnc-comment-or-uncomment-lines :which-key "Toggle comments in region")
     "d"  '(treemacs :which-key "treemacs toggle")
     "x"  '(counsel-M-x :which-key "counsel executer")
-    )
+  )
   
   (cl/leader-keys-files
     "f"  '(counsel-find-file :which-key "find file")
     "d"  '(treemacs-find-file :which-key "treemacs find file")
-    )
+  )
   
   (cl/leader-keys-git
     "s"  '(magit-status :which-key "display magit status")
-    )
+  )
 
   (cl/leader-keys-win
    "d"  '(delete-window :which-key "close current window")
    "a"  '(delete-other-windows :which-key "close all other windows")
    "/"  '(split-window-below :which-key "split window horizontally")
    "s"  '(split-window-right :which-key "split window vertically")
-   )
+  )
 
   (cl/leader-keys-lsp
-   "f"  '(xref-find-definitions :which-key "show function definition")
+   ;; "f"  '(xref-find-definitions :which-key "show function definition")
+   "f"  '(lsp-ui-peek-find-definitions :which-key "show function definition")
+   "k"  '(lsp-ui-doc-show :which-key "show item docs")
+   "h"  '(lsp-ui-doc-hide :which-key "show item docs")
    "l"  '(xref-go-back :which-key "return to the point in the file you were at last")
+   "d"  '(lsp-ui-doc-focus-frame :which-key "focus on doc frame")
+   "u"  '(lsp-ui-doc-unfocus-frame :which-key "unfocus on the doc frame")
    )
-  
-  )
+)
 
 ;; Enable rainbow-delimiters
 (use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook
+  (prog-mode . rainbow-delimiters-mode)
+  (toml-mode . rainbow-delimiters-mode))
 
 ;; Enable rainbow mode in css files
 (use-package rainbow-mode
@@ -176,7 +196,9 @@
 
 ;; Enable autopairs in prog hook
 (use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+  :hook
+  (prog-mode . smartparens-mode)
+  (toml-mode . smartparens-mode))
 
 (use-package evil-smartparens
   :hook (smartparens-mode . evil-smartparens-mode))
@@ -216,14 +238,14 @@
   :hook (org-mode . cl/org-mode-setup)
   :config
 
-    (use-package evil-org
+  (use-package evil-org
       :ensure t
       :after (evil org)
       :config
       (add-hook 'org-mode-hook 'evil-org-mode)
       (add-hook 'evil-org-mode-hook
-      		(lambda ()
-      		(evil-org-set-key-theme '(navigation insert textobjects additional calendar todo))))
+  	    (lambda ()
+  	    (evil-org-set-key-theme '(navigation insert textobjects additional calendar todo))))
       (require 'evil-org-agenda)
       (evil-org-agenda-set-keys))
 
@@ -235,7 +257,7 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-startup-indented t)
-
+  (setq org-clock-sound "~/.config/emacs/bell-ring.wav")
   ;; Set Org-Mode TODO keywords
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
@@ -254,11 +276,19 @@
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
  ;; ----------------DEVELOPMENT SETUP----------------
+
+;; Use tree sitter for syntax highlighting. It is incredible
 (use-package tree-sitter
   :config
   (use-package tree-sitter-langs)
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+;; Highlight matching parens
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+  (show-paren-mode 1))
 
 ;; Use yasnippets
 (use-package yasnippet
@@ -324,6 +354,16 @@
   (message "Loaded Magit!")
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
+
+;; Allow commenting and uncommenting the current line/region
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position)))
+        (comment-or-uncomment-region beg end)))
 ;; ----------------PYTHON SETUP----------------
 ;; Elpy is the basic framework which provides things like
 ;; autocompletion, error checking, building, etc.
@@ -332,6 +372,7 @@
   :config
   (setq elpy-rpc-python-command "python3")
   (setq python-shell-interpreter "python3")
+  (add-hook 'elpy-mode-hook 'lsp)
 ;;  (add-hook 'elpy-mode-hook 'ligature-mode)
   )
 
@@ -383,7 +424,7 @@
   :commands lsp
   :custom
   ;; what to use when checking on-save. "check" is default, I prefer clippy
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  (lsp-rust-analyzer-cargo-watch-command "check")
   ;;(lsp-eldoc-render-all t)
   (lsp-idle-delay 0.5)
   (lsp-rust-analyzer-server-display-inlay-hints t)
@@ -410,13 +451,16 @@
   (lsp-ui-doc-enable t)
   (lsp-ui-doc-delay 2)
   (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-position 'at-point)
   ;; Show file directory when peeking definitions
   (lsp-ui-peek-show-directory t)
+  ;; (define-key lsp-ui-doc-frame-mode-map (kbd "ESC") 'lsp-ui-doc-hide)
   :bind
   (:map lsp-mode-map
 	([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
 	([remap xref-find-references] . lsp-ui-peek-find-references))
-  )
+)
+
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 
 (use-package company
@@ -441,8 +485,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(centaur-tabs-mode t nil (centaur-tabs))
+ '(custom-safe-themes
+   '("da186cce19b5aed3f6a2316845583dbee76aea9255ea0da857d1c058ff003546" "47db50ff66e35d3a440485357fb6acb767c100e135ccdf459060407f8baea7b2" "c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" "353ffc8e6b53a91ac87b7e86bebc6796877a0b76ddfc15793e4d7880976132ae" default))
  '(package-selected-packages
-   '(tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package)))
+   '(evil-nerd-commenter toml-mode tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

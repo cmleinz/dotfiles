@@ -51,7 +51,7 @@ for_window [class="matplotlib"] floating enable
 
 gaps inner 5
 gaps outer 5
-gaps top 40
+gaps top 5
 smart_borders on
 
 set $mod Mod4
@@ -279,8 +279,7 @@ mode "resize" {
 
 exec_always --no-startup-id sh /home/caleb/.config/i3/.fehbg
 exec_always --no-startup-id picom --config ~/.config/picom.config
-exec --no-startup-id ~/.config/polybar/scripts/spotify/launchlistener.sh
-exec --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id polybar
 exec --no-startup-id xinput set-prop 13 283 1
 exec --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440 --rate 143.91
 

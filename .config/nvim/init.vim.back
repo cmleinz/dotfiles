@@ -1,0 +1,40 @@
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+set encoding=utf-8
+set number
+set relativenumber
+set smarttab
+set autoindent
+set hlsearch
+syntax enable
+set noswapfile
+set scrolloff=5
+
+call plug#begin()
+Plug 'neovim/nvim-lspconfig'
+Plug 'vim-airline/vim-airline'
+Plug 'preservim/nerdtree'
+Plug 'windwp/nvim-autopairs'
+Plug 'morhetz/gruvbox'
+Plug 'cespare/vim-toml'
+Plug 'stephpy/vim-yaml'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'rust-lang/rust.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+call plug#end()
+
+" Autopairs for neovim
+lua << EOF
+require("nvim-autopairs").setup {}
+EOF
+
+" Setup gruvbox
+colorscheme gruvbox
+set background=dark
+
+" Rust specific configurations
+let g:rustfmt_autosave = 1

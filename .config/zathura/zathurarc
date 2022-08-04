@@ -1,0 +1,40 @@
+set default-bg                  "#1B1D1F" #00
+set default-fg                  "#5294e2" #01
+
+set statusbar-fg                "#5294e2" #04
+set statusbar-bg                "#181a1c" #01
+
+set inputbar-bg                 "#1B1D1F" #00 currently not used
+set inputbar-fg                 "#5294e2" #02
+
+set notification-error-bg       "#AC4142" #08
+set notification-error-fg       "#151515" #00
+
+set notification-warning-bg     "#1B1D1F" #08
+set notification-warning-fg     "#151515" #00
+
+set highlight-color             "3a8fff" #00
+set highlight-transparency		0.333set highlight-active-color      "#6A9FB5" #0D
+
+set completion-highlight-fg     "#303030" #02
+set completion-highlight-bg     "#5294e2" #0C
+
+set completion-bg               "#303030" #02
+set completion-fg               "#75B5AA" #0C
+
+set notification-bg             "#1B1D1F" #0B
+set notification-fg             "#5294e2" #00
+
+set recolor-lightcolor          "#1d1f21" #00
+set recolor-darkcolor           "#d3dae3" #06
+set recolor                     "true"
+
+set selection-clipboard			clipboard
+
+# setting recolor-keep true will keep any color your pdf has.
+# if it is false, it'll just be black and white
+set recolor-keephue             "false"
+
+# Rest of your configs go here:
+
+map v recolor

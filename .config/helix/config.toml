@@ -1,7 +1,26 @@
-theme = "onedark"
+theme = "boo_berry"
 
 [editor]
 auto-completion = true
+auto-format = true
+auto-info = true
+auto-pairs = true
+completion-trigger-len = 2
+idle-timeout = 100
+mouse = false
+line-number = "relative"
+rulers = [90]
+
+# [editor.whitespace.render]
+# space = "all"
+# tab = "all"
+# newline = "all"
+
+# [editor.whitespace.characters]
+# space = "·"
+# nbsp = "⍽"
+# tab = "→"
+# newline = "⏎"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -10,3 +29,9 @@ select = "underline"
 
 [editor.lsp]
 display-messages = true
+
+[editor.file-picker]
+hidden = true
+
+[keys.normal]
+C-s = ":w"
