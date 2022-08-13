@@ -6,7 +6,10 @@ layouts = ["MainAndVertStack", "MainAndHorizontalStack", "MainAndDeck", "GridHor
 layout_mode = "Workspace"
 insert_behavior = "Bottom"
 scratchpad = []
-window_rules = []
+window_rules = [
+  {window_class = "dota2", spawn_fullscreen = true},
+  {window_class = "Alacritty", spawn_fullscreen = true},
+]
 disable_current_tag_swap = false
 disable_tile_drag = false
 focus_behaviour = "Sloppy"
@@ -18,11 +21,28 @@ value = "alacritty"
 modifier = ["modkey"]
 key = "Return"
 
+# [[keybind]]
+# command = "Execute"
+# value = "thunar"
+# modifier = ["modkey", "Shift"]
+# key = "Return"
+
 [[keybind]]
 command = "Execute"
 value = "sh ~/.config/rofi/app_menu"
 modifier = ["modkey"]
-key = "p"
+key = "d"
+
+[[keybind]]
+command = "Execute"
+value = "sh ~/.config/rofi/app_menu"
+modifier = ["modkey"]
+key = "KP_Space"
+
+[[keybind]]
+command = "ToggleFullScreen"
+modifier = ["modkey"]
+key = "f"
 
 [[keybind]]
 command = "Execute"
@@ -41,6 +61,11 @@ command = "SoftReload"
 value = ""
 modifier = ["modkey", "Shift"]
 key = "r"
+
+[[keybind]]
+command = "HardReload"
+modifier = ["modkey", "Shift"]
+key = "b"
 
 [[keybind]]
 command = "Execute"
@@ -275,3 +300,4 @@ command = "MoveToTag"
 value = "9"
 modifier = ["modkey", "Shift"]
 key = "9"
+
