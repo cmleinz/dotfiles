@@ -1,13 +1,20 @@
+(setq display-line-numbers-type 'relative)
+(setq doom-font (font-spec :family "FiraCode" :size 14))
+(setq confirm-kill-emacs nil)
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
+(use-package! tree-sitter
+  :config
+  (require 'tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Caleb Leinz"
-      user-mail-address "john@doe.com")
+      user-mail-address "cleinz@pm.me")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -21,9 +28,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-
-(setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'medium)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 13))
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -33,27 +39,16 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;;(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-gruvbox)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
-
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-(setq racer-rust-src-path
-      (concat (string-trim
-               (shell-command-to-string "rustc --print sysroot"))
-              "/lib/rustlib/src/rust/src"))
-(after! rustic
-  (setq lsp-rust-analyzer-server-display-inlay-hints t)
-  (add-hook 'rustic-mode 'rk/rustic-mode-hook)
-  (add-hook 'rustic-mode 'lsp-rust-analyzer-server-display-inlay-hints)
-  (setq font-lock-maximum-decoration t))
 
-; Whenever you reconfigure a package, make sure to wrap your config in an
+;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
 ;;   (after! PACKAGE
@@ -84,31 +79,3 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-;;
-(custom-set-variables
- '(org-latex-compiler "lualatex")
- '(org-list-allow-alphabetical t)
- '(org-startup-truncated nil))
-
-(with-eval-after-load 'ox-latex
-(add-to-list 'org-latex-classes
-             '("org-plain-latex"
-               "\\documentclass{article}
-           [NO-DEFAULT-PACKAGES]
-           [PACKAGES]
-           [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
-
-(with-eval-after-load 'ox-latex
-(add-to-list 'org-latex-classes
-             '("amsart"
-               "\\documentclass{amsart}"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
