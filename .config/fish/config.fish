@@ -8,4 +8,5 @@ alias nv='nvim'
 alias hx-update='cd ~/Applications/helix/ && git pull && cargo install --path helix-term'
 starship init fish | source
 fish_add_path ~/.local/bin
+fish_add_path ~/.emacs.d/bin
 
