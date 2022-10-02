@@ -9,4 +9,5 @@ alias hx-update='cd ~/Applications/helix/ && git pull && cargo install --path he
 starship init fish | source
 fish_add_path ~/.local/bin
 fish_add_path ~/.emacs.d/bin
+fish_add_path ~/.cargo/bin
 
