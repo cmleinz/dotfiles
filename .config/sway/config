@@ -274,7 +274,7 @@ exec_always --no-startup-id picom --config ~/.config/picom.config
 output HDMI-A-1 mode 2560x1440@143.96400Hz
 
 # Set wallpaper to Nextcloud Wallpaper
-exec_always swaybg -i ~/Nextcloud/Pictures/Wallpapers/6k_Bridge.jpg -m fill
+exec_always swaybg -i ~/.config/sway/Background.jpg -m fill
 
 # Launch waybar
 exec waybar
