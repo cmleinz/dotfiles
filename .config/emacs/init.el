@@ -32,6 +32,10 @@
 ;; Disable splashscreen
 (setq inhibit-startup-message t)
 
+;; Change scrolling behavior to scroll prior to end of view
+(setq scroll-step 1)
+(setq scroll-margin 5)
+
 ;; Make Emacs more minimal
 (menu-bar-mode -1) ; Disable menubar
 (tool-bar-mode -1) ; Disable toolbar
@@ -41,30 +45,31 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
 
+;; Move all backup and autosave files
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-(save-place-mode 1) 
+(save-place-mode 1)
 
 ;; Set font to Fira Code
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
 
 ;; Use the Iosvkem theme from the doom themese package
+(use-package soothe-theme
+  :config
+  (load-theme 'soothe t))
+
 (use-package doom-themes
   :ensure t
   :config
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-gruvbox t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
@@ -74,9 +79,7 @@
 
 ;; Use counsel
 (use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-x b" . counsel-ibuffer)
-         ("C-x C-f" . counsel-find-file)
+  :bind (
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history)))
 
@@ -120,67 +123,113 @@
 (use-package general
   :config
   (general-evil-setup t)
-  (general-create-definer cl/leader-keys
-    :keymaps '(normal visual emacs magit)
-    :prefix "SPC"
-    :global-prefix "C-SPC")
- 
-  (general-create-definer cl/leader-keys-files
-    :keymaps '(normal emacs visual magit)
-    :prefix "SPC f")
+  (general-override-mode)
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :keymaps 'override
+   :prefix "SPC"
+   :non-normal-prefix "M-SPC"
+    "b"  '(:ignore t :which-key "Buffers")
+    "bb" '(counsel-switch-buffer :which-key "Switch buffer")
+    "bk" '(kill-buffer :which-key "Switch buffer")
 
-  (general-create-definer cl/leader-keys-git
-    :keymaps '(normal emacs visual magit)
-    :prefix "SPC g")
+    "f"  '(:ignore t :which-key "Files")
+    "ff" '(counsel-find-file :which-key "Find file")
+    "fr" '(counsel-recentf :which-key "Recent file")
 
-  (general-create-definer cl/leader-keys-win
-    :keymaps '(normal emacs visual magit)
-    :prefix "SPC w")
+    "w"  '(:ignore t :which-key "Windows")
+    "ws" '(evil-window-new :which-key "Split window horizontally")
+    "wv" '(evil-window-vnew :which-key "Split window vertically")
+    "wd" '(evil-window-delete :which-key "Delete window")
+    "wo" '(delete-other-windows :which-key "Delete other window")
+    "wj" '(evil-window-down :which-key "Switch to window down")
+    "wk" '(evil-window-up :which-key "Switch to window up")
+    "wh" '(evil-window-left :which-key "Switch to window left")
+    "wl" '(evil-window-right :which-key "Switch to window right")
+    "wJ" '(evil-window-move-very-bottom :which-key "Move window down")
+    "wK" '(evil-window-move-very-top :which-key "Move window up")
+    "wH" '(evil-window-move-far-left :which-key "Move window left")
+    "wL" '(evil-window-move-far-right :which-key "Move window right")
 
-  (general-create-definer cl/leader-keys-lsp
-    :keymaps '(normal emacs visual xref--xref-buffer-mode)
-    :prefix "SPC l")
+    "l"  '(:ignore t :which-key "LSP")
+    "lf"  '(lsp-ui-peek-find-definitions :which-key "show function definition")
+    "lk"  '(lsp-ui-doc-show :which-key "show item docs")
+    "lh"  '(lsp-ui-doc-hide :which-key "hide item docs")
 
-
-  ;; The most common function calls, typically bound to a prefex and a single key press
-  (cl/leader-keys
-    "b"  '(counsel-switch-buffer :which-key "switch buffer")
-    "o"  '(other-window :which-key "switch window")
-    "s"  '(save-buffer :which-key "save file")
-    "t"  '(centaur-tabs-mode :which-key "display centaur tabs")
-    "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "reload init.el")
-    "re" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :which-key "open init.el")
-    "/"  '(evilnc-comment-or-uncomment-lines :which-key "Toggle comments in region")
-    "d"  '(treemacs :which-key "treemacs toggle")
-    "x"  '(counsel-M-x :which-key "counsel executer")
-  )
-  
-  (cl/leader-keys-files
-    "f"  '(counsel-find-file :which-key "find file")
-    "d"  '(treemacs-find-file :which-key "treemacs find file")
-  )
-  
-  (cl/leader-keys-git
-    "s"  '(magit-status :which-key "display magit status")
-  )
-
-  (cl/leader-keys-win
-   "d"  '(delete-window :which-key "close current window")
-   "a"  '(delete-other-windows :which-key "close all other windows")
-   "/"  '(split-window-below :which-key "split window horizontally")
-   "s"  '(split-window-right :which-key "split window vertically")
-  )
-
-  (cl/leader-keys-lsp
-   ;; "f"  '(xref-find-definitions :which-key "show function definition")
-   "f"  '(lsp-ui-peek-find-definitions :which-key "show function definition")
-   "k"  '(lsp-ui-doc-show :which-key "show item docs")
-   "h"  '(lsp-ui-doc-hide :which-key "show item docs")
-   "l"  '(xref-go-back :which-key "return to the point in the file you were at last")
-   "d"  '(lsp-ui-doc-focus-frame :which-key "focus on doc frame")
-   "u"  '(lsp-ui-doc-unfocus-frame :which-key "unfocus on the doc frame")
+    "g"  '(:ignore t :which-key "Magit")
+    "gg"  '(magit-status :which-key "Magit")
    )
 )
+;;   (general-create-definer cl/leader-keys
+;;     :states '(normal)
+;;     :keymaps 'override
+;;     :prefix "SPC"
+;;     :global-prefix "C-SPC")
+ 
+;;   (general-create-definer cl/leader-keys-files
+;;     :keymaps '(normal emacs visual magit dired-mode-map)
+;;     :prefix "SPC f")
+
+;;   (general-create-definer cl/leader-keys-buffers
+;;     :keymaps '(normal emacs visual magit dired-mode-map)
+;;     :prefix "SPC b")
+
+;;   (general-create-definer cl/leader-keys-git
+;;     :keymaps '(normal emacs visual magit dired-mode-map)
+;;     :prefix "SPC g")
+
+;;   (general-create-definer cl/leader-keys-win
+;;     :keymaps '(normal emacs visual magit dired-mode-map)
+;;     :prefix "SPC w")
+
+;;   (general-create-definer cl/leader-keys-lsp
+;;     :keymaps '(normal emacs visual xref--xref-buffer-mode dired-mode-map)
+;;     :prefix "SPC l")
+
+
+;;   ;; The most common function calls, typically bound to a prefex and a single key press
+;;   (cl/leader-keys
+;;     "o"  '(other-window :which-key "switch window")
+;;     "s"  '(save-buffer :which-key "save file")
+;;     "t"  '(centaur-tabs-mode :which-key "display centaur tabs")
+;;     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "reload init.el")
+;;     "re" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :which-key "open init.el")
+;;     "/"  '(evilnc-comment-or-uncomment-lines :which-key "Toggle comments in region")
+;;     "x"  '(counsel-M-x :which-key "counsel executer")
+;;     "ht" '(counsel-load-theme :which-key "load theme")
+;;   )
+  
+;;   (cl/leader-keys-files
+;;     "b"  '(counsel-ibuffer :which-key "switch buffer")
+;;     "B"  '(counsel-switch-buffer :which-key "switch buffer list")
+;;   )
+
+;;   (cl/leader-keys-files
+;;     "f"  '(counsel-find-file :which-key "find file")
+;;     "r"  '(counsel-recentf :which-key "find recent files")
+;;   )
+  
+;;   (cl/leader-keys-git
+;;     "g"  '(magit-status :which-key "display magit status")
+;;   )
+
+;;   (cl/leader-keys-win
+;;    "d"  '(delete-window :which-key "close current window")
+;;    "a"  '(delete-other-windows :which-key "close all other windows")
+;;    "/"  '(split-window-below :which-key "split window horizontally")
+;;    "s"  '(split-window-right :which-key "split window vertically")
+;;   )
+
+;;   (cl/leader-keys-lsp
+;;    ;; "f"  '(xref-find-definitions :which-key "show function definition")
+;;    "f"  '(lsp-ui-peek-find-definitions :which-key "show function definition")
+;;    "k"  '(lsp-ui-doc-show :which-key "show item docs")
+;;    "h"  '(lsp-ui-doc-hide :which-key "hide item docs")
+;;    "l"  '(xref-go-back :which-key "return to the point in the file you were at last")
+;;    "d"  '(lsp-ui-doc-focus-frame :which-key "focus on doc frame")
+;;    "u"  '(lsp-ui-doc-unfocus-frame :which-key "unfocus on the doc frame")
+;;    )
+;; )
 
 ;; Enable rainbow-delimiters
 (use-package rainbow-delimiters
@@ -192,6 +241,7 @@
 (use-package rainbow-mode
   :hook ((css-mode-hook . rainbow-mode)
 	 (html-mode-hook . rainbow-mode)
+	 (latex-mode-hook . rainbow-mode)
 	 (scss-mode-hook . rainbow-mode)))
 
 ;; Enable autopairs in prog hook
@@ -322,7 +372,6 @@
   :hook (prog-mode . smartparens-mode))
 
 (use-package centaur-tabs
-  :demand
   :config
   (setq centaur-tabs-set-icons t
 	centaur-tabs-show-navigation-buttons t
@@ -330,22 +379,17 @@
 	centaur-tabs-set-modified-marker t)
   (centaur-tabs-change-fonts "Fira Code Retina" 120))
 
-(use-package treemacs
-  :init (setq treemacs-show-hidden-files nil)
-  :config
-  (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs)
-  (use-package treemacs-evil)
-  (use-package yasnippet-snippets))
+;; (use-package treemacs
+;;   :init (setq treemacs-show-hidden-files nil)
+;;   :config
+;;   (setq treemacs-default-visit-action 'treemacs-visit-node-close-treemacs)
+;;   (use-package treemacs-evil)
+;;   (use-package yasnippet-snippets))
 
 ;; Flycheck conducts on-the-fly syntax checking
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
-
-;; Allow for smooth scrolling, line-by-line at the end of the view 
-(use-package smooth-scrolling
-  :init (smooth-scrolling-mode 1)
-  :config (setq smooth-scrolling-margin 5))
 
 (use-package magit
   :init
@@ -355,15 +399,6 @@
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 
-;; Allow commenting and uncommenting the current line/region
-(defun comment-or-uncomment-region-or-line ()
-    "Comments or uncomments the region or the current line if there's no active region."
-    (interactive)
-    (let (beg end)
-        (if (region-active-p)
-            (setq beg (region-beginning) end (region-end))
-            (setq beg (line-beginning-position) end (line-end-position)))
-        (comment-or-uncomment-region beg end)))
 ;; ----------------PYTHON SETUP----------------
 ;; Elpy is the basic framework which provides things like
 ;; autocompletion, error checking, building, etc.
@@ -375,12 +410,6 @@
   (add-hook 'elpy-mode-hook 'lsp)
 ;;  (add-hook 'elpy-mode-hook 'ligature-mode)
   )
-
-;; Jupyter Notebook support via ein
-(use-package ein
-  :defer t
-  :config
-  (setq ein:jupyter-default-server-command "jupyter"))
 
 ;; Code formatting on save with black
 (use-package blacken
@@ -409,7 +438,7 @@
   (setq rustic-format-on-save t)
   (add-hook 'rustic-mode-hook 'rk/rustic-mode-hook)
   (add-hook 'rust-mode-hook #'tree-sitter-mode)
-  (setq lsp-rust-analyzer-server-command '("~/.local/bin/rust-analyzer")))
+  (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer")))
 
 (defun rk/rustic-mode-hook ()
   ;; so that run C-c C-c C-r works without having to confirm, but don't try to
@@ -436,6 +465,7 @@
   (lsp-rust-analyzer-display-reborrow-hints nil)
   :config
   (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
 (use-package lsp-ui
   :ensure
   :commands lsp-ui-mode
@@ -485,11 +515,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(centaur-tabs-mode t nil (centaur-tabs))
  '(custom-safe-themes
-   '("da186cce19b5aed3f6a2316845583dbee76aea9255ea0da857d1c058ff003546" "47db50ff66e35d3a440485357fb6acb767c100e135ccdf459060407f8baea7b2" "c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" "353ffc8e6b53a91ac87b7e86bebc6796877a0b76ddfc15793e4d7880976132ae" default))
+   '("47d5324dac28a85c1bb84b4c1dc3a8dc407cc7369db6e30d3244b16232b1eec4" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "545ab1a535c913c9214fe5b883046f02982c508815612234140240c129682a68" "0c83e0b50946e39e237769ad368a08f2cd1c854ccbcd1a01d39fdce4d6f86478" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "991ca4dbb23cab4f45c1463c187ac80de9e6a718edc8640003892a2523cb6259" "bf948e3f55a8cd1f420373410911d0a50be5a04a8886cabe8d8e471ad8fdba8e" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "512ce140ea9c1521ccaceaa0e73e2487e2d3826cc9d287275550b47c04072bc4" "da186cce19b5aed3f6a2316845583dbee76aea9255ea0da857d1c058ff003546" "47db50ff66e35d3a440485357fb6acb767c100e135ccdf459060407f8baea7b2" "c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" "353ffc8e6b53a91ac87b7e86bebc6796877a0b76ddfc15793e4d7880976132ae" default))
  '(package-selected-packages
-   '(evil-nerd-commenter toml-mode tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package)))
+   '(soothe-theme evil-nerd-commenter toml-mode tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package))
+ '(warning-suppress-types '((comp) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
