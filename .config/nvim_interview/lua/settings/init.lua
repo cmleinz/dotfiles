@@ -21,5 +21,4 @@ set.wrap = false
 
 -- COLORSCHEME
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme peachpuff]])
-vim.g.airline_theme = "base16_gruvbox_dark_medium"
+vim.cmd([[colorscheme murphy]])

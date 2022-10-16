@@ -198,6 +198,12 @@ bindsym $mod+Shift+u       resize grow height 2 px or 2 ppt
 bindsym $mod+Shift+i	   resize shrink height 2 px or 2 ppt
 bindsym $mod+Shift+y	   resize grow width 2 px or 2 ppt
 
+# Temporary fix for push-to-talk on mumble with Sway, consumes the input key
+# bindsym --no-repeat           g exec gdbus call -e -d net.sourceforge.mumble.mumble -o / -m net.sourceforge.mumble.Mumble.startTalking
+# bindsym --no-repeat --release g exec gdbus call -e -d net.sourceforge.mumble.mumble -o / -m net.sourceforge.mumble.Mumble.stopTalking
+# bindsym --no-repeat           g exec gdbus call -e -d net.sourceforge.mumble.mumble -o / -m net.sourceforge.mumble.Mumble.startTalking
+# bindsym --no-repeat --release g exec gdbus call -e -d net.sourceforge.mumble.mumble -o / -m net.sourceforge.mumble.Mumble.stopTalking
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -275,6 +281,12 @@ output HDMI-A-1 mode 2560x1440@143.96400Hz
 
 # Set wallpaper to Nextcloud Wallpaper
 exec_always swaybg -i ~/.config/sway/Background.jpg -m fill
+
+# Set the GTK theme to Adwaita dark and la capitaine icons
+exec_always {
+  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+  gsettings set org.gnome.desktop.interface icon-theme "La-Capitaine"
+}
 
 # Launch waybar
 exec waybar
