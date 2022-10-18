@@ -409,6 +409,7 @@
               ("C-c C-c s" . lsp-rust-analyzer-status))
   :config
   (setq rustic-format-on-save t)
+  (setq rustic-format-display-method 'ignore)
   (add-hook 'rustic-mode-hook 'cl/rustic-mode-hook)
   (add-hook 'rust-mode-hook #'tree-sitter-mode)
   (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer")))
