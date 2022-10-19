@@ -332,6 +332,10 @@
   (show-paren-mode 1))
 
 (use-package diff-hl
+  :config
+  (diff-hl-dired-mode t)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   :hook (prog-mode . diff-hl-mode))
 
 ;; Use yasnippets
