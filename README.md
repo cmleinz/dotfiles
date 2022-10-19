@@ -4,6 +4,6 @@ These are just my personal dotfiles, I apologize I know that not all the authors
 
 ## Required programs
 
-```bash
-mpd, sway, swaybg, swayidle, ncmpcpp
+```
+emacs, git, flatpak, rust, exa, i3-gaps, rofi, zathura, dunst, polybar, alacritty, fish, textlive,
 ```
