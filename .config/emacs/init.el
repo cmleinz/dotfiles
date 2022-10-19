@@ -137,6 +137,7 @@
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
     "c"  '(:ignore t :which-key "Code")
+    "o"  '(:ignore t :which-key "Org")
 
     "b"  '(:ignore t :which-key "Buffers")
     "bb" '(counsel-switch-buffer :which-key "Switch buffer")
@@ -193,9 +194,20 @@
     "p"  '(:ignore t :which-key "Project")
     "p/" '(counsel-git-grep :which-key "Grep project")
 
+    "oy" '(org-store-link :which-key "org-store-link")
+    
     "e"  '(eshell :which-key "Eshell")
     "x"  '(counsel-M-x :which-key "M-x")
     "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
+   )
+
+  ;; Org-mode specific bindings
+  (general-define-key
+   :states '(normal visual emacs)
+   :keymaps '(org-mode-map)
+   :prefix "SPC"
+   "of" '(org-open-at-point :which-key "org-open-at-point")
+   "oi" '(org-insert-link :which-key "org-insert-link")
    )
 
   ;; Rust specific bindings
@@ -302,6 +314,9 @@
 (use-package fira-code-mode
   :custom (fira-code-mode-disabled-ligatures '("[]" "x", ":"))
   :hook prog-mode)                                         
+
+(use-package org-transclusion
+  :after org)
 
 ;; Use tree sitter for syntax highlighting. It is incredible
 (use-package tree-sitter
@@ -488,7 +503,7 @@
  '(custom-safe-themes
    '("6f3c73e815eded5e92301547bf4940dc41892519f8ccd7d0bc3a761e7d93062c" "0c358bbf8b9e9a95ecd83dbd6b3dd25708929ffd52bd3b0c317971d0e6ddd091" "4a5aab90617e2d1041485afeba80ee4bd78f321b8a20f5d0f2323307d92e8ae5" "c122d14245772c77158fc57001e44f4854df9bc7017856c10924c527e285f7ce" "3d2e532b010eeb2f5e09c79f0b3a277bfc268ca91a59cdda7ffd056b868a03bc" "47d5324dac28a85c1bb84b4c1dc3a8dc407cc7369db6e30d3244b16232b1eec4" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "545ab1a535c913c9214fe5b883046f02982c508815612234140240c129682a68" "0c83e0b50946e39e237769ad368a08f2cd1c854ccbcd1a01d39fdce4d6f86478" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "991ca4dbb23cab4f45c1463c187ac80de9e6a718edc8640003892a2523cb6259" "bf948e3f55a8cd1f420373410911d0a50be5a04a8886cabe8d8e471ad8fdba8e" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "512ce140ea9c1521ccaceaa0e73e2487e2d3826cc9d287275550b47c04072bc4" "da186cce19b5aed3f6a2316845583dbee76aea9255ea0da857d1c058ff003546" "47db50ff66e35d3a440485357fb6acb767c100e135ccdf459060407f8baea7b2" "c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" "353ffc8e6b53a91ac87b7e86bebc6796877a0b76ddfc15793e4d7880976132ae" default))
  '(package-selected-packages
-   '(fira-code-mode gruber-darker-theme diff-hl soothe-theme evil-nerd-commenter toml-mode tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package))
+   '(org-transclusion fira-code-mode gruber-darker-theme diff-hl soothe-theme evil-nerd-commenter toml-mode tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package))
  '(warning-suppress-types '((comp) (comp))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
