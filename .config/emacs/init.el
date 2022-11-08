@@ -32,12 +32,14 @@
 ;; Add the booberry git submodule to path
 (add-to-list 'custom-theme-load-path "~/.config/emacs/booberry-theme/")
 
+(use-package autothemer
+  :ensure t)
+
+;; Set the default theme to booberry
+(load-theme 'booberry t)
+
 ;; Disable splashscreen
 (setq inhibit-startup-message t)
-
-;; Change scrolling behavior to scroll prior to end of view
-(setq scroll-step 1)
-(setq scroll-margin 5)
 
 ;; Make Emacs more minimal
 (menu-bar-mode -1) ; Disable menubar
@@ -47,6 +49,11 @@
 ;; Enable global line numbers
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
+
+;; Change scrolling behavior to scroll prior to end of view
+(setq scroll-step 1)
+(setq scroll-margin 5)
+
 
 ;; Move all backup and autosave files
 (setq backup-directory-alist
@@ -58,12 +65,6 @@
 
 ;; Set font to Fira Code
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
-
-(use-package autothemer
-  :ensure t)
-
-;; Set the default theme to booberry
-(load-theme 'booberry t)
 
 (use-package doom-themes
   :ensure t
@@ -130,7 +131,7 @@
   (setq which-key-idle-delay 0.1) ;; Almost immediately popup which-key
   (which-key-mode))
 
-;; Use the general package to setup space bindings
+;; Custom keybindings setup
 (use-package general
   :config
   (general-evil-setup t)
@@ -227,7 +228,6 @@
    )
 )
 
-
 ;; Enable rainbow-delimiters
 (use-package rainbow-delimiters
   :hook
@@ -295,7 +295,6 @@
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
   (setq org-startup-indented t)
-  (setq org-clock-sound "~/.config/emacs/bell-ring.wav")
   ;; Set Org-Mode TODO keywords
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
@@ -303,12 +302,6 @@
   (setq org-todo-keyword-faces
 	'(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
           ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
- 
-  (setq org-agenda-files
-	'(("~/Nextcloud/Org/Todo.org")("~/Nextcloud/Ord/Life.org")))
- 
-  (setq org-refile-targets
-    '(("~/Nextcloud/Org/Archive.org" :maxlevel . 1)))
 
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
@@ -341,6 +334,7 @@
   (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
   (show-paren-mode 1))
 
+;; For files tracked by git, indicate when and where changes to those files have been made
 (use-package diff-hl
   :config
   (diff-hl-dired-mode t)
