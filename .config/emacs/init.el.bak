@@ -1,0 +1,530 @@
+;; AUTHOR: Caleb Leinz
+;; EMACS_VERSION: 28.1
+
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; Profile emacs startup
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "*** Emacs loaded in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
+
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+ (package-refresh-contents))
+
+;; Ensure we have use-package setup
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; Add the booberry git submodule to path
+(add-to-list 'custom-theme-load-path "~/.config/emacs/booberry-theme/")
+
+(use-package autothemer
+  :ensure t)
+
+;; Set the default theme to booberry
+(load-theme 'booberry t)
+
+;; Disable splashscreen
+(setq inhibit-startup-message t)
+
+;; Make Emacs more minimal
+(menu-bar-mode -1) ; Disable menubar
+(tool-bar-mode -1) ; Disable toolbar
+(scroll-bar-mode -1) ; Disable scrollbar
+
+;; Enable global line numbers
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
+
+;; Change scrolling behavior to scroll prior to end of view
+(setq scroll-step 1)
+(setq scroll-margin 5)
+
+
+;; Move all backup and autosave files
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+(save-place-mode 1)
+
+;; Set font to Fira Code
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+;; Use swiper for supercharged searching
+(use-package swiper
+  :ensure t)
+
+;; Use counsel
+(use-package counsel
+  :bind (
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history)))
+
+;; Use Ivy for all sorts of useful autocompletion
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)	
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+
+(use-package minions
+  :hook (doom-modeline-mode . minions-mode))
+
+;; Enable the doom modeline
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom (
+	   (doom-modeline-height 15)
+	   (doom-modeline-lsp t)
+	   (doom-modeline-minor-modes t)
+	   ))
+
+
+(use-package evil-nerd-commenter
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+
+;; Allow for viewing partial key completion
+(use-package which-key
+  :ensure t
+  :config
+  (setq which-key-idle-delay 0.1) ;; Almost immediately popup which-key
+  (which-key-mode))
+
+;; Custom keybindings setup
+(use-package general
+  :config
+  (general-evil-setup t)
+  (general-override-mode)
+  (general-define-key
+   :states '(normal visual insert emacs)
+   :keymaps 'override
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+    "o"  '(:ignore t :which-key "Org")
+    "x"  '(execute-extended-command :which-key "M-x")
+
+    "b"  '(:ignore t :which-key "Buffers")
+    "bb" '(counsel-switch-buffer :which-key "Switch buffer")
+    "bl" '(evil-next-buffer :which-key "Next buffer")
+    "bh" '(evil-prev-buffer :which-key "Next buffer")
+    "bk" '(kill-buffer :which-key "Kill buffer")
+
+    "f"  '(:ignore t :which-key "Files")
+    "fs" '(save-buffer :which-key "save-buffer")
+    "ff" '(counsel-find-file :which-key "counsel-find-file")
+    "fr" '(counsel-recentf :which-key "counsel-recentf")
+
+    "w"  '(:ignore t :which-key "Windows")
+    "ws" '(evil-window-new :which-key "Split window horizontally")
+    "wv" '(evil-window-vnew :which-key "Split window vertically")
+    "wd" '(evil-window-delete :which-key "Delete window")
+    "wo" '(delete-other-windows :which-key "Delete other window")
+    "wj" '(evil-window-down :which-key "Switch to window down")
+    "wk" '(evil-window-up :which-key "Switch to window up")
+    "wh" '(evil-window-left :which-key "Switch to window left")
+    "wl" '(evil-window-right :which-key "Switch to window right")
+    "wJ" '(evil-window-move-very-bottom :which-key "Move window down")
+    "wK" '(evil-window-move-very-top :which-key "Move window up")
+    "wH" '(evil-window-move-far-left :which-key "Move window left")
+    "wL" '(evil-window-move-far-right :which-key "Move window right")
+
+    "l"  '(:ignore t :which-key "LSP")
+    "lf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
+    "le" '(flycheck-list-errors :which-key "List Errors")
+    "lk" '(lsp-ui-doc-toggle :which-key "Show item docs")
+    "lc" '(:ignore t :which-key "Code")
+    "lw" '(:ignore t :which-key "Workspace")
+    "lwr" '(lsp-workspace-restart :which-key "Restart workspace")
+    "lcp" '(check-parens :which-key "Check parenthesis errors")
+    "lca" '(lsp-execute-code-action :which-key "Perform code actions") 
+    "lr" '(lsp-rename :which-key "Rename")
+
+    "h"  '(:ignore t :which-key "Helper")
+    "ht" '(counsel-load-theme :which-key "Load theme")
+
+    "g"  '(:ignore t :which-key "Magit")
+    "gg" '(magit-status :which-key "magit-status")
+    "gf" '(magit-fetch :which-key "magit-fetch") 
+    "gF" '(magit-fetch-all :which-key "magit-fetch-all") 
+    "gb" '(magit-branch :which-key "magit-branch")
+    "gp" '(magit-push-to-remote :which-key "magit-push")
+    "gs" '(magit-stage-modified :which-key "magit-stage-modified")
+    "gc" '(magit-commit :which-key "magit-commit")
+
+    "r"  '(:ignore t :which-key "Configuration changes")
+    "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
+    "re" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :which-key "Open init.el")
+
+    "p"  '(:ignore t :which-key "Project")
+    "p/" '(counsel-git-grep :which-key "Grep project")
+
+    "oy" '(org-store-link :which-key "org-store-link")
+    
+    "e"  '(eshell :which-key "Eshell")
+    "x"  '(counsel-M-x :which-key "M-x")
+    "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
+   )
+
+  ;; Org-mode specific bindings
+  (general-define-key
+   :states '(normal visual emacs)
+   :keymaps '(org-mode-map)
+   :prefix "SPC"
+   "of" '(org-open-at-point :which-key "org-open-at-point")
+   "oi" '(org-insert-link :which-key "org-insert-link")
+   )
+
+  ;; Rust specific bindings
+  (general-define-key
+   :states '(normal visual emacs)
+   :keymaps '(rustic-mode-map)
+   :prefix "SPC"
+   "cr" '(rustic-cargo-run :which-key "cargo run")
+   "cb" '(rustic-cargo-build-arguments '("--release") :which-key "cargo build --release")
+   "cc" '(rustic-cargo-build :which-key "cargo build")
+   "cd" '(rustic-cargo-build-doc :which-key "cargo doc")
+   "ch" '(lsp-rust-analyzer-inlay-hints-mode :which-key "toggle-inlay-hints") 
+   )
+)
+
+;; Enable rainbow-delimiters
+(use-package rainbow-delimiters
+  :hook
+  (prog-mode . rainbow-delimiters-mode)
+  (toml-mode . rainbow-delimiters-mode))
+
+;; Enable rainbow mode in css files
+(use-package rainbow-mode
+  :hook ((css-mode-hook . rainbow-mode)
+	 (html-mode-hook . rainbow-mode)
+	 (latex-mode-hook . rainbow-mode)
+	 (scss-mode-hook . rainbow-mode)))
+
+(use-package pdf-tools
+  :magic ("%PDF" . pdf-view-mode))
+
+;; Setup Evil-mode, because it's really good
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-i-jump nil)
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
+(defun cl/org-mode-setup ()
+  (visual-line-mode 1)
+  (flyspell-mode 1))
+
+(use-package org
+  :hook (org-mode . cl/org-mode-setup)
+  :config
+
+  (use-package evil-org
+      :ensure t
+      :after (evil org)
+      :config
+      (add-hook 'org-mode-hook 'evil-org-mode)
+      (add-hook 'evil-org-mode-hook
+  	    (lambda ()
+  	    (evil-org-set-key-theme '(navigation insert textobjects additional calendar todo))))
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys))
+
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode))
+  
+  (setq org-agenda-start-with-log-mode t)
+  (setq org-log-done 'time)
+  (setq org-log-into-drawer t)
+  (setq org-startup-indented t)
+  ;; Set Org-Mode TODO keywords
+  (setq org-todo-keywords
+	'((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
+  ;; Set Org-Mode TODO state colors
+  (setq org-todo-keyword-faces
+	'(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
+          ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
+
+  ;; Save Org buffers after refiling!
+  (advice-add 'org-refile :after 'org-save-all-org-buffers))
+
+;; ----------------DEVELOPMENT SETUP----------------
+;; Set the fill column
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+(setq-default fill-column 90)
+
+(use-package vterm)
+
+;; Enable ligatures
+(use-package fira-code-mode
+  :custom (fira-code-mode-disabled-ligatures '("[]" "x", ":"))
+  :hook prog-mode)                                         
+
+(use-package org-transclusion
+  :after org)
+
+;; Use tree sitter for syntax highlighting. It is incredible
+(use-package tree-sitter
+  :config
+  (use-package tree-sitter-langs)
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+;; Highlight matching parens
+(use-package paren
+  :config
+  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
+  (show-paren-mode 1))
+
+;; For files tracked by git, indicate when and where changes to those files have been made
+(use-package diff-hl
+  :config
+  (diff-hl-dired-mode t)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+  :hook (prog-mode . diff-hl-mode))
+
+;; Use yasnippets
+(use-package yasnippet
+  :ensure
+  :config
+  (setq yas-snippet-dirs
+	'("~/.config/emacs/snippets/"))
+  (yas-reload-all)
+  (yas-global-mode)
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  (add-hook 'text-mode-hook 'yas-minor-mode)
+  (use-package yasnippet-snippets))
+
+(defun autoinsert-yas-expand()
+  "Replace text in yasnippet template."
+  (evil-insert-state)
+  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+
+(use-package autoinsert
+  :init
+  (setq auto-insert-query nil)
+  (setq auto-insert-directory (locate-user-emacs-file "templates"))
+  (add-hook 'find-file-hook 'auto-insert)
+  (auto-insert-mode 1)
+
+  :config
+  (define-auto-insert "\\.org$" [ "default-org.org" autoinsert-yas-expand ])
+  )
+
+(use-package smartparens
+  :hook (prog-mode . smartparens-mode))
+
+(use-package centaur-tabs
+  :config
+  (setq centaur-tabs-set-icons t
+	centaur-tabs-show-navigation-buttons t
+	centaur-tabs-height 32
+	centaur-tabs-set-modified-marker t)
+  (centaur-tabs-change-fonts "Fira Code Retina" 120))
+
+;; Flycheck conducts on-the-fly syntax checking
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(use-package magit
+  :init
+  (message "Loading Magit!")
+  :config
+  (message "Loaded Magit!")
+  :bind (("C-x g" . magit-status)
+         ("C-x C-g" . magit-status)))
+
+;; ----------------PYTHON SETUP----------------
+;; Elpy is the basic framework which provides things like
+;; autocompletion, error checking, building, etc.
+
+(use-package elpy
+  :init (add-hook 'python-mode-hook #'elpy-enable)
+  :config
+  (setq elpy-rpc-python-command "python3")
+  (setq python-shell-interpreter "python3")
+  (add-hook 'elpy-mode-hook 'lsp)
+;;  (add-hook 'elpy-mode-hook 'ligature-mode)
+  )
+
+;; Code formatting on save with black
+(use-package blacken
+  :init (add-hook 'elpy-mode-hook 'blacken-mode))
+
+;; ------------------------------------------
+
+;; ----------------RUST SETUP----------------
+
+(use-package rustic
+  :ensure
+  :bind (:map rustic-mode-map
+              ("M-j" . lsp-ui-imenu)
+              ("M-?" . lsp-find-references)
+              ("C-c C-c l" . flycheck-list-errors)
+              ("C-c C-c a" . lsp-execute-code-action)
+              ("C-c C-c r" . lsp-rename)
+              ("C-c C-c q" . lsp-workspace-restart)
+              ("C-c C-c Q" . lsp-workspace-shutdown)
+              ("C-c C-c s" . lsp-rust-analyzer-status))
+  :config
+  (setq rustic-format-on-save t)
+  (setq rustic-format-display-method 'ignore)
+  (add-hook 'rustic-mode-hook 'cl/rustic-mode-hook)
+  (add-hook 'rust-mode-hook #'tree-sitter-mode)
+  (setq lsp-rust-analyzer-server-command '("~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer")))
+
+(defun cl/rustic-mode-hook ()
+  (when buffer-file-name
+    (setq-local buffer-save-without-query t)))
+
+(use-package lsp-mode
+  :ensure
+  :commands lsp
+  :custom
+  ;; what to use when checking on-save. "check" is default, I prefer clippy
+  (lsp-rust-analyzer-cargo-watch-command "clippy")
+  ;;(lsp-eldoc-render-all t)
+  (lsp-idle-delay 0.5)
+  (lsp-rust-analyzer-server-display-inlay-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
+  (lsp-rust-analyzer-display-chaining-hints t)
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names t)
+  (lsp-rust-analyzer-display-closure-return-type-hints t)
+  (lsp-rust-analyzer-display-parameter-hints t)
+  (lsp-rust-analyzer-display-reborrow-hints nil)
+  :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
+;; ------------------------------------------
+
+;; ----------------C/C++ SETUP---------------
+
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-hook 'c-mode-hook 'eglot-ensure)
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+  )
+
+;; ------------------------------------------
+
+(use-package lsp-ui
+  :ensure
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-peek-always-show t)
+  ;; When peeking definitions it will look for them with lsp-peek, nice!
+  (lsp-ui-peek-enable t)
+  ;; I might remove this option, it's quite messy/distracting
+  (lsp-ui-sideline-show-hover nil)
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline--push-info nil)
+  ;; Read docs with hover
+  (lsp-ui-doc-enable t)
+  ;; (lsp-ui-doc-delay 2)
+  ;; (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-position 'at-point)
+  ;; Show file directory when peeking definitions
+  (lsp-ui-peek-show-directory t)
+  ;; (define-key lsp-ui-doc-frame-mode-map (kbd "ESC") 'lsp-ui-doc-hide)
+  :bind
+  (:map lsp-mode-map
+	([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+	([remap xref-find-references] . lsp-ui-peek-find-references))
+)
+
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+
+(use-package company
+  :ensure
+  :custom
+  (company-idle-delay 0.0) ;; how long to wait until popup
+  ;; (company-begin-commands nil) ;; uncomment to disable popup
+  :hook (prog-mode . company-mode)
+  :bind
+  (:map company-active-map
+	("<tab>" . company-complete-selection)
+	("C-n" . company-select-next)
+	("C-p" . company-select-previous)
+	("M-<" . company-select-first)
+	("M->" . company-select-last))
+  :config
+  (use-package company-jedi)
+)
+;;; 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("6f3c73e815eded5e92301547bf4940dc41892519f8ccd7d0bc3a761e7d93062c" "0c358bbf8b9e9a95ecd83dbd6b3dd25708929ffd52bd3b0c317971d0e6ddd091" "4a5aab90617e2d1041485afeba80ee4bd78f321b8a20f5d0f2323307d92e8ae5" "c122d14245772c77158fc57001e44f4854df9bc7017856c10924c527e285f7ce" "3d2e532b010eeb2f5e09c79f0b3a277bfc268ca91a59cdda7ffd056b868a03bc" "47d5324dac28a85c1bb84b4c1dc3a8dc407cc7369db6e30d3244b16232b1eec4" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "545ab1a535c913c9214fe5b883046f02982c508815612234140240c129682a68" "0c83e0b50946e39e237769ad368a08f2cd1c854ccbcd1a01d39fdce4d6f86478" "5f128efd37c6a87cd4ad8e8b7f2afaba425425524a68133ac0efd87291d05874" "6945dadc749ac5cbd47012cad836f92aea9ebec9f504d32fe89a956260773ca4" "991ca4dbb23cab4f45c1463c187ac80de9e6a718edc8640003892a2523cb6259" "bf948e3f55a8cd1f420373410911d0a50be5a04a8886cabe8d8e471ad8fdba8e" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "512ce140ea9c1521ccaceaa0e73e2487e2d3826cc9d287275550b47c04072bc4" "da186cce19b5aed3f6a2316845583dbee76aea9255ea0da857d1c058ff003546" "47db50ff66e35d3a440485357fb6acb767c100e135ccdf459060407f8baea7b2" "c5ded9320a346146bbc2ead692f0c63be512747963257f18cc8518c5254b7bf5" "353ffc8e6b53a91ac87b7e86bebc6796877a0b76ddfc15793e4d7880976132ae" default))
+ '(package-selected-packages
+   '(eglot org-transclusion fira-code-mode gruber-darker-theme diff-hl soothe-theme evil-nerd-commenter toml-mode tree-sitter-langs tree-sitter jupyter ein treemacs-all-the-icons company-jedi lsp-ivy lsp-ui lsp-mode rustic blacken elpy magit smooth-scrolling flycheck yasnippet-snippets yasnippet treemacs centaur-tabs org-bullets evil-org evil-collection pdf-tools evil-smartparens smartparens rainbow-mode rainbow-delimiters general doom-modeline counsel swiper doom-themes use-package))
+ '(warning-suppress-types '((comp) (comp))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
