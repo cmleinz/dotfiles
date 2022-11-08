@@ -29,6 +29,9 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Add the booberry git submodule to path
+(add-to-list 'custom-theme-load-path "~/.config/emacs/booberry-theme/")
+
 ;; Disable splashscreen
 (setq inhibit-startup-message t)
 
@@ -59,6 +62,7 @@
 (use-package autothemer
   :ensure t)
 
+;; Set the default theme to booberry
 (load-theme 'booberry t)
 
 (use-package doom-themes

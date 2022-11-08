@@ -1,0 +1,3 @@
+[submodule ".config/emacs/booberry-theme"]
+	path = .config/emacs/booberry-theme
+	url = https://github.com/cmleinz/booberry-theme
