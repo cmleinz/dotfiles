@@ -378,13 +378,18 @@ Provides a fast way of commenting single lines, or blocks of code.
   (use-package evil-nerd-commenter
     :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 #+END_SRC
-** ENABLE Projectile
+** ENABLE Ripgrep
 #+BEGIN_SRC emacs-lisp
   (use-package ripgrep)
-  
+#+END_SRC
+** ENABLE Projectile
+#+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :diminish projectile-mode
-    :config (setq projectile-project-search-path '("~/Projects")))
+    :ensure t
+    :init
+    (projectile-mode +1)
+    :bind (:map projectile-mode-map
+                ("C-c p" . projectile-command-map)))
 #+END_SRC
 *** ENABLE Counsel Projectile
 #+BEGIN_SRC emacs-lisp
@@ -602,18 +607,18 @@ are configured in their respective use-package blocks, but most keybindings are 
       "wH" '(evil-window-move-far-left :which-key "Move window left")
       "wL" '(evil-window-move-far-right :which-key "Move window right")
 
-      "l"  '(:ignore t :which-key "LSP")
-      "lf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
-      "le" '(flycheck-list-errors :which-key "List Errors")
-      "lk" '(lsp-ui-doc-toggle :which-key "Show item docs")
-      "lc" '(:ignore t :which-key "Code")
-      "lw" '(:ignore t :which-key "Workspace")
-      "lwr" '(lsp-workspace-restart :which-key "Restart workspace")
-      "lcp" '(check-parens :which-key "Check parenthesis errors")
-      "lca" '(lsp-execute-code-action :which-key "Perform code actions") 
-      "lr" '(lsp-rename :which-key "Rename")
+      "c"  '(:ignore t :which-key "Code")
+      "ci" '(counsel-imenu :which-key "Cousel Imenu")
+      "cf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
+      "ce" '(flycheck-list-errors :which-key "List Errors")
+      "ck" '(lsp-ui-doc-toggle :which-key "Show item docs")
+      "cp" '(check-parens :which-key "Check parenthesis errors")
+      "ca" '(lsp-execute-code-action :which-key "Perform code actions") 
+      "cr" '(lsp-rename :which-key "Rename")
 
       "p"  '(:ignore t :which-key "Project")
+      "pr" '(projectile-run-project :which-key "Run Project")
+      "pc" '(projectile-compile-project :which-key "Compile Project")
       "pf" '(counsel-projectile-find-file :which-key "Find File")
       "pd" '(counsel-projectile-find-dir :which-key "Find Dir")
       "pp" '(counsel-projectile-switch-project :which-key "Switch Project")
