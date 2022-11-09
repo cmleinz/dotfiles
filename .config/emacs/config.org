@@ -238,105 +238,6 @@ kept up to date with the current state of those files.
   (use-package org-transclusion
     :after org)
 #+END_SRC
-* Keybindings
-Below are the list of keybindings for the configuration, certain package-specific keybindings
-are configured in their respective use-package blocks, but most keybindings are handled here.
-#+BEGIN_SRC emacs-lisp
-  (use-package general
-    :config
-    (general-evil-setup t)
-    (general-override-mode)
-    (general-define-key
-     :states '(normal visual insert emacs)
-     :keymaps 'override
-     :prefix "SPC"
-     :non-normal-prefix "C-SPC"
-      "o"  '(:ignore t :which-key "Org")
-      "p"  '(projectile-command-map :which-key "Project")
-      "x"  '(execute-extended-command :which-key "M-x")
-
-      "b"  '(:ignore t :which-key "Buffers")
-      "bb" '(counsel-switch-buffer :which-key "Switch buffer")
-      "bl" '(evil-next-buffer :which-key "Next buffer")
-      "bh" '(evil-prev-buffer :which-key "Next buffer")
-      "bk" '(kill-buffer :which-key "Kill buffer")
-
-      "f"  '(:ignore t :which-key "Files")
-      "fs" '(save-buffer :which-key "save-buffer")
-      "ff" '(counsel-find-file :which-key "counsel-find-file")
-      "fr" '(counsel-recentf :which-key "counsel-recentf")
-
-      "w"  '(:ignore t :which-key "Windows")
-      "ws" '(evil-window-new :which-key "Split window horizontally")
-      "wv" '(evil-window-vnew :which-key "Split window vertically")
-      "wd" '(evil-window-delete :which-key "Delete window")
-      "wo" '(delete-other-windows :which-key "Delete other window")
-      "wj" '(evil-window-down :which-key "Switch to window down")
-      "wk" '(evil-window-up :which-key "Switch to window up")
-      "wh" '(evil-window-left :which-key "Switch to window left")
-      "wl" '(evil-window-right :which-key "Switch to window right")
-      "wJ" '(evil-window-move-very-bottom :which-key "Move window down")
-      "wK" '(evil-window-move-very-top :which-key "Move window up")
-      "wH" '(evil-window-move-far-left :which-key "Move window left")
-      "wL" '(evil-window-move-far-right :which-key "Move window right")
-
-      "l"  '(:ignore t :which-key "LSP")
-      "lf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
-      "le" '(flycheck-list-errors :which-key "List Errors")
-      "lk" '(lsp-ui-doc-toggle :which-key "Show item docs")
-      "lc" '(:ignore t :which-key "Code")
-      "lw" '(:ignore t :which-key "Workspace")
-      "lwr" '(lsp-workspace-restart :which-key "Restart workspace")
-      "lcp" '(check-parens :which-key "Check parenthesis errors")
-      "lca" '(lsp-execute-code-action :which-key "Perform code actions") 
-      "lr" '(lsp-rename :which-key "Rename")
-
-      "h"  '(:ignore t :which-key "Helper")
-      "ht" '(counsel-load-theme :which-key "Load theme")
-
-      "g"  '(:ignore t :which-key "Magit")
-      "gg" '(magit-status :which-key "magit-status")
-      "gf" '(magit-fetch :which-key "magit-fetch") 
-      "gF" '(magit-fetch-all :which-key "magit-fetch-all") 
-      "gb" '(magit-branch :which-key "magit-branch")
-      "gp" '(magit-push-to-remote :which-key "magit-push")
-      "gs" '(magit-stage-modified :which-key "magit-stage-modified")
-      "gc" '(magit-commit :which-key "magit-commit")
-
-      "r"  '(:ignore t :which-key "Configuration changes")
-      "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
-      "re" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :which-key "Open init.el")
-
-      "oy" '(org-store-link :which-key "org-store-link")
-
-      "e"  '(eshell :which-key "Eshell")
-      "x"  '(counsel-M-x :which-key "M-x")
-      "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
-     )
-
-    ;; Org-mode specific bindings
-    (general-define-key
-     :states '(normal visual emacs)
-     :keymaps '(org-mode-map)
-     :prefix "SPC"
-     "of" '(org-open-at-point :which-key "org-open-at-point")
-     "oi" '(org-insert-link :which-key "org-insert-link")
-     )
-
-    ;; Rust specific bindings
-    (general-define-key
-     :states '(normal visual emacs)
-     :keymaps '(rustic-mode-map)
-     :prefix "SPC"
-     "cr" '(rustic-cargo-run :which-key "cargo run")
-     "cb" '(rustic-cargo-build-arguments '("--release") :which-key "cargo build --release")
-     "cc" '(rustic-cargo-build :which-key "cargo build")
-     "cd" '(rustic-cargo-build-doc :which-key "cargo doc")
-     "ch" '(lsp-rust-analyzer-inlay-hints-mode :which-key "toggle-inlay-hints") 
-     )
-  )
-#+END_SRC
-
 * Development Configurations
 ** DISABLE Centaur Tabs
 Centaur tabs provide a clean way of displaying "tabs" at the top of the screen similar
@@ -479,9 +380,15 @@ Provides a fast way of commenting single lines, or blocks of code.
 #+END_SRC
 ** ENABLE Projectile
 #+BEGIN_SRC emacs-lisp
+  (use-package ripgrep)
+  
   (use-package projectile
     :diminish projectile-mode
-    :config (projectile-mode))
+    :config (setq projectile-project-search-path '("~/Projects")))
+#+END_SRC
+*** ENABLE Counsel Projectile
+#+BEGIN_SRC emacs-lisp
+(use-package counsel-projectile)
 #+END_SRC
 ** ENABLE Rainbow Delimiters
 Rainbow delimiters make it much easier to tell which parentheses and brackets are
@@ -653,3 +560,109 @@ Booberry is an emacs port of the Helix theme of the same name
 #+END_SRC
 
 
+
+* Keybindings
+Below are the list of keybindings for the configuration, certain package-specific keybindings
+are configured in their respective use-package blocks, but most keybindings are handled here.
+#+BEGIN_SRC emacs-lisp
+  (use-package general
+    :config
+    (general-evil-setup t)
+    (general-override-mode)
+    (general-define-key
+     :states '(normal visual insert emacs)
+     :keymaps 'override
+     :prefix "SPC"
+     :non-normal-prefix "C-SPC"
+      "o"  '(:ignore t :which-key "Org")
+      "x"  '(execute-extended-command :which-key "M-x")
+
+      "b"  '(:ignore t :which-key "Buffers")
+      "bb" '(counsel-switch-buffer :which-key "Switch buffer")
+      "bl" '(evil-next-buffer :which-key "Next buffer")
+      "bh" '(evil-prev-buffer :which-key "Next buffer")
+      "bk" '(kill-buffer :which-key "Kill buffer")
+
+      "f"  '(:ignore t :which-key "Files")
+      "fs" '(save-buffer :which-key "save-buffer")
+      "ff" '(counsel-find-file :which-key "counsel-find-file")
+      "fr" '(counsel-recentf :which-key "counsel-recentf")
+
+      "w"  '(:ignore t :which-key "Windows")
+      "ws" '(evil-window-new :which-key "Split window horizontally")
+      "wv" '(evil-window-vnew :which-key "Split window vertically")
+      "wd" '(evil-window-delete :which-key "Delete window")
+      "wo" '(delete-other-windows :which-key "Delete other window")
+      "wj" '(evil-window-down :which-key "Switch to window down")
+      "wk" '(evil-window-up :which-key "Switch to window up")
+      "wh" '(evil-window-left :which-key "Switch to window left")
+      "wl" '(evil-window-right :which-key "Switch to window right")
+      "wJ" '(evil-window-move-very-bottom :which-key "Move window down")
+      "wK" '(evil-window-move-very-top :which-key "Move window up")
+      "wH" '(evil-window-move-far-left :which-key "Move window left")
+      "wL" '(evil-window-move-far-right :which-key "Move window right")
+
+      "l"  '(:ignore t :which-key "LSP")
+      "lf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
+      "le" '(flycheck-list-errors :which-key "List Errors")
+      "lk" '(lsp-ui-doc-toggle :which-key "Show item docs")
+      "lc" '(:ignore t :which-key "Code")
+      "lw" '(:ignore t :which-key "Workspace")
+      "lwr" '(lsp-workspace-restart :which-key "Restart workspace")
+      "lcp" '(check-parens :which-key "Check parenthesis errors")
+      "lca" '(lsp-execute-code-action :which-key "Perform code actions") 
+      "lr" '(lsp-rename :which-key "Rename")
+
+      "p"  '(:ignore t :which-key "Project")
+      "pf" '(counsel-projectile-find-file :which-key "Find File")
+      "pd" '(counsel-projectile-find-dir :which-key "Find Dir")
+      "pp" '(counsel-projectile-switch-project :which-key "Switch Project")
+      "pb" '(counsel-projectile-switch-to-buffer :which-key "Switch Buffer")
+      "po" '(counsel-projectile-org-capture :which-key "Org Capture")
+      "pg" '(counsel-projectile-rg :which-key "Ripgrep")
+
+      "h"  '(:ignore t :which-key "Helper")
+      "ht" '(counsel-load-theme :which-key "Load theme")
+
+      "g"  '(:ignore t :which-key "Magit")
+      "gg" '(magit-status :which-key "magit-status")
+      "gf" '(magit-fetch :which-key "magit-fetch") 
+      "gF" '(magit-fetch-all :which-key "magit-fetch-all") 
+      "gb" '(magit-branch :which-key "magit-branch")
+      "gp" '(magit-push-to-remote :which-key "magit-push")
+      "gs" '(magit-stage-modified :which-key "magit-stage-modified")
+      "gc" '(magit-commit :which-key "magit-commit")
+
+      "r"  '(:ignore t :which-key "Configuration changes")
+      "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
+      "re" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :which-key "Open init.el")
+
+      "oy" '(org-store-link :which-key "org-store-link")
+
+      "e"  '(eshell :which-key "Eshell")
+      "x"  '(counsel-M-x :which-key "M-x")
+      "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
+     )
+
+    ;; Org-mode specific bindings
+    (general-define-key
+     :states '(normal visual emacs)
+     :keymaps '(org-mode-map)
+     :prefix "SPC"
+     "of" '(org-open-at-point :which-key "org-open-at-point")
+     "oi" '(org-insert-link :which-key "org-insert-link")
+     )
+
+    ;; Rust specific bindings
+    (general-define-key
+     :states '(normal visual emacs)
+     :keymaps '(rustic-mode-map)
+     :prefix "SPC"
+     "cr" '(rustic-cargo-run :which-key "cargo run")
+     "cb" '(rustic-cargo-build-arguments '("--release") :which-key "cargo build --release")
+     "cc" '(rustic-cargo-build :which-key "cargo build")
+     "cd" '(rustic-cargo-build-doc :which-key "cargo doc")
+     "ch" '(lsp-rust-analyzer-inlay-hints-mode :which-key "toggle-inlay-hints") 
+     )
+  )
+#+END_SRC
