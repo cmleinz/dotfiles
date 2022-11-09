@@ -57,7 +57,9 @@ Evil-mode is that changes the default keybinding structure to mimic Vim-like bin
     (setq evil-want-C-i-jump nil)
     :config
     (evil-mode 1)
+    (evil-set-undo-system 'undo-redo)
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+    (define-key evil-normal-state-map (kbd "U") 'evil-redo)
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
     ;; Use visual line motions even outside of visual-line-mode buffers
@@ -559,7 +561,7 @@ out but is not necessary for most users
 By default the theme used is the booberry theme, however I've also included the doom-emacs themes since they are extremely high quality
 *** ENABLE Highlight Current Line
 #+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode t)
+  ;; (global-hl-line-mode t)
 #+END_SRC
 *** ENABLE Autothemer
 #+BEGIN_SRC emacs-lisp
