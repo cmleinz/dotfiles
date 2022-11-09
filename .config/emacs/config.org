@@ -97,6 +97,21 @@ files to a git repository. So we store the backups in a central location instead
         `((".*" ,temporary-file-directory t)))
 #+END_SRC
 * Basic Functionality
+** ENABLE Dashboard
+#+BEGIN_SRC emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :init
+    (setq dashboard-set-footer nil)
+    (setq dashboard-banner-logo-title nil)
+    (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
+    (setq dashboard-items '((recents . 5)
+                            (projects . 5)
+                            (agenda . 5)
+                            ))
+    :config
+    (dashboard-setup-startup-hook))
+#+END_SRC
 ** ENABLE Autoinsert
 Certain files, namely org and latex files tend to have some initial set of boilerplate
 associated with them. Autoinsert allows us to define a block of text to be automatically
@@ -378,10 +393,6 @@ Provides a fast way of commenting single lines, or blocks of code.
   (use-package evil-nerd-commenter
     :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 #+END_SRC
-** ENABLE Ripgrep
-#+BEGIN_SRC emacs-lisp
-  (use-package ripgrep)
-#+END_SRC
 ** ENABLE Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
@@ -414,6 +425,10 @@ HTML, LaTeX, etc.
            (html-mode-hook . rainbow-mode)
            (latex-mode-hook . rainbow-mode)
            (scss-mode-hook . rainbow-mode)))
+#+END_SRC
+** ENABLE Ripgrep
+#+BEGIN_SRC emacs-lisp
+  (use-package ripgrep)
 #+END_SRC
 ** ENABLE Smart Parenthesis
 Smart parenthesis automatically add the associated closing parenthesis (and brackets).
