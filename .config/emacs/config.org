@@ -557,6 +557,10 @@ out but is not necessary for most users
 #+END_SRC
 ** ENABLE Theme
 By default the theme used is the booberry theme, however I've also included the doom-emacs themes since they are extremely high quality
+*** ENABLE Highlight Current Line
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
+#+END_SRC
 *** ENABLE Autothemer
 #+BEGIN_SRC emacs-lisp
   (use-package autothemer
