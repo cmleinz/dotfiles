@@ -104,6 +104,19 @@ files to a git repository. So we store the backups in a central location instead
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 #+END_SRC
+** ENABLE Dired
+#+BEGIN_SRC emacs-lisp
+  (use-package dired
+    :ensure nil
+    :commands (dired dired-jump)
+    :custom ((dired-listing-switches "-agho --group-directories-first"))
+    :config
+    (evil-collection-define-key 'normal 'dired-mode-map
+      "h" 'dired-up-directory
+      "l" 'dired-find-file))
+  (use-package all-the-icons-dired
+    :hook (dired-mode . all-the-icons-dired-mode))
+#+END_SRC
 * Basic Functionality
 ** ENABLE Dashboard
 #+BEGIN_SRC emacs-lisp
@@ -537,6 +550,10 @@ patterns which are distracting
   (use-package fira-code-mode
     :custom (fira-code-mode-disabled-ligatures '("x", ":"))
     :hook prog-mode)                                         
+** ENABLE All the Icons
+#+BEGIN_SRC emacs-lisp
+  (use-package all-the-icons
+    :if (display-graphic-p))
 #+END_SRC
 ** ENABLE Minimal Setup
 *** ENABLE Block startup message
@@ -609,11 +626,12 @@ are configured in their respective use-package blocks, but most keybindings are 
 
       "b"  '(:ignore t :which-key "Buffers")
       "bb" '(counsel-switch-buffer :which-key "Switch buffer")
-      "bl" '(evil-next-buffer :which-key "Next buffer")
-      "bh" '(evil-prev-buffer :which-key "Next buffer")
+      "bn" '(evil-next-buffer :which-key "Next buffer")
+      "bN" '(evil-prev-buffer :which-key "Previous buffer")
       "bk" '(kill-buffer :which-key "Kill buffer")
 
       "f"  '(:ignore t :which-key "Files")
+      "fd" '(dired-jump :which-key "Open file folder")
       "fs" '(save-buffer :which-key "save-buffer")
       "ff" '(counsel-find-file :which-key "counsel-find-file")
       "fr" '(counsel-recentf :which-key "counsel-recentf")
@@ -679,6 +697,7 @@ are configured in their respective use-package blocks, but most keybindings are 
       "oy" '(org-store-link :which-key "org-store-link")
 
       "e"  '(eshell :which-key "Eshell")
+      "v"  '(vterm :which-key "vterm")
       "x"  '(counsel-M-x :which-key "M-x")
       "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
      )
