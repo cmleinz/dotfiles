@@ -34,7 +34,7 @@ set $right l
 set $accentcolor #64b55b
 set $accentdullcolor #ccad3d
 set $urgetcolor #cc627e
-set $terminal alacritty
+set $terminal kitty
 # orange: de8672
 # blue: 5294e2 
 
@@ -107,7 +107,7 @@ bindsym $mod+Return exec $terminal
 bindsym $mod+Shift+Return exec thunar 
 
 # Start browser
-bindsym $mod+q exec flatpak run io.gitlab.librewolf-community
+bindsym $mod+q exec firefox
 
 # Start Thunderbird
 bindsym $mod+m exec thunderbird 
@@ -277,11 +277,11 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/Background.jpg
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/Background.png
 exec_always --no-startup-id picom --config ~/.config/picom.config
-exec --no-startup-id polybar
+# exec --no-startup-id polybar
 exec --no-startup-id xinput set-prop 13 283 1
-exec --no-startup-id xrandr --output HDMI-A-0 --mode 2560x1440 --rate 143.91
+exec --no-startup-id xrandr --output DisplayPort-2 --mode 2560x1080 --rate 200.0
 
 # Startup Programs
 exec --no-startup-id caffeine

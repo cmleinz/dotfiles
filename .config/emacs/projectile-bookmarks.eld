@@ -1,0 +1,1 @@
+("~/Projects/async-server/" "~/dotfiles/" "~/Projects/bevy-testing/" "~/Projects/AdventofCode/" "~/CLionProjects/led-blink/" "~/CLionProjects/oop/" "~/dotfiles/.config/emacs/booberry-theme/" "~/booberry-theme/" "~/Projects/tokenizer/")

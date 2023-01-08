@@ -1,0 +1,24 @@
+cd ..
+rm -rf blink
+mkdir blink
+cp pico-sdk/external/pico_sdk_import.cmake blink/
+cd blink/
+ls
+mkdir build
+cd build/
+cmake ..
+PICO_SDK_PATH="/home/caleb/Projects/pico/pico-sdk"
+export PICO_SDK_PATH="/home/caleb/Projects/pico/pico-sdk"
+cmake ..
+ls
+make
+sudo pacman -S arm-none-eabi-newlib
+make
+ls
+cp blink.uf2 /run/media/caleb/RPI-RP2/
+cmake .. && make
+cp blink.uf2 /run/media/caleb/RPI-RP2/
+ls
+clang++ main.cpp 
+ls
+./a.out

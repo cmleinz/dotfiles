@@ -34,7 +34,7 @@ set $right l
 set $accentcolor #64b55b
 set $accentdullcolor #ccad3d
 set $urgetcolor #cc627e
-set $terminal alacritty
+set $terminal kitty
 # orange: de8672
 # blue: 5294e2 
 
@@ -277,7 +277,7 @@ mode "resize" {
 exec_always --no-startup-id picom --config ~/.config/picom.config
 
 # Set display output to 1440p 144Hz
-output HDMI-A-1 mode 2560x1440@143.96400Hz
+output DisplayPort-2 mode 2560x1080@200.0Hz
 
 # Set wallpaper to Nextcloud Wallpaper
 exec_always swaybg -i ~/.config/sway/Background.jpg -m fill

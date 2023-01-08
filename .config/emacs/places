@@ -1,0 +1,178 @@
+;;; -*- coding: utf-8; mode: lisp-data -*-
+(("/home/caleb/Projects/fft/" . 144)
+ ("/home/caleb/Projects/"
+  (dired-filename . "/home/caleb/Projects/async-server"))
+ ("/home/caleb/Projects/async-server/"
+  (dired-filename . "/home/caleb/Projects/async-server/src"))
+ ("/home/caleb/Projects/async-server/src/"
+  (dired-filename . "/home/caleb/Projects/async-server/src/main.rs"))
+ ("/home/caleb/Projects/async-server/src/main.rs" . 245)
+ ("/home/caleb/.config/emacs/config.org" . 11839)
+ ("/home/caleb/.config/kitty/kitty.conf" . 33125)
+ ("/home/caleb/Projects/bevy-testing/"
+  (dired-filename . "/home/caleb/Projects/bevy-testing/src"))
+ ("/home/caleb/Projects/bevy-testing/src/"
+  (dired-filename . "/home/caleb/Projects/bevy-testing/src/main.rs"))
+ ("/home/caleb/Projects/bevy-testing/src/main.rs" . 28)
+ ("/home/caleb/Projects/AdventofCode/2022/02/input" . 54)
+ ("/home/caleb/Projects/AdventofCode/2022/01/input" . 10480)
+ ("/home/caleb/Projects/AdventofCode/2022/02/" . 157)
+ ("/home/caleb/Projects/AdventofCode/2022/02/main.cpp" . 1814)
+ ("/home/caleb/Projects/AdventofCode/README.md" . 138)
+ ("/home/caleb/Projects/AdventofCode/2022/01/main.cpp" . 1211)
+ ("/home/caleb/Projects/AdventofCode/2022/01/"
+  (dired-filename . "/home/caleb/Projects/AdventofCode/2022/01/main.cpp"))
+ ("/home/caleb/Projects/AdventofCode/"
+  (dired-filename . "/home/caleb/Projects/AdventofCode/2022"))
+ ("/home/caleb/Projects/AdventofCode/2022/"
+  (dired-filename . "/home/caleb/Projects/AdventofCode/2022/03"))
+ ("/home/caleb/Projects/AdventofCode/2022/03/" . 159)
+ ("/home/caleb/Projects/AdventofCode/2022/03/input" . 10047)
+ ("/home/caleb/Projects/AdventofCode/2022/03/main.cpp" . 1195)
+ ("/home/caleb/CLionProjects/led-blink/main.cpp" . 93)
+ ("/home/caleb/CLionProjects/oop/main.cpp" . 839)
+ ("/home/caleb/CLionProjects/oop/.idea/"
+  (dired-filename . "/home/caleb/CLionProjects/oop/.idea/.gitignore"))
+ ("/home/caleb/CLionProjects/oop/cmake-build-debug/"
+  (dired-filename . "/home/caleb/CLionProjects/oop/cmake-build-debug/.cmake"))
+ ("/home/caleb/CLionProjects/oop/"
+  (dired-filename . "/home/caleb/CLionProjects/oop/a.out"))
+ ("/home/caleb/CLionProjects/testingcpp/"
+  (dired-filename . "/home/caleb/CLionProjects/testingcpp/cmake-build-debug"))
+ ("/home/caleb/CLionProjects/"
+  (dired-filename . "/home/caleb/CLionProjects/led-blink"))
+ ("/home/caleb/CLionProjects/led-blink/"
+  (dired-filename . "/home/caleb/CLionProjects/led-blink/main.cpp"))
+ ("/home/caleb/.config/emacs/"
+  (dired-filename . "/home/caleb/.config/emacs/config.org"))
+ ("/home/caleb/.config/emacs/elpa/"
+  (dired-filename . "/home/caleb/.config/emacs/elpa/annalist-20190929.207"))
+ ("/home/caleb/.config/emacs/eshell/"
+  (dired-filename . "/home/caleb/.config/emacs/eshell/history"))
+ ("/home/caleb/.config/emacs/snippets/org-mode/"
+  (dired-filename . "/home/caleb/.config/emacs/snippets/org-mode/src_elisp"))
+ ("/home/caleb/.config/emacs/snippets/"
+  (dired-filename . "/home/caleb/.config/emacs/snippets/org-mode"))
+ ("/home/caleb/.config/"
+  (dired-filename . "/home/caleb/.config/emacs"))
+ ("/home/caleb/"
+  (dired-filename . "/home/caleb/.icons"))
+ ("/home/caleb/.config/emacs/elpa/all-the-icons-dired-20220929.1135/all-the-icons-dired-autoloads.el" . 1170)
+ ("/home/caleb/.config/emacs/elpa/all-the-icons-20220929.2303/all-the-icons-autoloads.el" . 2226)
+ ("/home/caleb/dotfiles/.config/emacs/init.el" . 284)
+ ("/home/caleb/Nextcloud/Career/BlueOrigin/FirstDay.org" . 688)
+ ("/home/caleb/.config/emacs/init.el" . 1589)
+ ("/home/caleb/.config/emacs/elpa/ligature-20220808.1225/ligature-autoloads.el" . 3315)
+ ("/home/caleb/booberry-theme/booberry-theme.el" . 6056)
+ ("/home/caleb/dotfiles/.config/"
+  (dired-filename . "/home/caleb/dotfiles/.config/emacs"))
+ ("/home/caleb/dotfiles/.config/emacs/"
+  (dired-filename . "/home/caleb/dotfiles/.config/emacs/booberry-theme"))
+ ("/home/caleb/dotfiles/.config/emacs/booberry-theme/"
+  (dired-filename . "/home/caleb/dotfiles/.config/emacs/booberry-theme/booberry-theme.el"))
+ ("/home/caleb/dotfiles/.config/emacs/booberry-theme/booberry-theme.el" . 4823)
+ ("/home/caleb/Projects/tokenizer/"
+  (dired-filename . "/home/caleb/Projects/tokenizer/src"))
+ ("/home/caleb/Projects/tokenizer/src/"
+  (dired-filename . "/home/caleb/Projects/tokenizer/src/main.rs"))
+ ("/home/caleb/Projects/tokenizer/src/main.rs" . 572)
+ ("/home/caleb/CLionProjects/oop/notes.org" . 122)
+ ("/home/caleb/.config/emacs/elpa/counsel-projectile-20211004.2003/counsel-projectile-autoloads.el" . 5849)
+ ("/home/caleb/.config/emacs/elpa/ripgrep-20220520.1410/ripgrep-autoloads.el" . 579)
+ ("/home/caleb/.config/emacs/booberry-theme/"
+  (dired-filename . "/home/caleb/.config/emacs/booberry-theme/booberry-theme.el"))
+ ("/home/caleb/dotfiles/.config/emacs/config.org" . 12476)
+ ("/home/caleb/dotfiles/.config/emacs/config.el" . 8684)
+ ("/home/caleb/.config/emacs/elpa/projectile-20221105.1641/projectile-autoloads.el" . 22529)
+ ("/home/caleb/.config/emacs/elpa/dashboard-20220922.509/dashboard-autoloads.el" . 900)
+ ("/home/caleb/.config/emacs/snippets/org-mode/src_elisp" . 108)
+ ("/usr/share/emacs/28.2/lisp/custom.el.gz" . 63861)
+ ("/home/caleb/.config/emacs/elpa/eglot-20221020.1010/eglot-autoloads.el" . 2041)
+ ("/home/caleb/.local/share/applications/Dota 2.desktop" . 17)
+ ("/home/caleb/dotfiles/.config/alacritty/alacritty.yml" . 4190)
+ ("/home/caleb/Nextcloud/Org/"
+  (dired-filename . "/home/caleb/Nextcloud/Org/Todo.org"))
+ ("/home/caleb/Nextcloud/Org/Todo.org" . 135)
+ ("/home/caleb/Projects/pico/"
+  (dired-filename . "/home/caleb/Projects/pico/blink"))
+ ("/home/caleb/Projects/pico/blink/"
+  (dired-filename . "/home/caleb/Projects/pico/blink/blink.cpp"))
+ ("/home/caleb/Projects/pico/blink/blink.cpp" . 266)
+ ("/home/caleb/Projects/pico/blink/CMakeLists.txt" . 318)
+ ("/home/caleb/Nextcloud/Career/Applications_2022/"
+  (dired-filename . "/home/caleb/Nextcloud/Career/Applications_2022/Blue"))
+ ("/home/caleb/Nextcloud/Career/Applications_2022/Blue/"
+  (dired-filename . "/home/caleb/Nextcloud/Career/Applications_2022/Blue/Notes.org"))
+ ("/home/caleb/Nextcloud/Career/Applications_2022/Blue/Notes.org" . 5547)
+ ("/home/caleb/Projects/cpp-practice/"
+  (dired-filename . "/home/caleb/Projects/cpp-practice/main.cpp"))
+ ("/home/caleb/Projects/tokenizer/Cargo.toml" . 320)
+ ("/home/caleb/Projects/tokenizer/src/structures.rs" . 626)
+ ("/home/caleb/Projects/tokenizer/src/gui.rs" . 892)
+ ("/home/caleb/Projects/tokenizer/src/images.rs" . 314)
+ ("/home/caleb/Projects/cpp-practice/main.cpp" . 18)
+ ("/home/caleb/.config/emacs/elpa/vterm-20221019.641/vterm-autoloads.el" . 2334)
+ ("/home/caleb/.config/emacs/elpa/company-jedi-20200324.25/company-jedi-autoloads.el" . 625)
+ ("/home/caleb/.config/emacs/elpa/jedi-core-20210503.1315/jedi-core-autoloads.el" . 3806)
+ ("/home/caleb/.config/emacs/elpa/epc-20140610.534/epc-autoloads.el" . 572)
+ ("/home/caleb/.config/emacs/elpa/concurrent-20161229.330/concurrent-autoloads.el" . 397)
+ ("/home/caleb/.config/emacs/elpa/ctable-20210128.629/ctable-autoloads.el" . 379)
+ ("/home/caleb/.config/emacs/elpa/python-environment-20150310.853/python-environment-autoloads.el" . 768)
+ ("/home/caleb/.config/emacs/elpa/deferred-20170901.1330/deferred-autoloads.el" . 393)
+ ("/home/caleb/.config/emacs/elpa/lsp-ivy-20220831.1823/lsp-ivy-autoloads.el" . 904)
+ ("/home/caleb/.config/emacs/elpa/lsp-ui-20220924.850/lsp-ui-autoloads.el" . 2009)
+ ("/home/caleb/.config/emacs/elpa/lsp-mode-20221021.1732/lsp-mode-autoloads.el" . 29701)
+ ("/home/caleb/.config/emacs/elpa/ht-20220911.1544/ht-autoloads.el" . 353)
+ ("/home/caleb/.config/emacs/elpa/lv-20200507.1518/lv-autoloads.el" . 357)
+ ("/home/caleb/.config/emacs/elpa/rustic-20221017.1957/rustic-autoloads.el" . 16141)
+ ("/home/caleb/.config/emacs/elpa/rust-mode-20220919.1051/rust-mode-autoloads.el" . 1622)
+ ("/home/caleb/.config/emacs/elpa/markdown-mode-20221022.735/markdown-mode-autoloads.el" . 1689)
+ ("/home/caleb/.config/emacs/elpa/spinner-1.7.4/spinner-autoloads.el" . 2595)
+ ("/home/caleb/.config/emacs/elpa/xterm-color-20200605.2017/xterm-color-autoloads.el" . 2896)
+ ("/home/caleb/.config/emacs/elpa/blacken-20220922.2045/blacken-autoloads.el" . 1192)
+ ("/home/caleb/.config/emacs/elpa/elpy-20220922.2253/elpy-autoloads.el" . 2559)
+ ("/home/caleb/.config/emacs/elpa/company-20221007.2145/company-autoloads.el" . 12369)
+ ("/home/caleb/.config/emacs/elpa/highlight-indentation-20210221.1418/highlight-indentation-autoloads.el" . 2235)
+ ("/home/caleb/.config/emacs/elpa/pyvenv-20211014.707/pyvenv-autoloads.el" . 3208)
+ ("/home/caleb/.config/emacs/elpa/magit-20221022.2130/magit-autoloads.el" . 88453)
+ ("/home/caleb/.config/emacs/elpa/git-commit-20220918.2032/git-commit-autoloads.el" . 737)
+ ("/home/caleb/.config/emacs/elpa/magit-section-20220929.1014/magit-section-autoloads.el" . 523)
+ ("/home/caleb/.config/emacs/elpa/transient-20221020.1019/transient-autoloads.el" . 2864)
+ ("/home/caleb/.config/emacs/elpa/with-editor-20220810.1159/with-editor-autoloads.el" . 3965)
+ ("/home/caleb/.config/emacs/elpa/flycheck-20220928.1355/flycheck-autoloads.el" . 11131)
+ ("/home/caleb/.config/emacs/elpa/pkg-info-20150517.1143/pkg-info-autoloads.el" . 3865)
+ ("/home/caleb/.config/emacs/elpa/epl-20180205.2049/epl-autoloads.el" . 363)
+ ("/home/caleb/.config/emacs/elpa/centaur-tabs-20220926.1247/centaur-tabs-autoloads.el" . 3254)
+ ("/home/caleb/.config/emacs/elpa/powerline-20220122.1904/powerline-autoloads.el" . 2647)
+ ("/home/caleb/.config/emacs/elpa/smartparens-20220623.1523/smartparens-autoloads.el" . 12640)
+ ("/home/caleb/.config/emacs/elpa/yasnippet-snippets-20220713.1234/yasnippet-snippets-autoloads.el" . 727)
+ ("/home/caleb/.config/emacs/elpa/yasnippet-20200604.246/yasnippet-autoloads.el" . 2345)
+ ("/home/caleb/.config/emacs/elpa/diff-hl-20221007.2147/diff-hl-autoloads.el" . 13656)
+ ("/home/caleb/.config/emacs/elpa/tree-sitter-langs-20220925.1020/tree-sitter-langs-autoloads.el" . 2077)
+ ("/home/caleb/.config/emacs/elpa/tree-sitter-20220212.1632/tree-sitter-autoloads.el" . 8995)
+ ("/home/caleb/.config/emacs/elpa/tsc-20220212.1632/tsc-autoloads.el" . 625)
+ ("/home/caleb/.config/emacs/elpa/org-transclusion-1.3.0/org-transclusion-autoloads.el" . 5130)
+ ("/home/caleb/.config/emacs/elpa/fira-code-mode-20220531.1555/fira-code-mode-autoloads.el" . 2585)
+ ("/home/caleb/.config/emacs/elpa/org-bullets-20200317.1740/org-bullets-autoloads.el" . 1061)
+ ("/home/caleb/.config/emacs/elpa/evil-org-20221001.2335/evil-org-autoloads.el" . 1314)
+ ("/home/caleb/.config/emacs/elpa/evil-collection-20221007.1546/evil-collection-autoloads.el" . 5224)
+ ("/home/caleb/.config/emacs/elpa/annalist-20190929.207/annalist-autoloads.el" . 1588)
+ ("/home/caleb/.config/emacs/elpa/evil-20221017.2028/evil-autoloads.el" . 3128)
+ ("/home/caleb/.config/emacs/elpa/goto-chg-20220107.1733/goto-chg-autoloads.el" . 1978)
+ ("/home/caleb/.config/emacs/elpa/pdf-tools-20221007.1404/pdf-tools-autoloads.el" . 20643)
+ ("/home/caleb/.config/emacs/elpa/tablist-20200427.2205/tablist-autoloads.el" . 1390)
+ ("/home/caleb/.config/emacs/elpa/rainbow-mode-1.0.6/rainbow-mode-autoloads.el" . 1194)
+ ("/home/caleb/.config/emacs/elpa/rainbow-delimiters-20210515.1254/rainbow-delimiters-autoloads.el" . 1401)
+ ("/home/caleb/.config/emacs/elpa/general-20211203.120/general-autoloads.el" . 20678)
+ ("/home/caleb/.config/emacs/elpa/which-key-20220811.1616/which-key-autoloads.el" . 7295)
+ ("/home/caleb/.config/emacs/elpa/evil-nerd-commenter-20221015.245/evil-nerd-commenter-autoloads.el" . 5307)
+ ("/home/caleb/.config/emacs/elpa/doom-modeline-20221019.1821/doom-modeline-autoloads.el" . 2767)
+ ("/home/caleb/.config/emacs/elpa/shrink-path-20190208.1335/shrink-path-autoloads.el" . 411)
+ ("/home/caleb/.config/emacs/elpa/f-20220911.711/f-autoloads.el" . 427)
+ ("/home/caleb/.config/emacs/elpa/s-20220902.1511/s-autoloads.el" . 351)
+ ("/home/caleb/.config/emacs/elpa/minions-20220422.1615/minions-autoloads.el" . 1511)
+ ("/home/caleb/.config/emacs/elpa/compat-28.1.2.2/compat-autoloads.el" . 939)
+ ("/home/caleb/.config/emacs/elpa/counsel-20221015.936/counsel-autoloads.el" . 17123)
+ ("/home/caleb/.config/emacs/elpa/swiper-20220430.2247/swiper-autoloads.el" . 1381)
+ ("/home/caleb/.config/emacs/elpa/ivy-20220926.1250/ivy-autoloads.el" . 5334)
+ ("/home/caleb/.config/emacs/elpa/doom-themes-20220916.1056/doom-themes-autoloads.el" . 19963))

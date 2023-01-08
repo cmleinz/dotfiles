@@ -1,4 +1,4 @@
-theme = "boo_berry"
+theme = "gruvbox"
 
 [editor]
 auto-completion = true
@@ -6,32 +6,31 @@ auto-format = true
 auto-info = true
 auto-pairs = true
 completion-trigger-len = 2
+color-modes = true
+bufferline = "multiple"
 idle-timeout = 100
 mouse = false
+middle-click-paste = false
 line-number = "relative"
-rulers = [90]
-
-# [editor.whitespace.render]
-# space = "all"
-# tab = "all"
-# newline = "all"
-
-# [editor.whitespace.characters]
-# space = "·"
-# nbsp = "⍽"
-# tab = "→"
-# newline = "⏎"
+scrolloff = 5
+rulers = [80]
+gutters = ["diagnostics", "spacer", "line-numbers", "diff"]
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
 
+[editor.indent-guides]
+render = true
+character = "▏" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 0
+
 [editor.lsp]
 display-messages = true
 
 [editor.file-picker]
-hidden = true
+hidden = false
 
 [keys.normal]
-C-s = ":w"
+C-r = "repeat_last_motion"

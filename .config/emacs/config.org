@@ -38,7 +38,7 @@ load time caused by packages
    (package-refresh-contents))
 #+END_SRC 
 ** ENABLE Use-package Setup
-~use-package~ is used heavily throughout the configuration, we we need to ensure it
+~use-package~ is used heavily throughout the configuration, we need to ensure it
 is added to the system
 #+BEGIN_SRC emacs-lisp
   (require 'use-package)
@@ -403,13 +403,8 @@ Use Ivy for LSP completion
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 #+END_SRC
 ** ENABLE Magit
-Magit is a world-class git frontend. It is one of the best git clients full stop.
 #+BEGIN_SRC emacs-lisp
-  (use-package magit
-    :init
-    (message "Loading Magit!")
-    :config
-    (message "Loaded Magit!"))
+  (use-package magit)
 #+END_SRC
 ** ENABLE Nerd Commenter
 Provides a fast way of commenting single lines, or blocks of code.
@@ -531,8 +526,7 @@ LSP handled via rust-analyzer, autoformat on save, ensure tree-sitter mode
     (setq rustic-format-on-save t)
     (setq rustic-format-display-method 'ignore)
     (add-hook 'rustic-mode-hook 'cl/rustic-mode-hook)
-    (add-hook 'rust-mode-hook #'tree-sitter-mode)
-    (setq lsp-rust-analyzer-server-command '("~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer")))
+    (add-hook 'rust-mode-hook #'tree-sitter-mode))
 #+END_SRC
 ** ENABLE C/C++
 #+BEGIN_SRC emacs-lisp
@@ -541,15 +535,17 @@ LSP handled via rust-analyzer, autoformat on save, ensure tree-sitter mode
 ** ENABLE Font
 Set the font to FiraCode
 #+BEGIN_SRC emacs-lisp
-  (set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
+  ;; (set-face-attribute 'default nil :font "Fira Code Retina" :height 110)
+  (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 110)
 #+END_SRC
 *** ENABLE Ligatures
 Enable FiraCode ligatures when in programming buffers. Also disable certain
 patterns which are distracting
 #+BEGIN_SRC emacs-lisp
-  (use-package fira-code-mode
-    :custom (fira-code-mode-disabled-ligatures '("x", ":"))
-    :hook prog-mode)                                         
+ ;; (use-package fira-code-mode
+ ;;   :custom (fira-code-mode-disabled-ligatures '("x", ":"))
+ ;;   :hook prog-mode)
+#+END_SRC
 ** ENABLE All the Icons
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons

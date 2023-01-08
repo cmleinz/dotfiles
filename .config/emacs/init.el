@@ -25,7 +25,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(counsel-projectile projectile dashboard yasnippet-snippets which-key vterm use-package tree-sitter-langs smartparens rustic rainbow-mode rainbow-delimiters pdf-tools org-transclusion org-bullets minions magit lsp-ui lsp-ivy general flycheck fira-code-mode evil-org evil-nerd-commenter evil-collection elpy eglot doom-themes doom-modeline diff-hl counsel company-jedi centaur-tabs blacken autothemer)))
+   '(all-the-icons-dired ligature counsel-projectile projectile dashboard yasnippet-snippets which-key vterm use-package tree-sitter-langs smartparens rustic rainbow-mode rainbow-delimiters pdf-tools org-transclusion org-bullets minions magit lsp-ui lsp-ivy general flycheck fira-code-mode evil-org evil-nerd-commenter evil-collection elpy eglot doom-themes doom-modeline diff-hl counsel company-jedi centaur-tabs blacken autothemer)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

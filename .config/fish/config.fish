@@ -10,4 +10,4 @@ starship init fish | source
 fish_add_path ~/.local/bin
 fish_add_path ~/.emacs.d/bin
 fish_add_path ~/.cargo/bin
-
+set -x SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS 0
