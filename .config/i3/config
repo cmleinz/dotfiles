@@ -277,9 +277,9 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/Background.png
+exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/Background.jpg
 exec_always --no-startup-id picom --config ~/.config/picom.config
-# exec --no-startup-id polybar
+exec --no-startup-id ~/.config/polybar/launch.sh
 exec --no-startup-id xinput set-prop 13 283 1
 exec --no-startup-id xrandr --output DisplayPort-2 --mode 2560x1080 --rate 200.0
 
@@ -292,7 +292,7 @@ exec --no-startup-id conky -c ~/.config/conky/conkyrc
 exec --no-startup-id flatpak run com.nextcloud.desktopclient.nextcloud
 
 
-bindsym $mod+n mode "resize"
+#bindsym $mod+n mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -305,22 +305,22 @@ client.urgent           #2f343a $urgetcolor #ffffff $urgetcolor   $urgetcolor
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #2b2727
 
-#bindsym $mod+n bar mode toggle
+bindsym $mod+n bar mode toggle
 
-#bar {
-#        colors {
-#                active_workspace        $accentcolor #c4717e #c4717d #ffffff
-#                focused_workspace       $accentcolor $accentcolor #ffffff
-#                background #1d1f21
-		#background 3A3539
-#                }
-#        status_command i3status
-#        position top
-	#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-        #font pango:DejaVu Sans Mono 10, Awesome 10
-#	font pango:DejaVu Sans Mono, FontAwesome 12
-	#font pango:Monaco 10
-#}
+bar {
+        colors {
+                active_workspace        $accentcolor #c4717e #c4717d #ffffff
+                focused_workspace       $accentcolor $accentcolor #ffffff
+                background #1d1f21
+				background #3A3539
+                }
+        status_command i3status
+        position top
+	font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font pango:DejaVu Sans Mono 10, Awesome 10
+	font pango:DejaVu Sans Mono, FontAwesome 12
+	font pango:Monaco 10
+}
 
 #######################################################################
 # automatically start i3-config-wizard to offer the user to create a
