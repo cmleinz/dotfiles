@@ -26,8 +26,12 @@ render = true
 character = "▏" # Some characters that work well: "▏", "┆", "┊", "⸽"
 skip-levels = 0
 
+[editor.statusline]
+right = ["version-control", "diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+
 [editor.lsp]
 display-messages = true
+display-inlay-hints = false
 
 [editor.file-picker]
 hidden = false
