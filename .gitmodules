@@ -1,3 +1,6 @@
 [submodule ".config/emacs/booberry-theme"]
 	path = .config/emacs/booberry-theme
 	url = https://github.com/cmleinz/booberry-theme
+[submodule ".config/alacritty/themes"]
+	path = .config/alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme
