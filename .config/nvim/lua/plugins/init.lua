@@ -6,6 +6,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use 'eemed/sitruuna.vim'
   use 'neovim/nvim-lspconfig'
   use 'windwp/nvim-autopairs'
   use 'vim-airline/vim-airline'
