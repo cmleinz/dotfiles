@@ -1,3 +1,4 @@
 .config/emacs/*
+!.config/emacs/keys.el
 !.config/emacs/init.el
 !.config/emacs/early-init.el
