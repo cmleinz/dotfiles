@@ -162,6 +162,15 @@
 ;; Swiper for better search
 (use-package swiper)
 
+;; Treemacs integration
+(use-package hydra)
+(use-package treemacs
+  :after hydra)
+(use-package lsp-treemacs
+  :after treemacs
+  :config
+  (lsp-treemacs-sync-mode))
+
 ;; Neotree for navigation in a project
 (use-package neotree
   :config

@@ -65,6 +65,7 @@
     "cp" '(check-parens :which-key "Check parenthesis errors")
     "ca" '(lsp-execute-code-action :which-key "Perform code actions") 
     "cr" '(lsp-rename :which-key "Rename")
+    "cX" '(lsp-treemacs-errors-list :which-key "Errors List")
 
     "p"  '(:ignore t :which-key "Project")
     "pr" '(projectile-run-project :which-key "Run Project")
@@ -92,6 +93,7 @@
     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
 
     "oy" '(org-store-link :which-key "org-store-link")
+    "op" '(neotree-toggle :which-key "neotree-toggle")
 
     "e"  '(eshell :which-key "Eshell")
     "v"  '(vterm :which-key "vterm")
