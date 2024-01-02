@@ -97,7 +97,11 @@
   (evil-mode)
   :config
   (evil-set-undo-system 'undo-redo)
-  (define-key evil-normal-state-map (kbd "U") 'evil-redo))
+  (define-key evil-normal-state-map (kbd "U") 'evil-redo)
+  (define-key evil-normal-state-map (kbd "gh") 'evil-beginning-of-line)
+  (define-key evil-normal-state-map (kbd "gl") 'evil-end-of-line)
+  (define-key evil-normal-state-map (kbd "ga") 'evil-switch-to-windows-last-buffer)
+  (define-key evil-normal-state-map (kbd "ge") 'end-of-buffer))
 
 ;; Additional evil-mode bindings
 (use-package evil-collection
@@ -107,7 +111,7 @@
 
 (use-package which-key
   :config
-  (setq which-key-idle-delay 0.1)
+  (setq which-key-idle-delay 0.5)
   (which-key-mode))
 
 (use-package doom-modeline
@@ -161,7 +165,27 @@
 ;; Neotree for navigation in a project
 (use-package neotree
   :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)))
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  )
+
+(use-package org-bullets
+  :after org)
+
+(use-package org
+  :hook
+  (org-mode . visual-line-mode)
+  (org-mode . flyspell-mode)
+  (org-mode . org-bullets-mode)
+  :config
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
+  (setq org-todo-keyword-faces
+        '(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
+          ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
+  ;; Save Org buffers after refiling!
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+  )
 
 ;; Packages for programming
 
@@ -283,7 +307,15 @@
 (load "~/.config/emacs/keys.el")
 
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default)))
+   '("88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1" "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default)))
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )

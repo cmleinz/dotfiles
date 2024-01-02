@@ -1,3 +1,14 @@
+(defun neo-open-file-hide (full-path &optional arg)
+  "Open a file node and hides tree."
+  (neo-global--select-mru-window arg)
+  (find-file full-path)
+  (neotree-hide))
+
+(defun neotree-enter-hide (&optional arg)
+  "Enters file and hides neotree directly"
+  (interactive "P")
+  (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir))
+
 (use-package general
   :config
   (general-evil-setup t)
@@ -8,12 +19,13 @@
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
     "o"  '(:ignore t :which-key "Org")
-    "x"  '(execute-extended-command :which-key "M-x")
+    "x"  '(counsel-M-x :which-key "M-x")
+    "d"  '(neotree-toggle :which-key "neotree-toggle")
 
     "b"  '(:ignore t :which-key "Buffers")
     "bb" '(counsel-switch-buffer :which-key "Switch buffer")
     "bn" '(evil-next-buffer :which-key "Next buffer")
-    "bN" '(evil-prev-buffer :which-key "Previous buffer")
+    "bp" '(evil-prev-buffer :which-key "Previous buffer")
     "bk" '(kill-buffer :which-key "Kill buffer")
 
     "f"  '(:ignore t :which-key "Files")
@@ -23,8 +35,8 @@
     "fr" '(counsel-recentf :which-key "counsel-recentf")
 
     "w"  '(:ignore t :which-key "Windows")
-    "ws" '(evil-window-new :which-key "Split window horizontally")
-    "wv" '(evil-window-vnew :which-key "Split window vertically")
+    "ws" '(evil-window-split :which-key "Split window horizontally")
+    "wv" '(evil-window-vsplit :which-key "Split window vertically")
     "wd" '(evil-window-delete :which-key "Delete window")
     "wo" '(delete-other-windows :which-key "Delete other window")
     "wj" '(evil-window-down :which-key "Switch to window down")
@@ -78,13 +90,11 @@
 
     "r"  '(:ignore t :which-key "Configuration changes")
     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
-    "re" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :which-key "Open init.el")
 
     "oy" '(org-store-link :which-key "org-store-link")
 
     "e"  '(eshell :which-key "Eshell")
     "v"  '(vterm :which-key "vterm")
-    "x"  '(counsel-M-x :which-key "M-x")
     "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
    )
 
