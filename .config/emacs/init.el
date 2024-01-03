@@ -74,6 +74,19 @@
   scroll-conservatively 10000
   scroll-preserve-screen-position 1)
 
+;; Some weird dired issues with ls
+(when (eq system-type 'darwin)
+  (setq insert-directory-program "/opt/homebrew/bin/gls"))
+;; Lock files cause issues on emacs-mac
+(when (eq system-type 'darwin)
+  (setq create-lockfiles nil))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)))
+
 ;; use-package with Elpaca:
 (use-package dashboard
   :config
