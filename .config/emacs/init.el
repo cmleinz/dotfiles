@@ -240,9 +240,7 @@
   (prog-mode . lsp-deferred)
   :custom
   (lsp-diagnostics-flycheck-default-level 'warning)
-  (lsp-diagnostics-provider :none)
   (lsp-rust-analyzer-cargo-watch-command "clippy")
-  ;;(lsp-eldoc-render-all t)
   (lsp-idle-delay 0.5)
   (lsp-rust-analyzer-display-chaining-hints t)
   (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names t)
@@ -263,9 +261,6 @@
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-code-actions t)
   (lsp-ui-sideline--push-info nil)
-  ;; Read docs with hover
-  (lsp-ui-doc-enable t)
-  ;; (lsp-ui-doc-delay 2)
   ;; (lsp-ui-doc-show-with-cursor t)
   (lsp-ui-doc-position 'at-point)
   ;; Show file directory when peeking definitions
