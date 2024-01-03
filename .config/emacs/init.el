@@ -200,8 +200,7 @@
 (use-package neotree
   :config
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  )
+  (setq projectile-switch-project-action 'neotree-projectile-action))
 
 (use-package org-bullets
   :after org)
@@ -211,15 +210,17 @@
   (org-mode . visual-line-mode)
   (org-mode . flyspell-mode)
   (org-mode . org-bullets-mode)
+  (org-mode . org-indent-mode)
   :config
   (setq org-todo-keywords
         '((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
   (setq org-todo-keyword-faces
         '(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
           ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
+  ;; Add these files to the agenda
+  (setq org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
-  )
+  (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
 ;; Packages for programming
 
