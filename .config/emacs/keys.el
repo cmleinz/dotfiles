@@ -21,6 +21,7 @@
     "o"  '(:ignore t :which-key "Org")
     "x"  '(counsel-M-x :which-key "M-x")
     "d"  '(neotree-toggle :which-key "neotree-toggle")
+    "k"  '(lsp-ui-doc-glance :which-key "lsp-ui-doc-show")
 
     "b"  '(:ignore t :which-key "Buffers")
     "bb" '(counsel-switch-buffer :which-key "Switch buffer")
@@ -37,7 +38,7 @@
     "w"  '(:ignore t :which-key "Windows")
     "ws" '(evil-window-split :which-key "Split window horizontally")
     "wv" '(evil-window-vsplit :which-key "Split window vertically")
-    "wd" '(evil-window-delete :which-key "Delete window")
+    "wq" '(evil-window-delete :which-key "Delete window")
     "wo" '(delete-other-windows :which-key "Delete other window")
     "wj" '(evil-window-down :which-key "Switch to window down")
     "wk" '(evil-window-up :which-key "Switch to window up")
@@ -92,8 +93,9 @@
     "r"  '(:ignore t :which-key "Configuration changes")
     "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
 
+    "oa" '(org-agenda :which-key "org-agenda")
     "oy" '(org-store-link :which-key "org-store-link")
-    "op" '(neotree-toggle :which-key "neotree-toggle")
+    "op" '(neotree-projectile-action :which-key "neotree-toggle")
 
     "e"  '(eshell :which-key "Eshell")
     "v"  '(vterm :which-key "vterm")
