@@ -56,7 +56,12 @@
 (scroll-bar-mode -1)
 ; Use relative line numbers
 (setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode 1)
+
+(defun my-display-numbers-hook ()
+  (display-line-numbers-mode 1)
+  )
+(add-hook 'prog-mode-hook 'my-display-numbers-hook)
+(add-hook 'text-mode-hook 'my-display-numbers-hook)
 ; Auto pair brackets and parens
 (electric-pair-mode 1)
 ; Set display fill indicator column
