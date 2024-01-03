@@ -68,8 +68,11 @@
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
 ; Use scroll offset
-(setq scroll-step 1)
-(setq scroll-margin 5)
+(setq redisplay-dont-pause t
+  scroll-margin 5
+  scroll-step 1
+  scroll-conservatively 10000
+  scroll-preserve-screen-position 1)
 
 ;; use-package with Elpaca:
 (use-package dashboard
