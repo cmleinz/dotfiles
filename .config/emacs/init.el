@@ -47,7 +47,7 @@
 
 ;; Basic configuration tweaks
 ; Set font
-(set-face-attribute 'default nil :font "Iosevka Nerd Font Mono" :height 110)
+(set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130)
 ; Disable menu bar
 (menu-bar-mode -1)
 ; Disable tool bar
