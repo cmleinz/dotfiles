@@ -100,14 +100,17 @@
   (add-to-list 'dashboard-items '(projects . 5) t)
   (dashboard-setup-startup-hook))
 
-;; Modus themes
+;; Themes
+(use-package doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-gruvbox))
 (use-package modus-themes
   :ensure t
   :config
   (setq modus-themes-mode-line '(borderless))
   (setq modus-themes-bold-constructs t)
-  (setq modus-themes-paren-match '(bold))
-  (load-theme 'modus-operandi-tinted))
+  (setq modus-themes-paren-match '(bold)))
 
 ;; evil-mode configuration
 (use-package evil
@@ -343,7 +346,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1" "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default)))
+   '("e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2"
+     "88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1"
+     "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8"
+     default)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
