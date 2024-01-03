@@ -90,13 +90,14 @@
 ;; use-package with Elpaca:
 (use-package dashboard
   :config
-  (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
-  (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
-  (add-to-list 'dashboard-items '(agenda) t)
   (setq dashboard-set-footer nil)
   (setq dashboard-startup-banner 2)
   (setq dashboard-center-content t)
+  (setq dashboard-projects-backend 'projectile)
   (setq dashboard-projects-switch-function 'counsel-projectile-switch-project-by-name)
+  (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
+  (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
+  (add-to-list 'dashboard-items '(projects . 5) t)
   (dashboard-setup-startup-hook))
 
 ;; Modus themes
