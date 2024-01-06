@@ -74,12 +74,14 @@
   scroll-conservatively 10000
   scroll-preserve-screen-position 1)
 
+;; Avoid making backup files
+(setq make-backup-files nil)
 ;; Some weird dired issues with ls
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
 ;; Lock files cause issues on emacs-mac
-(when (eq system-type 'darwin)
-  (setq create-lockfiles nil))
+(setq create-lockfiles nil)
+
 
 (use-package exec-path-from-shell
   :ensure t
