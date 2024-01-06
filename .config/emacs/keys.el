@@ -58,7 +58,7 @@
     "cgN" '(lsp-ui-find-prev-reference :which-key "Find Previous Reference")
     "cgi" '(lsp-find-implementation :which-key "Find Implementation")
     "cgc" '(lsp-find-declaration :which-key "Find Declaration")
-    "ci" '(counsel-imenu :which-key "Counsel Imenu")
+    "ci" '(lsp-ui-imenu :which-key "Imenu")
     "cs" '(lsp-ui-find-workspace-symbol :which-key "Find Workspace Symbol")
     "cf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
     "ce" '(flycheck-list-errors :which-key "List Errors")

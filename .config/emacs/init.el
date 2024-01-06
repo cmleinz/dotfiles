@@ -67,6 +67,7 @@
 ; Set display fill indicator column
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 ; Use scroll offset
 (setq redisplay-dont-pause t
   scroll-margin 5
@@ -82,6 +83,11 @@
 ;; Lock files cause issues on emacs-mac
 (setq create-lockfiles nil)
 
+(use-package diminish
+  :ensure t
+  :config
+  (diminish 'auto-revert-mode)
+  (diminish 'eldoc-mode))
 
 (use-package exec-path-from-shell
   :ensure t
@@ -132,11 +138,13 @@
 
 ;; Additional evil-mode bindings
 (use-package evil-collection
+  :diminish evil-collection-unimpaired-mode
   :after evil
   :config
   (evil-collection-init))
 
 (use-package which-key
+  :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
@@ -171,6 +179,7 @@
 
 ;; Include fun icons in dired-mode
 (use-package all-the-icons-dired
+  :diminish all-the-icons-dired-mode
   :hook
   (dired-mode . all-the-icons-dired-mode))
 
@@ -190,7 +199,8 @@
 (use-package swiper)
 
 ;; Treemacs integration
-(use-package hydra)
+(use-package hydra
+  :diminish)
 (use-package treemacs
   :after hydra)
 (use-package lsp-treemacs
@@ -224,9 +234,19 @@
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
+;; Spotify playback
+(use-package smudge
+  :bind-keymap ("C-c ." . smudge-command-map)
+  :config
+  (global-smudge-remote-mode 1)
+  (setq smudge-oauth2-client-id "4e833643f65540e78869f1f689b1590e")
+  (setq smudge-oauth2-client-secret "bdf6c29920184600b95fb3a138272bbb")
+  (setq smudge-oauth2-callback-port "8088"))
+
 ;; Packages for programming
 
 (use-package tree-sitter
+  :diminish tree-sitter-mode
   :config
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
   :hook
@@ -236,6 +256,7 @@
   :after tree-sitter)
 
 (use-package lsp-mode
+  :diminish lsp-lens-mode
   :ensure t
   :commands lsp
   :hook
@@ -261,13 +282,11 @@
   ;; I might remove this option, it's quite messy/distracting
   (lsp-ui-sideline-show-hover nil)
   (lsp-ui-sideline-show-diagnostics t)
-  (lsp-ui-sideline-show-code-actions t)
   (lsp-ui-sideline--push-info nil)
   ;; (lsp-ui-doc-show-with-cursor t)
   (lsp-ui-doc-position 'at-point)
   ;; Show file directory when peeking definitions
   (lsp-ui-peek-show-directory t)
-  ;; (define-key lsp-ui-doc-frame-mode-map (kbd "ESC") 'lsp-ui-doc-hide)
   :hook
   (lsp-mode . lsp-ui-mode)
   :bind
@@ -278,6 +297,7 @@
 
 ;; Templating system
 (use-package yasnippet
+  :diminish yas-minor-mode
   :ensure
   :config
   (setq yas-snippet-dirs
@@ -291,6 +311,7 @@
 
 ;; Flycheck checker
 (use-package flycheck
+  :diminish flycheck-mode
   :hook
   (prog-mode . flycheck-mode))
 
@@ -304,8 +325,17 @@
 
 ;; Project managment
 (use-package projectile
+  :diminish
   :config
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-indexing-method 'alien)
+  (setq projectile-enable-caching t)
   (projectile-mode))
+
+;; Vterm
+(use-package vterm
+  :config
+  (setq vterm-shell "~/.cargo/bin/nu"))
 
 ;; Testing Eat
 (use-package eat
@@ -325,10 +355,17 @@
 
 ;; Code completion
 (use-package company
+  :diminish
   :config
   (setq company-idle-delay 0.2) ;; how long to wait until popup
   :hook
   (prog-mode . company-mode))
+
+;; Java integration
+(use-package lsp-java)
+
+;; Dockerfile integration
+(use-package dockerfile-mode)
 
 ;; May switch to rust mode
 (use-package rustic
@@ -354,3 +391,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
