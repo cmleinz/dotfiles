@@ -84,7 +84,7 @@
    "h"  '(:ignore t :which-key "Helper")
    "ht" '(consult-theme :which-key "Load theme")
    "hv" '(describe-variable :which-key "Describe variable")
-   "hv" '(describe-function :which-key "Describe function")
+   "hf" '(describe-function :which-key "Describe function")
 
    "g"  '(:ignore t :which-key "Magit")
    "gg" '(magit-status :which-key "magit-status")

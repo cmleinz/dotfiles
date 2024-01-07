@@ -99,6 +99,9 @@
 
 ;; Avoid making backup files
 (setq make-backup-files nil)
+;; Standardize autosave files to common directory
+(setq auto-save-file-name-transforms
+      `((".*" "~/.config/emacs/auto-save-list/" t)))
 ;; Some weird dired issues with ls
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
@@ -275,8 +278,6 @@
   :diminish lsp-lens-mode
   :ensure t
   :commands lsp
-  :hook
-  (prog-mode . lsp-deferred)
   :custom
   (lsp-diagnostics-flycheck-default-level 'warning)
   (lsp-rust-analyzer-cargo-watch-command "clippy")
@@ -424,7 +425,9 @@
 (use-package dockerfile-mode)
 
 ;; May switch to rust mode
-(use-package rustic)
+(use-package rustic
+  :hook
+  (rustic-mode . lsp-deferred))
 
 (load "~/.config/emacs/keys.el")
 
