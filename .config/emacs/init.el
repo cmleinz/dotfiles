@@ -73,9 +73,7 @@
 (setq display-line-numbers-type 'relative)
 
 (defun my-prog-mode-hook ()
-  (flyspell-prog-mode)
   (display-line-numbers-mode 1)
-  (flymake-mode 1)
   )
 ;; (add-to-list 'default-frame-alist '(alpha-background . 96))
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
@@ -207,10 +205,13 @@
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
+;; Add additional information to completions
 (use-package marginalia
   :init
   (marginalia-mode))
 (use-package consult)
+;; Integrate consult with lsp
+(use-package consult-lsp)
 
 ;; Treemacs integration
 (use-package hydra
