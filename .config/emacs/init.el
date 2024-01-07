@@ -91,6 +91,9 @@
 ;; Lock files cause issues on emacs-mac
 (setq create-lockfiles nil)
 
+(use-package dirvish
+  :init (dirvish-override-dired-mode))
+
 (use-package diminish
   :ensure t
   :config
@@ -159,17 +162,6 @@
   (setq doom-modeline-height 15)
   (setq doom-modeline-lsp t)
   (setq doom-modeline-minor-modes t))
-
-;; Add evil-based directory navigation to dired
-(use-package dired
-  :elpaca nil
-  :ensure nil
-  :commands (dired dired-jump)
-  :custom ((dired-listing-switches "-agho --group-directories-first"))
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-up-directory
-    "l" 'dired-find-file))
 
 ;; Use all the Icons
 (use-package all-the-icons
