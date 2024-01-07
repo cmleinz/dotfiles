@@ -61,7 +61,7 @@
    "ci" '(consult-imenu :which-key "Imenu")
    "cf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
    "ce" '(flycheck-list-errors :which-key "List Errors")
-   "ck" '(lsp-ui-doc-toggle :which-key "Show item docs")
+   "ck" '(lsp-describe-thing-at-point :which-key "Show item docs")
    "cp" '(check-parens :which-key "Check parenthesis errors")
    "ca" '(lsp-execute-code-action :which-key "Perform code actions") 
    "cr" '(lsp-rename :which-key "Rename")
