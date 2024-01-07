@@ -245,6 +245,10 @@
 
 ;; Packages for programming
 
+;; Apheleia for code formatting
+(use-package apheleia
+  :hook (prog-mode . apheleia-mode))
+
 (use-package tree-sitter
   :diminish tree-sitter-mode
   :config
@@ -368,10 +372,7 @@
 (use-package dockerfile-mode)
 
 ;; May switch to rust mode
-(use-package rustic
-  :config
-  (setq rustic-format-on-save t)
-  (setq rustic-format-display-method 'ignore))
+(use-package rustic)
 
 (load "~/.config/emacs/keys.el")
 
