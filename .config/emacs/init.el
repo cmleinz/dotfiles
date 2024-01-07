@@ -45,26 +45,31 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 
+(setq user-full-name "Caleb Leinz"
+      user-mail-address "caleb@leinz.io")
+
 ;; Basic configuration tweaks
-; Set font
+;; Set font
 (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130)
-; Disable menu bar
+;; Disable menu bar
 (menu-bar-mode -1)
-; Disable tool bar
+;; Disable tool bar
 (tool-bar-mode -1)
-; Disable scroll bar
+;; Disable scroll bar
+(setq-default cursor-type 'bar) 
 (scroll-bar-mode -1)
-; Use relative line numbers
+;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
 
 (defun my-display-numbers-hook ()
   (display-line-numbers-mode 1)
   )
+;; (add-to-list 'default-frame-alist '(alpha-background . 96))
 (add-hook 'prog-mode-hook 'my-display-numbers-hook)
 (add-hook 'text-mode-hook 'my-display-numbers-hook)
-; Auto pair brackets and parens
+;; Auto pair brackets and parens
 (electric-pair-mode 1)
-; Set display fill indicator column
+;; Set display fill indicator column
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
@@ -94,7 +99,7 @@
   :ensure t
   :config
   (when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize)))
 
 (use-package nerd-icons
   :custom
@@ -276,13 +281,10 @@
   :commands lsp-ui-mode
   :custom
   (lsp-ui-peek-always-show t)
-  ;; When peeking definitions it will look for them with lsp-peek, nice!
   (lsp-ui-peek-enable t)
-  ;; I might remove this option, it's quite messy/distracting
   (lsp-ui-sideline-show-hover nil)
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline--push-info nil)
-  ;; (lsp-ui-doc-show-with-cursor t)
   (lsp-ui-doc-position 'at-point)
   ;; Show file directory when peeking definitions
   (lsp-ui-peek-show-directory t)
@@ -344,7 +346,7 @@
 (use-package ripgrep)
 
 (use-package seq
-  :elpaca nil)
+  :ensure t)			      
 
 ;; Magit for obvious reasons
 (use-package magit
@@ -377,10 +379,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2"
-     "88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1"
-     "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8"
-     default)))
+   '("e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1" "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default))
+ '(org-agenda-files nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
