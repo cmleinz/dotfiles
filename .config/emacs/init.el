@@ -68,12 +68,13 @@
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
 (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
-; Use scroll offset
-(setq redisplay-dont-pause t
-  scroll-margin 5
-  scroll-step 1
-  scroll-conservatively 10000
-  scroll-preserve-screen-position 1)
+;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
+;; buffer from appearing
+(setq warning-minimum-level :error)
+;; Use scroll offset
+(pixel-scroll-precision-mode 1)
+(setq scroll-margin 5
+      scroll-preserve-screen-position 1)
 
 ;; Avoid making backup files
 (setq make-backup-files nil)
