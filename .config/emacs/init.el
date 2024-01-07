@@ -129,6 +129,8 @@
   (define-key evil-normal-state-map (kbd "ga") 'evil-switch-to-windows-last-buffer)
   (define-key evil-normal-state-map (kbd "ge") 'end-of-buffer))
 
+(use-package evil-nerd-commenter)
+
 ;; Additional evil-mode bindings
 (use-package evil-collection
   :diminish evil-collection-unimpaired-mode
