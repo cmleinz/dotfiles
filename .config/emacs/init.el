@@ -79,6 +79,8 @@
 ;; Use scroll offset
 (pixel-scroll-precision-mode 1)
 (setq scroll-margin 5
+      scroll-step 1
+      scroll-conservatively 10000
       scroll-preserve-screen-position 1)
 
 ;; Avoid making backup files
@@ -233,15 +235,6 @@
   (setq org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
-
-;; Spotify playback
-(use-package smudge
-  :bind-keymap ("C-c ." . smudge-command-map)
-  :config
-  (global-smudge-remote-mode 1)
-  (setq smudge-oauth2-client-id "4e833643f65540e78869f1f689b1590e")
-  (setq smudge-oauth2-client-secret "bdf6c29920184600b95fb3a138272bbb")
-  (setq smudge-oauth2-callback-port "8088"))
 
 ;; Packages for programming
 
