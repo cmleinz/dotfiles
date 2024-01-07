@@ -56,9 +56,12 @@
 (setq user-full-name "Caleb Leinz"
       user-mail-address "caleb@leinz.io")
 
+;; Set recentf mode
+(recentf-mode 1)
+
 ;; Basic configuration tweaks
 ;; Set font
-(set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130)
+(set-face-attribute 'default nil :font "Comic Code Ligatures" :height 110)
 ;; Disable menu bar
 (menu-bar-mode -1)
 ;; Disable tool bar
@@ -69,12 +72,13 @@
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
 
-(defun my-display-numbers-hook ()
+(defun my-prog-mode-hook ()
+  (flyspell-prog-mode)
   (display-line-numbers-mode 1)
+  (flymake-mode 1)
   )
 ;; (add-to-list 'default-frame-alist '(alpha-background . 96))
-(add-hook 'prog-mode-hook 'my-display-numbers-hook)
-(add-hook 'text-mode-hook 'my-display-numbers-hook)
+(add-hook 'prog-mode-hook 'my-prog-mode-hook)
 ;; Auto pair brackets and parens
 (electric-pair-mode 1)
 ;; Set display fill indicator column
@@ -142,6 +146,7 @@
   :config
   (evil-set-undo-system 'undo-redo)
   (define-key evil-normal-state-map (kbd "U") 'evil-redo)
+  (define-key evil-normal-state-map (kbd "/") 'consult-line)
   (define-key evil-normal-state-map (kbd "gh") 'evil-beginning-of-line)
   (define-key evil-normal-state-map (kbd "gl") 'evil-end-of-line)
   (define-key evil-normal-state-map (kbd "ga") 'evil-switch-to-windows-last-buffer)
@@ -186,19 +191,26 @@
   (dired-mode . all-the-icons-dired-mode))
 
 ;; Ivy for autocompletion
-(use-package ivy
+(use-package vertico
   :diminish
-  :config
-  (ivy-mode))
-
-;; Counsel for better versions of native emacs commands
-(use-package counsel)
-(use-package counsel-projectile
-  :after counsel
-  :after projectile)
-
-;; Swiper for better search
-(use-package swiper)
+  :init
+  (vertico-mode))
+(use-package savehist
+  :elpaca nil
+  :init
+  (savehist-mode))
+(use-package orderless
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+(use-package marginalia
+  :init
+  (marginalia-mode))
+(use-package consult)
 
 ;; Treemacs integration
 (use-package hydra
@@ -321,7 +333,7 @@
 (use-package projectile
   :diminish
   :config
-  (setq projectile-completion-system 'ivy)
+  (setq projectile-completion-system 'default)
   (setq projectile-indexing-method 'alien)
   (setq projectile-enable-caching t)
   (projectile-mode))
