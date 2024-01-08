@@ -101,7 +101,9 @@
 (setq make-backup-files nil)
 ;; Standardize autosave files to common directory
 (setq auto-save-file-name-transforms
-      `((".*" "~/.config/emacs/auto-save-list/" t)))
+      '((".*" "~/.config/emacs/auto-save-list/" t))
+      backup-directory-alist
+      '((".*", "~/.config/emacs/backups")))
 ;; Some weird dired issues with ls
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
@@ -195,6 +197,10 @@
   (setq vertico-cycle t)
   :init
   (vertico-mode))
+;; Posframe for Vertico  -- centers the frame for all vertico commands
+(use-package vertico-posframe
+  :init
+  (vertico-posframe-mode 1))
 (use-package savehist
   :elpaca nil
   :init
@@ -206,7 +212,8 @@
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+        completion-category-overrides '((file (styles partial-completion)))
+	read-buffer-completion-ignore-case t))
 ;; Add additional information to completions
 (use-package marginalia
   :init
@@ -392,7 +399,7 @@
             (lambda () (setq-local corfu-quit-at-boundary t
                                    corfu-quit-no-match t
                                    corfu-auto nil)
-              (corfu-mode))))
+	      (corfu-mode))))
 
 (use-package cape
   :ensure t
