@@ -128,17 +128,10 @@
   (nerd-icons-font-family  "Iosevka Nerd Font Mono")
   (doom-modeline-major-mode-icon t))
 
-;; Themes
-(use-package doom-themes
-  :ensure t
+;; Theme
+(use-package gruber-darker-theme
   :config
-  (load-theme 'doom-gruvbox))
-(use-package modus-themes
-  :ensure t
-  :config
-  (setq modus-themes-mode-line '(borderless))
-  (setq modus-themes-bold-constructs t)
-  (setq modus-themes-paren-match '(bold)))
+  (load-theme 'gruber-darker t))
 
 ;; evil-mode configuration
 (use-package evil
@@ -382,13 +375,13 @@
   (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
   ;; Optionally use TAB for cycling, default is `corfu-complete'.
   :bind (:map corfu-map
-              ("M-SPC"      . corfu-insert-separator)
-              ("TAB"        . corfu-next)
-              ([tab]        . corfu-next)
-              ("S-TAB"      . corfu-previous)
-              ([backtab]    . corfu-previous)
-              ("S-<return>" . corfu-insert)
-              ("RET"        . nil))
+	      ("M-SPC"      . corfu-insert-separator)
+	      ("TAB"        . corfu-next)
+	      ([tab]        . corfu-next)
+	      ("S-TAB"      . corfu-previous)
+	      ([backtab]    . corfu-previous)
+	      ("S-<return>" . corfu-insert)
+	      ("RET"        . nil))
 
   :init
   (global-corfu-mode)
@@ -437,7 +430,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1" "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default))
+   '("e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1" "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default))
  '(org-agenda-files nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
