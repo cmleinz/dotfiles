@@ -83,6 +83,7 @@
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
 ;; Auto pair brackets and parens
 (electric-pair-mode 1)
+(electric-indent-mode 1)
 ;; Set display fill indicator column
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
@@ -144,6 +145,7 @@
   (setq evil-split-window-below t)
   (evil-mode)
   :config
+  (setq evil-auto-indent t)
   (evil-set-undo-system 'undo-redo)
   (define-key evil-normal-state-map (kbd "U") 'evil-redo)
   (define-key evil-normal-state-map (kbd "/") 'consult-line)
@@ -278,6 +280,8 @@
   :diminish lsp-lens-mode
   :ensure t
   :commands lsp
+  :hook
+  (c-mode . lsp-deferred)
   :custom
   (lsp-diagnostics-flycheck-default-level 'warning)
   (lsp-rust-analyzer-cargo-watch-command "clippy")
