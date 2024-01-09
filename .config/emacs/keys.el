@@ -24,6 +24,7 @@
    "k"  '(lsp-ui-doc-glance :which-key "lsp-ui-doc-show")
 
    "b"  '(:ignore t :which-key "Buffers")
+   "bs" '(consult-line :which-key "Search buffer")
    "bb" '(consult-buffer :which-key "Switch buffer")
    "bn" '(evil-next-buffer :which-key "Next buffer")
    "bp" '(evil-prev-buffer :which-key "Previous buffer")

@@ -148,7 +148,6 @@
   (setq evil-auto-indent t)
   (evil-set-undo-system 'undo-redo)
   (define-key evil-normal-state-map (kbd "U") 'evil-redo)
-  (define-key evil-normal-state-map (kbd "/") 'consult-line)
   (define-key evil-normal-state-map (kbd "gh") 'evil-beginning-of-line)
   (define-key evil-normal-state-map (kbd "gl") 'evil-end-of-line)
   (define-key evil-normal-state-map (kbd "ga") 'evil-switch-to-windows-last-buffer)
@@ -270,6 +269,7 @@
 
 ;; Apheleia for code formatting
 (use-package apheleia
+  :diminish apheleia-mode
   :hook (prog-mode . apheleia-mode))
 
 (use-package tree-sitter
@@ -385,7 +385,7 @@
   (corfu-cycle t)                 ; Allows cycling through candidates
   (corfu-auto t)                  ; Enable auto completion
   (corfu-auto-prefix 2)
-  (corfu-auto-delay 0.3)
+  (corfu-auto-delay 0.2)
   (corfu-popupinfo-delay '(0.5 . 0.2))
   (corfu-preview-current 'insert) ; insert previewed candidate
   (corfu-preselect 'prompt)
@@ -437,7 +437,9 @@
 ;; May switch to rust mode
 (use-package rustic
   :hook
-  (rustic-mode . lsp-deferred))
+  (rustic-mode . lsp-deferred)
+  :config
+  (setq fill-column 100))
 
 (load "~/.config/emacs/keys.el")
 
