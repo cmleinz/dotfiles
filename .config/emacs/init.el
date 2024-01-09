@@ -234,6 +234,12 @@
   :config
   (lsp-treemacs-sync-mode))
 
+;; Dim inactive buffers
+(use-package dimmer
+  :config
+  (dimmer-configure-which-key)
+  (dimmer-mode t))
+
 ;; Neotree for navigation in a project
 (use-package neotree
   :config
