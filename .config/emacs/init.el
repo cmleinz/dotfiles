@@ -434,6 +434,12 @@
 ;; Dockerfile integration
 (use-package dockerfile-mode)
 
+;; Justfile integration
+(use-package just-mode)
+
+;; Nushell script mode
+(use-package nushell-mode)
+
 ;; May switch to rust mode
 (use-package rustic
   :hook
