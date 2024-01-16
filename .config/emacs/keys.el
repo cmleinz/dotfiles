@@ -25,6 +25,7 @@
 
    "b"  '(:ignore t :which-key "Buffers")
    "bs" '(consult-line :which-key "Search buffer")
+   "br" '(rename-buffer :which-key "Rename buffer")
    "bb" '(consult-buffer :which-key "Switch buffer")
    "bn" '(evil-next-buffer :which-key "Next buffer")
    "bp" '(evil-prev-buffer :which-key "Previous buffer")
@@ -81,6 +82,7 @@
    "pb" '(projectile-switch-to-buffer :which-key "Switch Buffer")
    "po" '(projectile-org-capture :which-key "Org Capture")
    "pg" '(consult-ripgrep :which-key "Ripgrep")
+   "pv" '(projectile-run-vterm :which-key "Project vterm")
 
    "h"  '(:ignore t :which-key "Helper")
    "ht" '(consult-theme :which-key "Load theme")
