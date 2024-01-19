@@ -147,6 +147,7 @@
   :config
   (setq evil-auto-indent t)
   (evil-set-undo-system 'undo-redo)
+  (define-key evil-normal-state-map (kbd "C") 'evil-mc-make-cursor-move-next-line)
   (define-key evil-normal-state-map (kbd "U") 'evil-redo)
   (define-key evil-normal-state-map (kbd "gh") 'evil-beginning-of-line)
   (define-key evil-normal-state-map (kbd "gl") 'evil-end-of-line)
@@ -161,6 +162,13 @@
   :after evil
   :config
   (evil-collection-init))
+
+;; Evil mode multi-cursor support
+(use-package evil-mc
+  :init
+  (global-evil-mc-mode 1)
+  :config
+  (setq evil-mc-mode-line-text-cursor-color t))
 
 (use-package which-key
   :diminish which-key-mode
