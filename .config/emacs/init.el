@@ -198,10 +198,7 @@
   (setq vertico-cycle t)
   :init
   (vertico-mode))
-;; Posframe for Vertico  -- centers the frame for all vertico commands
-(use-package vertico-posframe
-  :init
-  (vertico-posframe-mode 1))
+
 (use-package savehist
   :elpaca nil
   :init
@@ -219,6 +216,10 @@
 (use-package marginalia
   :init
   (marginalia-mode))
+
+;; Denote for note taking
+(use-package denote)
+
 (use-package consult)
 ;; Integrate consult with lsp
 (use-package consult-lsp)
