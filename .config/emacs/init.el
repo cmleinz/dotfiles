@@ -232,6 +232,10 @@
 ;; Integrate consult with lsp
 (use-package consult-lsp)
 
+(use-package consult-notes
+  :config
+  (consult-notes-denote-mode))
+
 ;; Treemacs integration
 (use-package hydra
   :diminish)

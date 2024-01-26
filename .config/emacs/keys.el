@@ -32,6 +32,7 @@
    "bk" '(kill-buffer :which-key "Kill buffer")
 
    "f"  '(:ignore t :which-key "Files")
+   "fn" '(consult-notes :which-key "Consult Notes")
    "fd" '(dired-jump :which-key "Open file folder")
    "fs" '(save-buffer :which-key "save-buffer")
    "ff" '(find-file :which-key "counsel-find-file")
