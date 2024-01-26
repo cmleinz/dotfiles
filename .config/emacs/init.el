@@ -232,6 +232,22 @@
 ;; Integrate consult with lsp
 (use-package consult-lsp)
 
+(use-package hl-todo
+  :elpaca (:type git
+		 :host github
+		 :repo "tarsius/hl-todo"
+		 :version elpaca--latest-tag
+		 :depth nil)
+  :config
+  (global-hl-todo-mode 1))
+
+(use-package magit-todos
+  :after magit
+  :config (magit-todos-mode 1))
+
+(use-package consult-todo
+  :after hl-todo)
+
 (use-package consult-notes
   :config
   (consult-notes-denote-mode))
