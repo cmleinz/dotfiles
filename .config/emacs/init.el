@@ -390,9 +390,7 @@
   :config
   (setq vterm-shell "~/.cargo/bin/nu"))
 
-;; Testing Eat
-(use-package eat
-  :ensure t)
+(use-package multi-vterm)
 
 ;; Search via ripgrep
 (use-package ripgrep)
