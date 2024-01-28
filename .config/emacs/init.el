@@ -458,7 +458,9 @@
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 
 ;; Java integration
-(use-package lsp-java)
+(use-package lsp-java
+  :hook
+  (java-mode . lsp))
 
 ;; Dockerfile integration
 (use-package dockerfile-mode)
