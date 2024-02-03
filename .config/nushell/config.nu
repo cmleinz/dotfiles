@@ -763,5 +763,16 @@ $env.config = {
 
 use ~/.cache/starship/init.nu
 
+def wallpaper_folder [] {
+    ls ~/Nextcloud/Pictures/Wallpapers/ | get name | each {|path| $path | split row '/' | last}
+}
+
+def wallpaper [path: string@wallpaper_folder] {
+    let path = $"~/Nextcloud/Pictures/Wallpapers/($path)"
+    hyprctl hyprpaper preload $path out+err> /dev/null
+    hyprctl hyprpaper wallpaper $"DP-3,($path)" out+err> /dev/null
+    let conf = "~/.config/hypr/hyprpaper.conf"
+    open $conf | lines | skip 1 | prepend $"$default = ($path)" | save -f $conf
+}
 alias hx = helix
 $env.PATH = ($env.PATH | append "~/.cargo/bin")
