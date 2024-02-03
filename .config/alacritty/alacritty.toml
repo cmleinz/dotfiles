@@ -1,0 +1,29 @@
+live_config_reload = true
+
+shell = "nu"
+
+import = [
+    "~/.config/alacritty/themes/gruvbox_material.toml"
+]
+
+[window]
+opacity = 0.85
+
+[font]
+size = 11.0
+
+[font.normal]
+family = "Comic Code Ligatures"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Alt"
+
+[scrolling]
+history = 10000
