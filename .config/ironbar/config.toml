@@ -1,0 +1,115 @@
+position = "top"
+anchor_to_edges = true
+height = 24
+popup_gap = 5
+
+[margin]
+bottom = 0
+left = 0
+right = 0
+top = 0
+
+[[start]]
+all_monitors = false
+type = "workspaces"
+
+[[center]]
+type = "focused"
+show_icon = true
+show_title = true
+icon_size = 18
+
+[[end]]
+type = "tray"
+
+[[end]]
+type = "clock"
+format = "%d/%m/%Y %H:%M"
+format_popup = "%H:%M:%S"
+locale = "en_US"
+
+# anchor_to_edges = false
+# icon_theme = "Paper"
+# position = "top"
+# show_icons = true
+# show_names = false
+# type = "launcher"
+
+# [[end]]
+# format = [
+#     "CPU {cpu_percent}% |",
+#     "MEM {memory_percent}% |",
+#     "DSC {disk_used:/} / {disk_total:/} GB",
+#     "NET {net_down:enp39s0} / {net_up:enp39s0} Mbps",
+# ]
+# type = "sys_info"
+
+# [end.interval]
+# cpu = 1
+# disks = 300
+# memory = 30
+# networks = 3
+# temps = 5
+
+# [[end]]
+# max_items = 3
+# type = "clipboard"
+
+# [end.truncate]
+# length = 50
+# mode = "end"
+
+# [[end]]
+# class = "power-menu"
+# tooltip = "Up: {{30000:uptime -p | cut -d ' ' -f2-}}"
+# type = "custom"
+
+# [[end.bar]]
+# label = ""
+# name = "power-btn"
+# on_click = "popup:toggle"
+# type = "button"
+
+# [[end.popup]]
+# orientation = "vertical"
+# type = "box"
+
+# [[end.popup.widgets]]
+# label = "Power menu"
+# name = "header"
+# type = "label"
+
+# [[end.popup.widgets]]
+# type = "box"
+
+# [[end.popup.widgets.widgets]]
+# class = "power-btn"
+# label = "<span font-size='40pt'></span>"
+# on_click = "!shutdown now"
+# type = "button"
+
+# [[end.popup.widgets.widgets]]
+# class = "power-btn"
+# label = "<span font-size='40pt'></span>"
+# on_click = "!reboot"
+# type = "button"
+
+# [[end.popup.widgets]]
+# label = "Uptime: {{30000:uptime -p | cut -d ' ' -f2-}}"
+# name = "uptime"
+# type = "label"
+
+# [[end]]
+# type = "clock"
+
+# [[start]]
+# all_monitors = false
+# type = "workspaces"
+
+# [start.name_map]
+# 1 = "1"
+# 2 = "2"
+# 3 = "3"
+# 4 = "4"
+# 5 = "5"
+# 6 = "6"
