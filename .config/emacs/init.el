@@ -1,6 +1,10 @@
 ;; Minimize garbage collection during startup
 (setq gc-cons-threshold most-positive-fixnum)
 
+;; Specify specific custom-file location to avoid flooding init.el
+(setq custom-file "~/.config/emacs/custom.el")
+(load custom-file t)
+
 ;; Lower threshold back to 8 MiB (default is 800kB)
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -79,7 +83,7 @@
 (defun my-prog-mode-hook ()
   (display-line-numbers-mode 1)
   )
-;; (add-to-list 'default-frame-alist '(alpha-background . 96))
+(add-to-list 'default-frame-alist '(alpha-background . 95))
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
 ;; Auto pair brackets and parens
 (electric-pair-mode 1)
