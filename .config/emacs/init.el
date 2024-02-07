@@ -70,31 +70,39 @@
   (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 110))
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130))
+
 ;; Disable menu bar
 (menu-bar-mode -1)
+
 ;; Disable tool bar
 (tool-bar-mode -1)
+
 ;; Disable scroll bar
 (setq-default cursor-type 'bar) 
 (scroll-bar-mode -1)
+
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
 
 (defun my-prog-mode-hook ()
   (display-line-numbers-mode 1)
-  )
+  (display-fill-column-indicator-mode 1))
+
 (add-to-list 'default-frame-alist '(alpha-background . 95))
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
+
 ;; Auto pair brackets and parens
 (electric-pair-mode 1)
 (electric-indent-mode 1)
+
 ;; Set display fill indicator column
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
-(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+
 ;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
 ;; buffer from appearing
 (setq warning-minimum-level :error)
+
 ;; Use scroll offset
 (pixel-scroll-precision-mode 1)
 (setq scroll-margin 5
@@ -104,19 +112,19 @@
 
 ;; Avoid making backup files
 (setq make-backup-files nil)
+
+;; Lock files cause issues on emacs-mac
+(setq create-lockfiles nil)
+
 ;; Standardize autosave files to common directory
 (setq auto-save-file-name-transforms
       '((".*" "~/.config/emacs/auto-save-list/" t))
       backup-directory-alist
       '((".*", "~/.config/emacs/backups")))
+
 ;; Some weird dired issues with ls
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
-;; Lock files cause issues on emacs-mac
-(setq create-lockfiles nil)
-
-(use-package dirvish
-  :init (dirvish-override-dired-mode))
 
 (use-package diminish
   :ensure t
@@ -150,13 +158,7 @@
   (evil-mode)
   :config
   (setq evil-auto-indent t)
-  (evil-set-undo-system 'undo-redo)
-  (define-key evil-normal-state-map (kbd "C") 'evil-mc-make-cursor-move-next-line)
-  (define-key evil-normal-state-map (kbd "U") 'evil-redo)
-  (define-key evil-normal-state-map (kbd "gh") 'evil-beginning-of-line)
-  (define-key evil-normal-state-map (kbd "gl") 'evil-end-of-line)
-  (define-key evil-normal-state-map (kbd "ga") 'evil-switch-to-windows-last-buffer)
-  (define-key evil-normal-state-map (kbd "ge") 'end-of-buffer))
+  (evil-set-undo-system 'undo-redo))
 
 (use-package evil-nerd-commenter)
 
@@ -173,6 +175,12 @@
   (global-evil-mc-mode 1)
   :config
   (setq evil-mc-mode-line-text-cursor-color t))
+
+;; Evil surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 
 (use-package which-key
   :diminish which-key-mode
@@ -215,6 +223,19 @@
   :elpaca nil
   :init
   (savehist-mode))
+
+;; Denote for note taking
+(use-package denote)
+
+(use-package consult)
+
+(use-package consult-todo
+  :after hl-todo)
+
+(use-package consult-notes
+  :config
+  (consult-notes-denote-mode))
+
 (use-package orderless
   :init
   ;; Configure a custom style dispatcher (see the Consult wiki)
@@ -224,17 +245,11 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))
 	read-buffer-completion-ignore-case t))
+
 ;; Add additional information to completions
 (use-package marginalia
   :init
   (marginalia-mode))
-
-;; Denote for note taking
-(use-package denote)
-
-(use-package consult)
-;; Integrate consult with lsp
-(use-package consult-lsp)
 
 (use-package hl-todo
   :elpaca (:type git
@@ -249,22 +264,11 @@
   :after magit
   :config (magit-todos-mode 1))
 
-(use-package consult-todo
-  :after hl-todo)
-
-(use-package consult-notes
-  :config
-  (consult-notes-denote-mode))
-
 ;; Treemacs integration
 (use-package hydra
   :diminish)
 (use-package treemacs
   :after hydra)
-(use-package lsp-treemacs
-  :after treemacs
-  :config
-  (lsp-treemacs-sync-mode))
 
 ;; Dim inactive buffers
 (use-package dimmer
@@ -298,59 +302,24 @@
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
+;; Built-in Eglot as LSP
+(use-package eglot
+  :elpaca nil)
+
 ;; Packages for programming
+(use-package compile
+  :elpaca nil)
 
 ;; Apheleia for code formatting
 (use-package apheleia
   :diminish apheleia-mode
   :hook (prog-mode . apheleia-mode))
 
-(use-package tree-sitter
-  :diminish tree-sitter-mode
-  :config
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-  :hook
-  (prog-mode . tree-sitter-mode))
-
-(use-package tree-sitter-langs
-  :after tree-sitter)
-
-(use-package lsp-mode
-  :diminish lsp-lens-mode
-  :ensure t
-  :commands lsp
-  :hook
-  (c-mode . lsp-deferred)
-  :custom
-  (lsp-diagnostics-flycheck-default-level 'warning)
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  (lsp-idle-delay 0.5)
-  (lsp-rust-analyzer-display-chaining-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names t)
-  (lsp-rust-analyzer-display-closure-return-type-hints t)
-  (lsp-rust-analyzer-display-parameter-hints t)
-  (lsp-rust-analyzer-display-reborrow-hints nil))
-
-(use-package lsp-ui
-  :after lsp-mode
-  :ensure
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-peek-always-show t)
-  (lsp-ui-peek-enable t)
-  (lsp-ui-sideline-show-hover nil)
-  (lsp-ui-sideline-show-diagnostics t)
-  (lsp-ui-sideline--push-info nil)
-  (lsp-ui-doc-position 'at-point)
-  ;; Show file directory when peeking definitions
-  (lsp-ui-peek-show-directory t)
-  :hook
-  (lsp-mode . lsp-ui-mode)
-  :bind
-  (:map lsp-mode-map
-        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-        ([remap xref-find-references] . lsp-ui-peek-find-references)))
-
+(use-package rust-ts-mode
+  :mode ("\\.rs\\'" . rust-ts-mode)
+  :elpaca nil
+  :hook (rust-ts-mode . eglot-ensure)
+  :config (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer"))))
 
 ;; Templating system
 (use-package yasnippet
@@ -365,12 +334,6 @@
 
 ;; Common templates
 (use-package yasnippet-snippets)
-
-;; Flycheck checker
-(use-package flycheck
-  :diminish flycheck-mode
-  :hook
-  (prog-mode . flycheck-mode))
 
 ;; Highlight diffs in gutter
 (use-package diff-hl
@@ -459,11 +422,6 @@
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 
-;; Java integration
-(use-package lsp-java
-  :hook
-  (java-mode . lsp))
-
 ;; Dockerfile integration
 (use-package dockerfile-mode)
 
@@ -473,27 +431,5 @@
 ;; Nushell script mode
 (use-package nushell-mode)
 
-;; May switch to rust mode
-(use-package rustic
-  :hook
-  (rustic-mode . lsp-deferred)
-  :config
-  (setq fill-column 100))
-
 (load "~/.config/emacs/keys.el")
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("e27c9668d7eddf75373fa6b07475ae2d6892185f07ebed037eedf783318761d7" "e3daa8f18440301f3e54f2093fe15f4fe951986a8628e98dcd781efbec7a46f2" "88267200889975d801f6c667128301af0bc183f3450c4b86138bfb23e8a78fb1" "0340489fa0ccbfa05661bc5c8c19ee0ff95ab1d727e4cc28089b282d30df8fc8" default))
- '(org-agenda-files nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 

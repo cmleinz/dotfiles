@@ -13,18 +13,54 @@
   :config
   (general-evil-setup t)
   (general-override-mode)
+
+  ;; EViL bindings
+  (general-define-key
+   :keymaps 'override
+   :states '(normal visual emacs)
+   "U"  'evil-redo
+   "C"  'evil-mc-make-cursor-move-next-line
+   )
+
+  (general-define-key
+   :states '(normal visual emacs)
+   :keymaps 'override
+   :prefix "g"
+   "a" 'evil-switch-to-windows-last-buffer
+   "h" 'evil-beginning-of-line
+   "l" 'evil-end-of-line
+   "g" 'beginning-of-buffer
+   "e" 'end-of-buffer
+   "d" 'xref-find-definitions
+   "r" 'xref-find-references
+   )
+
+  (general-define-key
+   :states '(normal visual emacs)
+   :keymaps 'override
+   :prefix "m"
+   "s" 'evil-surround-region
+   "r" 'evil-surround-change
+   "d" 'evil-surround-delete
+   )
+
   (general-define-key
    :states '(normal visual insert emacs)
    :keymaps 'override
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-   "o"  '(:ignore t :which-key "Org")
-   "x"  '(execute-extended-command :which-key "M-x")
-   "d"  '(neotree-toggle :which-key "neotree-toggle")
-   "k"  '(lsp-ui-doc-glance :which-key "lsp-ui-doc-show")
+   "e"  'eshell
+   "v"  'vterm
+   "/"  'evilnc-comment-or-uncomment-lines
+   "x"  'execute-extended-command
+   "d"  'flymake-show-buffer-diagnostics
+   "D"  'flymake-show-project-diagnostics
+   "s"  'consult-imenu
+   "S"  'consult-imenu-multi
+   "l"  'consult-line
+   "L"  'consult-line-multi
 
    "b"  '(:ignore t :which-key "Buffers")
-   "bs" '(consult-line :which-key "Search buffer")
    "br" '(rename-buffer :which-key "Rename buffer")
    "bb" '(consult-buffer :which-key "Switch buffer")
    "bn" '(evil-next-buffer :which-key "Next buffer")
@@ -32,11 +68,11 @@
    "bk" '(kill-buffer :which-key "Kill buffer")
 
    "f"  '(:ignore t :which-key "Files")
-   "fn" '(consult-notes :which-key "Consult Notes")
-   "fd" '(dired-jump :which-key "Open file folder")
-   "fs" '(save-buffer :which-key "save-buffer")
-   "ff" '(find-file :which-key "counsel-find-file")
-   "fr" '(consult-recent-file :which-key "counsel-recentf")
+   "fn" 'consult-notes
+   "fd" 'dired-jump
+   "fs" 'save-buffer
+   "ff" 'find-file
+   "fr" 'consult-recent-file
 
    "w"  '(:ignore t :which-key "Windows")
    "ws" '(evil-window-split :which-key "Split window horizontally")
@@ -55,19 +91,14 @@
    ;; LSP Mode bindings
    "c"  '(:ignore t :which-key "Code")
    "cg" '(:ignore t :which-key "goto")
-   "cgd" '(lsp-find-definition :which-key "Find Definition")
-   "cgr" '(lsp-find-references :which-key "Find References")
-   "cgn" '(lsp-ui-find-next-reference :which-key "Find Next Reference")
-   "cgN" '(lsp-ui-find-prev-reference :which-key "Find Previous Reference")
-   "cgi" '(lsp-find-implementation :which-key "Find Implementation")
-   "cgc" '(lsp-find-declaration :which-key "Find Declaration")
+   "cc"  '(recompile :which-key "recompile")
+   "cgd" '(eglot-find-typeDefinition :which-key "Find Definition")
    "ci" '(consult-imenu :which-key "Imenu")
-   "cf" '(lsp-ui-peek-find-definitions :which-key "Show function definition")
    "ce" '(flycheck-list-errors :which-key "List Errors")
-   "ck" '(lsp-describe-thing-at-point :which-key "Show item docs")
+   "ck" 'eldoc-doc-buffer
    "cp" '(check-parens :which-key "Check parenthesis errors")
-   "ca" '(lsp-execute-code-action :which-key "Perform code actions") 
-   "cr" '(lsp-rename :which-key "Rename")
+   "ca" 'eglot-code-actions
+   "cr" 'eglot-rename
    "cX" '(lsp-treemacs-errors-list :which-key "Errors List")
    "cs" '(consult-lsp-file-symbols :which-key "File Symbols")
    "cS" '(consult-lsp-symbols :which-key "Find Workspace Symbols")
@@ -102,13 +133,11 @@
    "r"  '(:ignore t :which-key "Configuration changes")
    "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
 
+   "o"  '(:ignore t :which-key "Org")
    "oa" '(org-agenda :which-key "org-agenda")
    "oy" '(org-store-link :which-key "org-store-link")
    "op" '(neotree-projectile-action :which-key "neotree-toggle")
 
-   "e"  '(eshell :which-key "Eshell")
-   "v"  '(vterm :which-key "vterm")
-   "/"  '(evilnc-comment-or-uncomment-lines :which-key "Un/Comment lines")
    )
 
   ;; Org-mode specific bindings
