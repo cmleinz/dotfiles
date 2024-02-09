@@ -318,7 +318,8 @@
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
-  :hook (rust-ts-mode . eglot-ensure)
+  :hook ((rust-ts-mode . eglot-ensure)
+	 (rust-ts-mode . eldoc-mode))
   :config (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer"))))
 
 ;; Templating system
