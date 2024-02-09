@@ -267,18 +267,13 @@
   (dimmer-configure-which-key)
   (dimmer-mode t))
 
-;; Neotree for navigation in a project
-(use-package neotree
-  :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (setq projectile-switch-project-action 'neotree-projectile-action))
-
 (use-package org-bullets
   :after org)
 
 (use-package org
   :hook
   (org-mode . visual-line-mode)
+  (org-mode . display-line-numbers-mode)
   (org-mode . flyspell-mode)
   (org-mode . org-bullets-mode)
   (org-mode . org-indent-mode)

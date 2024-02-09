@@ -1,14 +1,3 @@
-(defun neo-open-file-hide (full-path &optional arg)
-  "Open a file node and hides tree."
-  (neo-global--select-mru-window arg)
-  (find-file full-path)
-  (neotree-hide))
-
-(defun neotree-enter-hide (&optional arg)
-  "Enters file and hides neotree directly"
-  (interactive "P")
-  (neo-buffer--execute arg 'neo-open-file-hide 'neo-open-dir))
-
 (use-package general
   :config
   (general-evil-setup t)
@@ -135,8 +124,6 @@
    "o"  '(:ignore t :which-key "Org")
    "oa" '(org-agenda :which-key "org-agenda")
    "oy" '(org-store-link :which-key "org-store-link")
-   "op" '(neotree-projectile-action :which-key "neotree-toggle")
-
    )
 
   ;; Org-mode specific bindings
