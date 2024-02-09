@@ -5,7 +5,7 @@
 
   ;; EViL bindings
   (general-define-key
-   :keymaps 'override
+   :keymaps 'prog-mode-map
    :states '(normal visual emacs)
    "U"  'evil-redo
    "C"  'evil-mc-make-cursor-move-next-line
@@ -14,7 +14,7 @@
 
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps 'override
+   :keymaps 'prog-mode-map
    :prefix "g"
    "a" 'evil-switch-to-windows-last-buffer
    "h" 'evil-beginning-of-line
@@ -27,7 +27,7 @@
 
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps 'override
+   :keymaps 'prog-mode-map
    :prefix "m"
    "s" 'evil-surround-region
    "r" 'evil-surround-change
