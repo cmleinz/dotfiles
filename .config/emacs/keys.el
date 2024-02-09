@@ -20,6 +20,7 @@
    :states '(normal visual emacs)
    "U"  'evil-redo
    "C"  'evil-mc-make-cursor-move-next-line
+   "%"  'mark-whole-buffer
    )
 
   (general-define-key
@@ -105,16 +106,14 @@
    "cx" '(consult-lsp-diagnostics :which-key "Consult Diagnostics")
 
    "p"  '(:ignore t :which-key "Project")
-   "pr" '(projectile-run-project :which-key "Run Project")
-   "pc" '(projectile-compile-project :which-key "Compile Project")
-   "pi" '(consult-imenu-multi :which-key "Imenu Project")
-   "pf" '(projectile-find-file :which-key "Find File")
-   "pd" '(projectile-find-dir :which-key "Find Dir")
-   "pp" '(projectile-switch-project :which-key "Switch Project")
-   "pb" '(projectile-switch-to-buffer :which-key "Switch Buffer")
-   "po" '(projectile-org-capture :which-key "Org Capture")
-   "pg" '(consult-ripgrep :which-key "Ripgrep")
-   "pv" '(projectile-run-vterm :which-key "Project vterm")
+   "pc" 'project-compile
+   "pi" 'consult-imenu-multi
+   "pf" 'project-find-file
+   "pd" 'project-find-dir
+   "pp" 'project-switch-project
+   "pb" 'project-switch-to-buffer
+   "pg" 'consult-ripgrep
+   "pv" 'project-run-vterm
 
    "h"  '(:ignore t :which-key "Helper")
    "ht" '(consult-theme :which-key "Load theme")

@@ -334,15 +334,6 @@
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   :hook (prog-mode . diff-hl-mode))
 
-;; Project managment
-(use-package projectile
-  :diminish
-  :config
-  (setq projectile-completion-system 'default)
-  (setq projectile-indexing-method 'alien)
-  (setq projectile-enable-caching t)
-  (projectile-mode))
-
 ;; Vterm
 (use-package vterm
   :config
