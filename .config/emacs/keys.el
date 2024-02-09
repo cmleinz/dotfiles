@@ -86,13 +86,8 @@
    "ci" '(consult-imenu :which-key "Imenu")
    "ce" '(flycheck-list-errors :which-key "List Errors")
    "ck" 'eldoc-doc-buffer
-   "cp" '(check-parens :which-key "Check parenthesis errors")
    "ca" 'eglot-code-actions
    "cr" 'eglot-rename
-   "cX" '(lsp-treemacs-errors-list :which-key "Errors List")
-   "cs" '(consult-lsp-file-symbols :which-key "File Symbols")
-   "cS" '(consult-lsp-symbols :which-key "Find Workspace Symbols")
-   "cx" '(consult-lsp-diagnostics :which-key "Consult Diagnostics")
 
    "p"  '(:ignore t :which-key "Project")
    "pc" 'project-compile

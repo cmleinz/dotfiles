@@ -245,11 +245,6 @@
   :after magit
   :config (magit-todos-mode 1))
 
-;; Treemacs integration
-(use-package hydra)
-(use-package treemacs
-  :after hydra)
-
 ;; Dim inactive buffers
 (use-package dimmer
   :config
