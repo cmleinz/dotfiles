@@ -126,12 +126,6 @@
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
-(use-package diminish
-  :ensure t
-  :config
-  (diminish 'auto-revert-mode)
-  (diminish 'eldoc-mode))
-
 (use-package exec-path-from-shell
   :ensure t
   :config
@@ -164,7 +158,6 @@
 
 ;; Additional evil-mode bindings
 (use-package evil-collection
-  :diminish evil-collection-unimpaired-mode
   :after evil
   :config
   (evil-collection-init))
@@ -183,7 +176,6 @@
   (global-evil-surround-mode 1))
 
 (use-package which-key
-  :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
@@ -198,13 +190,11 @@
 
 ;; Include fun icons in dired-mode
 (use-package all-the-icons-dired
-  :diminish all-the-icons-dired-mode
   :hook
   (dired-mode . all-the-icons-dired-mode))
 
 ;; Vertico for minibuffer magic!
 (use-package vertico
-  :diminish
   :config
   (setq vertico-cycle t)
   :init
@@ -256,8 +246,7 @@
   :config (magit-todos-mode 1))
 
 ;; Treemacs integration
-(use-package hydra
-  :diminish)
+(use-package hydra)
 (use-package treemacs
   :after hydra)
 
@@ -304,7 +293,6 @@
 
 ;; Apheleia for code formatting
 (use-package apheleia
-  :diminish apheleia-mode
   :hook (prog-mode . apheleia-mode))
 
 (use-package rust-ts-mode
@@ -319,7 +307,6 @@
 
 ;; Templating system
 (use-package yasnippet
-  :diminish yas-minor-mode
   :ensure
   :config
   (setq yas-snippet-dirs
