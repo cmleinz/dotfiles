@@ -311,11 +311,11 @@
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
   :hook ((rust-ts-mode . eglot-ensure)
-	 (rust-ts-mode . eldoc-mode)
+	 (rust-ts-mode . eldoc-mode))
   :config
   (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
   (setq compile-command "cargo b")
-  (setq-default eglot-inlay-hints-mode nil)))
+  (setq-default eglot-inlay-hints-mode nil))
 
 ;; Templating system
 (use-package yasnippet
