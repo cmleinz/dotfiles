@@ -188,15 +188,6 @@
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
 
-(use-package doom-modeline
-  :after all-the-icons
-  :init
-  (doom-modeline-mode)
-  :config
-  (setq doom-modeline-height 15)
-  (setq doom-modeline-lsp t)
-  (setq doom-modeline-minor-modes t))
-
 ;; Use all the Icons
 (use-package all-the-icons
   :if (display-graphic-p)
@@ -433,3 +424,4 @@
 
 (load "~/.config/emacs/keys.el")
 
+(load "~/.config/emacs/modeline.el")
