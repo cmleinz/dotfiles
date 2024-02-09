@@ -292,9 +292,15 @@
 (use-package eglot
   :elpaca nil)
 
+(use-package ansi-color
+  :elpaca nil
+  :hook (compilation-filter . ansi-color-compilation-filter))
+
 ;; Packages for programming
 (use-package compile
-  :elpaca nil)
+  :elpaca nil
+  :config
+  (setq compilation-scroll-output t))
 
 ;; Apheleia for code formatting
 (use-package apheleia
@@ -305,7 +311,10 @@
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
   :hook (rust-ts-mode . eglot-ensure)
-  :config (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer"))))
+  :config
+  (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
+  (setq compile-command "cargo b")
+  (setq-default eglot-inlay-hints-mode nil))
 
 ;; Templating system
 (use-package yasnippet
