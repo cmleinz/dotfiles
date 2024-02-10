@@ -275,7 +275,7 @@
   (dimmer-configure-which-key)
   (dimmer-mode t))
 
-(use-package org-bullets
+(use-package org-modern
   :after org)
 
 (use-package org
@@ -283,7 +283,7 @@
   (org-mode . visual-line-mode)
   (org-mode . display-line-numbers-mode)
   (org-mode . flyspell-mode)
-  (org-mode . org-bullets-mode)
+  (org-mode . org-modern-mode)
   (org-mode . org-indent-mode)
   :config
   (setq org-todo-keywords
