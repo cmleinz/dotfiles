@@ -99,6 +99,30 @@
 (setq display-fill-column-indicator-column 100)
 (setq-default display-fill-column-indicator-column 100)
 
+(setq display-buffer-alist
+      '(
+	((or ((derived-mode . flymake-diagnostics-buffer-mode)
+	      (derived-mode . flymake-project-diagnostics-mode)
+	      (derived-mode . compilation-mode)) )
+	 ;; List of display functions
+	 (display-buffer-reuse-window
+	  display-buffer-at-bottom)
+	 ;; Parameters
+	 (window-height . 15)
+	 (dedicated . t)
+	 (body-function . select-window)
+	 )
+
+	("\\*eldoc*"
+	 (display-buffer-reuse-window
+	  display-buffer-at-bottom)
+	 (window-height . fit-window-to-buffer)
+	 (dedicated . t)
+	 (body-function . select-window)
+	 )
+	)
+      )
+
 ;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
 ;; buffer from appearing
 (setq warning-minimum-level :error)
