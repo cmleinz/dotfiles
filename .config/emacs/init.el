@@ -328,9 +328,18 @@
   :config
   ;; Disable inlay hints for rust. A bit too noisy
   (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
+  ;; Set the default compile command
+  (setq compile-command "cargo b")
   ;; Tell eglot to prefer rust-analyzer, normally prompts for rust-analyzer of rls
-  (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
-  (setq compile-command "cargo b"))
+					; Also configure rust analyzer
+  (add-to-list
+   'eglot-server-programs
+   '(
+     rust-ts-mode .
+     ("rust-analyzer" :initializationOptions (
+					      :check (:command "clippy")
+					      :cargo (:features "all")))))
+  )
 
 ;; Templating system
 (use-package yasnippet
