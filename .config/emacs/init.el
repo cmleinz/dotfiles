@@ -290,15 +290,23 @@
 (use-package apheleia
   :hook (prog-mode . apheleia-mode))
 
+(use-package java-ts-mode
+  :mode ("\\.java\\'" . java-ts-mode)
+  :elpaca nil
+  :hook ((java-ts-mode . eglot-ensure)
+	 (java-ts-mode . eldoc-mode)))
+
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
   :hook ((rust-ts-mode . eglot-ensure)
 	 (rust-ts-mode . eldoc-mode))
   :config
+  ;; Disable inlay hints for rust. A bit too noisy
+  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
+  ;; Tell eglot to prefer rust-analyzer, normally prompts for rust-analyzer of rls
   (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
-  (setq compile-command "cargo b")
-  (setq-default eglot-inlay-hints-mode nil))
+  (setq compile-command "cargo b"))
 
 ;; Templating system
 (use-package yasnippet

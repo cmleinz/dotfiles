@@ -41,9 +41,6 @@
 
 (force-mode-line-update)
 
-
-
-
 (setq-default mode-line-format
               '("%e"
                 my-modeline-buffer-name
@@ -79,10 +76,6 @@
   "Mode line construct to display the major mode.")
 
 (put 'my-modeline-major-mode 'risky-local-variable t)
-
-
-
-
 
 ;; Emacs 29, check the definition right below
 (mode-line-window-selected-p)
