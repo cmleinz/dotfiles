@@ -89,7 +89,6 @@
   (flyspell-prog-mode)
   (display-fill-column-indicator-mode 1))
 
-(add-to-list 'default-frame-alist '(alpha-background . 95))
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
 
 ;; Auto pair brackets and parens
@@ -326,11 +325,24 @@
   :hook (python-ts-mode . eglot-ensure)
   )
 
+(use-package c-ts-mode
+  :mode (("\\.c\\'" . c-ts-mode)
+	 ("\\.h\\'" . c-ts-mode))
+  :elpaca nil
+  :hook ((c-ts-mode . eglot-ensure)
+	 (c-ts-mode . eldoc-mode)))
+
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
   :elpaca nil
   :hook ((java-ts-mode . eglot-ensure)
 	 (java-ts-mode . eldoc-mode)))
+
+(use-package hs-ts-mode
+  :mode ("\\.hs\\'" . hs-ts-mode)
+  :elpaca nil
+  :hook ((hs-ts-mode . eglot-ensure)
+	 (hs-ts-mode . eldoc-mode)))
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
@@ -471,3 +483,5 @@
 (load "~/.config/emacs/keys.el")
 
 (load "~/.config/emacs/modeline.el")
+
+(load "~/.config/emacs/hare-mode.el")
