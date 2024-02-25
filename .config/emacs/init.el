@@ -86,6 +86,7 @@
 
 (defun my-prog-mode-hook ()
   (display-line-numbers-mode 1)
+  (flyspell-prog-mode)
   (display-fill-column-indicator-mode 1))
 
 (add-to-list 'default-frame-alist '(alpha-background . 95))
@@ -298,7 +299,10 @@
 
 ;; Built-in Eglot as LSP
 (use-package eglot
-  :elpaca nil)
+  :elpaca nil
+  :hook ((eglot-managed-mode . eldoc-mode)
+	 (eglot-managed-mode . flymake-mode))
+  )
 
 (use-package ansi-color
   :elpaca nil
