@@ -341,6 +341,21 @@
 					      :cargo (:features "all")))))
   )
 
+(use-package rst
+  :elpaca nil
+  :ensure t
+  :hook ((rst-mode . eglot-ensure)
+	 (rst-mode . display-line-numbers-mode)
+	 (rst-mode . flyspell-mode)
+	 (rst-mode . flymake-mode))
+  :config
+  ;; This is the only place I use RST currently
+  (setq compile-command "sphinx-build -j \"auto\" -a ./docs/source/ ./docs/source/_build/")
+  (add-to-list
+   'eglot-server-programs
+   '(rst-mode . ("esbonio")))
+  )
+
 ;; Templating system
 (use-package yasnippet
   :ensure
