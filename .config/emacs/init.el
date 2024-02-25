@@ -314,6 +314,14 @@
 (use-package apheleia
   :hook (prog-mode . apheleia-mode))
 
+(use-package pyvenv)
+
+(use-package python-ts-mode
+  :mode ("\\.py\\'" . python-ts-mode)
+  :elpaca nil
+  :hook (python-ts-mode . eglot-ensure)
+  )
+
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
   :elpaca nil
