@@ -309,6 +309,15 @@
 	 (eglot-managed-mode . flymake-mode))
   )
 
+(use-package eglot-booster
+  :elpaca (:type git
+		 :host github
+		 :repo "jdtsmith/eglot-booster"
+		 :depth nil)
+  :after eglot
+  :config
+  (eglot-booster-mode))
+
 (use-package ansi-color
   :elpaca nil
   :hook (compilation-filter . ansi-color-compilation-filter))
