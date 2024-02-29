@@ -27,6 +27,13 @@
 
   (general-define-key
    :states '(normal visual emacs)
+   :keymaps '(dired-mode-map)
+   "h" 'dired-up-directory
+   "l" 'dired-find-file
+   )
+
+  (general-define-key
+   :states '(normal visual emacs)
    :keymaps '(text-mode-map org-mode-map prog-mode-map)
    :prefix "m"
    "s" 'evil-surround-region
@@ -81,6 +88,7 @@
    ;; LSP Mode bindings
    "c"  '(:ignore t :which-key "Code")
    "cg" '(:ignore t :which-key "goto")
+   "cC"  '(compile :which-key "compile")
    "cc"  '(recompile :which-key "recompile")
    "cgd" '(eglot-find-typeDefinition :which-key "Find Definition")
    "ci" '(consult-imenu :which-key "Imenu")
