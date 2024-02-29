@@ -366,6 +366,8 @@
   :config
   ;; Disable inlay hints for rust. A bit too noisy
   (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
+  ;; Set the fill column
+  (setq-default fill-column 100)
   ;; Set the default compile command
   (setq compile-command "cargo b")
   ;; Tell eglot to prefer rust-analyzer, normally prompts for rust-analyzer of rls
