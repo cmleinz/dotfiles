@@ -6,7 +6,7 @@
   ;; EViL bindings
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(text-mode-map org-mode-map prog-mode-map)
+   :keymaps '(text-mode-map org-mode-map prog-mode-map conf-toml-mode-map eshell-mode-map)
    "U"  'evil-redo
    "C"  'evil-mc-make-cursor-move-next-line
    "%"  'mark-whole-buffer
@@ -14,7 +14,7 @@
 
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(text-mode-map org-mode-map prog-mode-map)
+   :keymaps '(text-mode-map org-mode-map prog-mode-map conf-toml-mode-map eshell-mode-map)
    :prefix "g"
    "a" 'evil-switch-to-windows-last-buffer
    "h" 'evil-beginning-of-line
@@ -34,7 +34,7 @@
 
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(text-mode-map org-mode-map prog-mode-map)
+   :keymaps '(text-mode-map org-mode-map prog-mode-map conf-toml-mode-map)
    :prefix "m"
    "s" 'evil-surround-region
    "r" 'evil-surround-change
@@ -46,8 +46,7 @@
    :keymaps 'override
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-   "e"  'eshell
-   "v"  'vterm
+   "e"  'eat
    "/"  'evilnc-comment-or-uncomment-lines
    "x"  'execute-extended-command
    "d"  'flymake-show-buffer-diagnostics
@@ -98,6 +97,7 @@
    "cr" 'eglot-rename
 
    "p"  '(:ignore t :which-key "Project")
+   "pe" 'eat-project
    "pc" 'project-compile
    "pi" 'consult-imenu-multi
    "pf" 'project-find-file
