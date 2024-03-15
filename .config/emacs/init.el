@@ -186,7 +186,7 @@
 
 (use-package nerd-icons
   :custom
-  (nerd-icons-font-family "Symbols Nerd Font Mono"))
+  (nerd-icons-font-family "ComicShannsMono Nerd Font Mono"))
 
 ;; evil-mode configuration
 (use-package evil
