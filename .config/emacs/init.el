@@ -65,11 +65,6 @@
 ;; Basic configuration tweaks
 ;; Set font
 (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
-;; (when (eq system-type 'gnu/linux)
-;;   (setq default-text-properties '(line-spacing 0.25 line-height 1.25))
-;;   (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 110))
-;; (when (eq system-type 'darwin)
-;;   (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130))
 
 ;; Disable menu bar
 (menu-bar-mode -1)
@@ -84,8 +79,10 @@
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
 
+(global-display-line-numbers-mode 1)
+
 (defun my-prog-mode-hook ()
-  (display-line-numbers-mode 1)
+  (setq truncate-lines t)
   (flyspell-prog-mode)
   (display-fill-column-indicator-mode 1))
 
@@ -179,14 +176,15 @@
   :config
   (setq doom-modeline-project-detection 'auto)
   (setq doom-modeline-icon t)
+  (setq doom-modeline-analogue-clock nil)
   (setq doom-modeline-lsp-icon t)
   (setq doom-modeline-modal t)
-  (setq doom-modeline-modal-modern-icon t)
-  )
+  (setq doom-modeline-modal-modern-icon t))
 
 (use-package nerd-icons
-  :custom
-  (nerd-icons-font-family "ComicShannsMono Nerd Font Mono"))
+  :config
+  (setq nerd-icons-scale-factor 1.1)
+  (setq nerd-icons-font-family "ComicShannsMono Nerd Font Mono"))
 
 ;; evil-mode configuration
 (use-package evil
@@ -419,12 +417,13 @@
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   :hook (prog-mode . diff-hl-mode))
 
-;; Vterm
-(use-package vterm
+(use-package eat
+  :init
+  (add-hook 'eshell-load-hook #'eat-eshell-mode)
+  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
   :config
-  (setq vterm-shell "~/.cargo/bin/nu"))
-
-(use-package multi-vterm)
+  (setq eat-shell "nu")
+  )
 
 ;; Search via ripgrep
 (use-package ripgrep)
@@ -447,7 +446,7 @@
   (corfu-auto t)                  ; Enable auto completion
   (corfu-auto-prefix 2)
   (corfu-auto-delay 0.2)
-  (corfu-popupinfo-delay '(0.5 . 0.2))
+  (corfu-popupinfo-delay '(0.3 . 0.2))
   (corfu-preview-current 'insert) ; insert previewed candidate
   (corfu-preselect 'prompt)
   (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
@@ -466,7 +465,7 @@
   (corfu-history-mode)
   (corfu-popupinfo-mode) ; Popup completion info
   :config
-  (add-hook 'eshell-mode-hook
+  (add-hook 'eat-mode-hook
             (lambda () (setq-local corfu-quit-at-boundary t
                                    corfu-quit-no-match t
                                    corfu-auto nil)
