@@ -260,6 +260,12 @@
         completion-category-overrides '((file (styles partial-completion)))
 	read-buffer-completion-ignore-case t))
 
+(use-package nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+
 ;; Add additional information to completions
 (use-package marginalia
   :init
