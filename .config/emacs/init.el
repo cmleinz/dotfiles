@@ -64,11 +64,12 @@
 
 ;; Basic configuration tweaks
 ;; Set font
-(when (eq system-type 'gnu/linux)
-  (setq default-text-properties '(line-spacing 0.25 line-height 1.25))
-  (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 110))
-(when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130))
+(set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
+;; (when (eq system-type 'gnu/linux)
+;;   (setq default-text-properties '(line-spacing 0.25 line-height 1.25))
+;;   (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 110))
+;; (when (eq system-type 'darwin)
+;;   (set-face-attribute 'default nil :font "Comic Code Ligatures" :height 130))
 
 ;; Disable menu bar
 (menu-bar-mode -1)
@@ -162,15 +163,30 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
 
-(use-package nerd-icons
-  :custom
-  (nerd-icons-font-family  "Iosevka Nerd Font Mono")
-  (doom-modeline-major-mode-icon t))
-
 ;; Theme
 (use-package gruber-darker-theme
   :config
   (load-theme 'gruber-darker t))
+
+(use-package doom-themes
+  :ensure t)
+
+(use-package doom-modeline
+  :ensure t
+  :init
+  (doom-modeline-mode 1)
+  (display-time-mode t)
+  :config
+  (setq doom-modeline-project-detection 'auto)
+  (setq doom-modeline-icon t)
+  (setq doom-modeline-lsp-icon t)
+  (setq doom-modeline-modal t)
+  (setq doom-modeline-modal-modern-icon t)
+  )
+
+(use-package nerd-icons
+  :custom
+  (nerd-icons-font-family "Symbols Nerd Font Mono"))
 
 ;; evil-mode configuration
 (use-package evil
@@ -209,19 +225,6 @@
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
-
-;; Use all the Icons
-(use-package all-the-icons
-  :if (display-graphic-p)
-  :commands all-the-icons-install-fonts
-  :init (unless (find-font (font-spec :name "all-the-icons"))
-	  (all-the-icons-install-fonts t)))
-
-
-;; Include fun icons in dired-mode
-(use-package all-the-icons-dired
-  :hook
-  (dired-mode . all-the-icons-dired-mode))
 
 ;; Vertico for minibuffer magic!
 (use-package vertico
@@ -308,15 +311,6 @@
   :hook ((eglot-managed-mode . eldoc-mode)
 	 (eglot-managed-mode . flymake-mode))
   )
-
-(use-package eglot-booster
-  :elpaca (:type git
-		 :host github
-		 :repo "jdtsmith/eglot-booster"
-		 :depth nil)
-  :after eglot
-  :config
-  (eglot-booster-mode))
 
 (use-package ansi-color
   :elpaca nil
@@ -472,6 +466,12 @@
                                    corfu-auto nil)
 	      (corfu-mode))))
 
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
 (use-package cape
   :ensure t
   :defer 10
@@ -499,7 +499,5 @@
 (use-package nushell-mode)
 
 (load "~/.config/emacs/keys.el")
-
-(load "~/.config/emacs/modeline.el")
 
 (load "~/.config/emacs/hare-mode.el")
