@@ -123,6 +123,7 @@
 
    "r"  '(:ignore t :which-key "Configuration changes")
    "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
+   "!"  'shell-command
 
    "o"  '(:ignore t :which-key "Org")
    "oa" '(org-agenda :which-key "org-agenda")
