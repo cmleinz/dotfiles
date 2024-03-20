@@ -73,15 +73,15 @@
    "ff" 'find-file
    "fr" 'consult-recent-file
 
-   "w"  '(:ignore t :which-key "Windows")
-   "ws" '(evil-window-split :which-key "Split window horizontally")
-   "wv" '(evil-window-vsplit :which-key "Split window vertically")
+   "w"  '(:ignore t :which-key "Window")
+   "ws" '(evil-window-split :which-key "H Split")
+   "wv" '(evil-window-vsplit :which-key "V Split")
    "wq" '(evil-window-delete :which-key "Delete window")
-   "wo" '(delete-other-windows :which-key "Delete other window")
-   "wj" '(evil-window-down :which-key "Switch to window down")
-   "wk" '(evil-window-up :which-key "Switch to window up")
-   "wh" '(evil-window-left :which-key "Switch to window left")
-   "wl" '(evil-window-right :which-key "Switch to window right")
+   "wo" '(delete-other-windows :which-key "Delete other windows")
+   "wj" '(evil-window-down :which-key "Switch window down")
+   "wk" '(evil-window-up :which-key "Switch window up")
+   "wh" '(evil-window-left :which-key "Switch window left")
+   "wl" '(evil-window-right :which-key "Switch window right")
    "wJ" '(evil-window-move-very-bottom :which-key "Move window down")
    "wK" '(evil-window-move-very-top :which-key "Move window up")
    "wH" '(evil-window-move-far-left :which-key "Move window left")
@@ -93,7 +93,6 @@
    "cC"  '(compile :which-key "compile")
    "cc"  '(recompile :which-key "recompile")
    "cgd" '(eglot-find-typeDefinition :which-key "Find Definition")
-   "ci" '(consult-imenu :which-key "Imenu")
    "ce" '(flycheck-list-errors :which-key "List Errors")
    "ck" 'eldoc-doc-buffer
    "ca" 'eglot-code-actions
@@ -113,6 +112,7 @@
 
    "h"  '(:ignore t :which-key "Helper")
    "ht" '(consult-theme :which-key "Load theme")
+   "hk" '(describe-key :which-key "Describe key")
    "hv" '(describe-variable :which-key "Describe variable")
    "hf" '(describe-function :which-key "Describe function")
 
