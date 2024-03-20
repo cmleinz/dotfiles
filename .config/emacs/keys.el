@@ -6,7 +6,7 @@
   ;; EViL bindings
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(text-mode-map org-mode-map prog-mode-map conf-toml-mode-map eshell-mode-map)
+   :keymaps 'override
    "U"  'evil-redo
    "C"  'evil-mc-make-cursor-move-next-line
    "%"  'mark-whole-buffer
@@ -14,7 +14,7 @@
 
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(text-mode-map org-mode-map prog-mode-map conf-toml-mode-map eshell-mode-map)
+   :keymaps 'override
    :prefix "g"
    "a" 'evil-switch-to-windows-last-buffer
    "h" 'evil-beginning-of-line
@@ -32,9 +32,10 @@
    "l" 'dired-find-file
    )
 
+
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(text-mode-map org-mode-map prog-mode-map conf-toml-mode-map)
+   :keymaps 'override
    :prefix "m"
    "s" 'evil-surround-region
    "r" 'evil-surround-change
@@ -142,15 +143,11 @@
    "oi" '(org-insert-link :which-key "org-insert-link")
    )
 
-  ;; Rust specific bindings
   (general-define-key
    :states '(normal visual emacs)
-   :keymaps '(rustic-mode-map)
-   :prefix "SPC"
-   "cr" '(rustic-cargo-run :which-key "cargo run")
-   "cb" '(rustic-cargo-build-arguments '("--release") :which-key "cargo build --release")
-   "cc" '(rustic-cargo-build :which-key "cargo build")
-   "cd" '(rustic-cargo-build-doc :which-key "cargo doc")
-   "ch" '(lsp-rust-analyzer-inlay-hints-mode :which-key "toggle-inlay-hints") 
+   :keymaps '(magit-mode-map)
+   "m" 'magit-merge
+   "g" '(:ignore t :which-key "G")
+   "gr" 'magit-refresh
    )
   )

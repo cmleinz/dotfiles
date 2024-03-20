@@ -199,6 +199,7 @@
   (evil-mode)
   :config
   (setq evil-auto-indent t)
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
   (evil-set-undo-system 'undo-redo))
 
 (use-package evil-nerd-commenter)
