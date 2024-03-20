@@ -64,7 +64,10 @@
 
 ;; Basic configuration tweaks
 ;; Set font
-(set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
+(if (eq system-type 'darwin)
+    (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 160)
+  (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
+  )
 
 ;; Disable menu bar
 (menu-bar-mode -1)
@@ -228,6 +231,7 @@
 (use-package vertico
   :config
   (setq vertico-cycle t)
+  (setq vertico-count 10)
   :init
   (vertico-mode))
 
@@ -258,6 +262,7 @@
         completion-category-overrides '((file (styles partial-completion)))
 	read-buffer-completion-ignore-case t))
 
+;; Display nerd-icons in margin for buffers
 (use-package nerd-icons-completion
   :after marginalia
   :config
@@ -335,27 +340,23 @@
 (use-package python-ts-mode
   :mode ("\\.py\\'" . python-ts-mode)
   :elpaca nil
-  :hook (python-ts-mode . eglot-ensure)
-  )
+  :hook (python-ts-mode . eglot-ensure))
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
 	 ("\\.h\\'" . c-ts-mode))
   :elpaca nil
-  :hook ((c-ts-mode . eglot-ensure)
-	 (c-ts-mode . eldoc-mode)))
+  :hook (c-ts-mode . eglot-ensure))
 
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
   :elpaca nil
-  :hook ((java-ts-mode . eglot-ensure)
-	 (java-ts-mode . eldoc-mode)))
+  :hook (java-ts-mode . eglot-ensure))
 
 (use-package hs-ts-mode
   :mode ("\\.hs\\'" . hs-ts-mode)
   :elpaca nil
-  :hook ((hs-ts-mode . eglot-ensure)
-	 (hs-ts-mode . eldoc-mode)))
+  :hook (hs-ts-mode . eglot-ensure))
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
@@ -390,12 +391,15 @@
 	 (rst-mode . display-fill-column-indicator-mode)
 	 (rst-mode . flymake-mode))
   :config
-  ;; This is the only place I use RST currently
   (setq-default fill-column 70)
-  (setq compile-command "sphinx-build -j \"auto\" -a ./docs/source/ ./docs/source/_build/")
-  (add-to-list
-   'eglot-server-programs
-   '(rst-mode . ("esbonio")))
+  (setq-local compilation-ask-about-save nil)
+  (setq compile-command "rm ./docs/source/_build/; sphinx-build -j \"auto\" -a ./docs/source/ ./docs/source/_build/")
+
+  (with-eval-after-load
+      'eglot (add-to-list
+	      'eglot-server-programs
+	      '(rst-mode . ("esbonio")))
+      )
   )
 
 ;; Templating system
@@ -425,6 +429,13 @@
   (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
   :config
   (setq eat-shell "nu")
+  ;; Fix flickering
+  (when (eq system-type 'darwin)
+    (setopt eat-very-visible-cursor-type '(t nil nil))
+    (setopt eat-default-cursor-type '(t nil nil))
+    (setopt eat-shell-prompt-annotation-correction-delay 0)
+    (setopt eat-shell-prompt-annotation-delay 0)
+    )
   )
 
 ;; Search via ripgrep
@@ -454,14 +465,10 @@
   (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
   ;; Optionally use TAB for cycling, default is `corfu-complete'.
   :bind (:map corfu-map
-	      ("M-SPC"      . corfu-insert-separator)
 	      ("TAB"        . corfu-next)
 	      ([tab]        . corfu-next)
 	      ("S-TAB"      . corfu-previous)
-	      ([backtab]    . corfu-previous)
-	      ("S-<return>" . corfu-insert)
-	      ("RET"        . nil))
-
+	      ("RET"        . corfu-insert))
   :init
   (global-corfu-mode)
   (corfu-history-mode)
@@ -473,6 +480,7 @@
                                    corfu-auto nil)
 	      (corfu-mode))))
 
+;; Add symbols to corfu code completions
 (use-package kind-icon
   :ensure t
   :after corfu
@@ -491,7 +499,6 @@
   :config
   ;; Silence then pcomplete capf, no errors or messages!
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
-
   ;; Ensure that pcomplete does not write to the buffer
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))

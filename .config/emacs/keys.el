@@ -49,8 +49,10 @@
    "e"  'eat
    "/"  'evilnc-comment-or-uncomment-lines
    "x"  'execute-extended-command
-   "d"  'flymake-show-buffer-diagnostics
-   "D"  'flymake-show-project-diagnostics
+   "d"  '(:ignore t :which-key "Diagnostics")
+   "dd" 'flymake-show-buffer-diagnostics
+   "dD" 'flymake-show-project-diagnostics
+   "D"  'consult-flymake
    "s"  'consult-imenu
    "S"  'consult-imenu-multi
    "l"  'consult-line
@@ -103,9 +105,10 @@
    "pf" 'project-find-file
    "pd" 'project-find-dir
    "pp" 'project-switch-project
-   "pb" 'project-switch-to-buffer
+   "pb" 'consult-project-buffer
    "pg" 'consult-ripgrep
    "pv" 'project-run-vterm
+   "pt" 'consult-todo-project
 
    "h"  '(:ignore t :which-key "Helper")
    "ht" '(consult-theme :which-key "Load theme")
