@@ -91,14 +91,6 @@
 
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
 
-;; Auto pair brackets and parens
-(setq electric-pair-pairs
-      '(
-        (?\( . ?\))
-        (?\{ . ?\})
-        (?\[ . ?\])
-        (?< . ?>)
-        ))
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 
@@ -227,6 +219,9 @@
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
+
+;; Visual undo tree
+(use-package vundo)
 
 ;; Vertico for minibuffer magic!
 (use-package vertico
