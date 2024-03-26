@@ -131,6 +131,8 @@
 
    "o"  '(:ignore t :which-key "Org")
    "oa" '(org-agenda :which-key "org-agenda")
+   "oc" 'org-clock-in
+   "oC" 'org-clock-out
    "oy" '(org-store-link :which-key "org-store-link")
    )
 

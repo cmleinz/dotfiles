@@ -285,12 +285,6 @@
   :after magit
   :config (magit-todos-mode 1))
 
-;; Dim inactive buffers
-(use-package dimmer
-  :config
-  (dimmer-configure-which-key)
-  (dimmer-mode t))
-
 (use-package org-modern
   :after org)
 
@@ -391,7 +385,6 @@
   :config
   (setq-default fill-column 70)
   (setq-local compilation-ask-about-save nil)
-  (setq compile-command "rm ./docs/source/_build/; sphinx-build -j \"auto\" -a ./docs/source/ ./docs/source/_build/")
 
   (with-eval-after-load
       'eglot (add-to-list
