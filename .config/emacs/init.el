@@ -160,6 +160,8 @@
   :config
   (load-theme 'gruber-darker t))
 
+(use-package ef-themes)
+
 (use-package doom-themes
   :ensure t)
 
