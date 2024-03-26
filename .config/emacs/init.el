@@ -410,6 +410,7 @@
   (setq yas-snippet-dirs
         '("~/.config/emacs/snippets/"))
   (yas-reload-all)
+  (setq yas-triggers-in-field t)
   :hook
   (prog-mode . yas-minor-mode))
 
