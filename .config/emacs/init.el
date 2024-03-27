@@ -327,6 +327,11 @@
 (use-package apheleia
   :hook (prog-mode . apheleia-mode))
 
+(use-package hare-mode
+  :elpaca nil
+  :load-path "~/.config/emacs/hare-mode.el"
+  :mode ("\\.ha\\'" . hare-mode))
+
 (use-package pyvenv)
 
 (use-package python-ts-mode
@@ -505,5 +510,3 @@
 (use-package nushell-mode)
 
 (load "~/.config/emacs/keys.el")
-
-(load "~/.config/emacs/hare-mode.el")
