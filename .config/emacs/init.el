@@ -360,6 +360,17 @@
   :elpaca nil
   :hook (hs-ts-mode . eglot-ensure))
 
+(use-package go-ts-mode
+  :mode ("\\.go\\'" . go-ts-mode)
+  :elpaca nil
+  :hook (go-ts-mode . eglot-ensure))
+
+(use-package odin-mode
+  :elpaca (:type git
+		 :host github
+		 :repo "mattt-b/odin-mode"
+		 :depth nil))
+
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
