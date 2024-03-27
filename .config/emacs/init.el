@@ -150,10 +150,24 @@
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
 (use-package exec-path-from-shell
-  :ensure t
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+(use-package dashboard
+  :elpaca t
+  :config
+  (setq dashboard-banner-logo-title nil)
+  (setq dashboard-center-content t)
+  (setq dashboard-startup-banner 2)
+  (setq dashboard-items '((projects . 5)
+                          (recents . 5)
+                          (bookmarks . 5)))
+  (setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
+  (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
+  (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
+  (dashboard-setup-startup-hook))
 
 ;; Theme
 (use-package gruber-darker-theme)
