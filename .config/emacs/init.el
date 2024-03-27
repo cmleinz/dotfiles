@@ -156,11 +156,11 @@
     (exec-path-from-shell-initialize)))
 
 ;; Theme
-(use-package gruber-darker-theme
-  :config
-  (load-theme 'gruber-darker t))
+(use-package gruber-darker-theme)
 
-(use-package ef-themes)
+(use-package ef-themes
+  :config
+  (load-theme 'ef-autumn t))
 
 (use-package doom-themes
   :ensure t)
