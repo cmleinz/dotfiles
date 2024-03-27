@@ -332,6 +332,11 @@
   :load-path "~/.config/emacs/hare-mode.el"
   :mode ("\\.ha\\'" . hare-mode))
 
+(use-package protobuf-mode
+  :elpaca nil
+  :load-path "~/.config/emacs/protobuf-mode.el"
+  :mode ("\\.proto\\'" . protobuf-mode))
+
 (use-package pyvenv)
 
 (use-package python-ts-mode
