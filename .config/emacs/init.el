@@ -286,7 +286,7 @@
   :elpaca (:type git
 		 :host github
 		 :repo "tarsius/hl-todo"
-		 :version elpaca--latest-tag
+		 :version elpaca-latest-tag
 		 :depth nil)
   :config
   (global-hl-todo-mode 1))
