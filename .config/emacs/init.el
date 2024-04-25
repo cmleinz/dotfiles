@@ -94,10 +94,6 @@
 (electric-pair-mode 1)
 (electric-indent-mode 1)
 
-;; Set display fill indicator column
-(setq display-fill-column-indicator-column 100)
-(setq-default display-fill-column-indicator-column 100)
-
 (setq display-buffer-alist
       '(
 	((or ((derived-mode . flymake-diagnostics-buffer-mode)
@@ -388,12 +384,11 @@
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
-  :hook (rust-ts-mode . eglot-ensure)
+  :hook ((rust-ts-mode . eglot-ensure)
+	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
   ;; Disable inlay hints for rust. A bit too noisy
   (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
-  ;; Set the fill column
-  (setq-default fill-column 100)
   ;; Set the default compile command
   (setq compile-command "cargo b")
   ;; Tell eglot to prefer rust-analyzer, normally prompts for rust-analyzer of rls
@@ -416,9 +411,9 @@
 	 (rst-mode . display-line-numbers-mode)
 	 (rst-mode . flyspell-mode)
 	 (rst-mode . display-fill-column-indicator-mode)
+	 (rst-mode . (lambda () (set-fill-column 80)))
 	 (rst-mode . flymake-mode))
   :config
-  (setq-default fill-column 70)
   (setq-local compilation-ask-about-save nil)
 
   (with-eval-after-load
@@ -467,6 +462,10 @@
 
 ;; Search via ripgrep
 (use-package ripgrep)
+
+(use-package vterm
+  :config
+  (setq vterm-shell "nu"))
 
 (use-package seq
   :ensure t)			      
