@@ -47,7 +47,7 @@
    :keymaps 'override
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-   "e"  'eat
+   "e"  'eshell
    "/"  'evilnc-comment-or-uncomment-lines
    "x"  'execute-extended-command
    "d"  '(:ignore t :which-key "Diagnostics")
@@ -97,9 +97,10 @@
    "ck" 'eldoc-doc-buffer
    "ca" 'eglot-code-actions
    "cr" 'eglot-rename
+   "cR" 'eglot-signal-didChangeConfiguration
 
    "p"  '(:ignore t :which-key "Project")
-   "pe" 'eat-project
+   "pe" 'project-eshell
    "pc" 'project-compile
    "pi" 'consult-imenu-multi
    "pf" 'project-find-file
@@ -109,6 +110,7 @@
    "pg" 'consult-ripgrep
    "pv" 'project-run-vterm
    "pt" 'consult-todo-project
+   "p!" 'project-shell-command
 
    "h"  '(:ignore t :which-key "Helper")
    "ht" '(consult-theme :which-key "Load theme")
@@ -127,6 +129,8 @@
 
    "r"  '(:ignore t :which-key "Configuration changes")
    "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
+   "re" 'eval-buffer
+
    "!"  'shell-command
 
    "o"  '(:ignore t :which-key "Org")
@@ -143,6 +147,7 @@
    :prefix "SPC"
    "of" '(org-open-at-point :which-key "org-open-at-point")
    "oi" '(org-insert-link :which-key "org-insert-link")
+   "t"  'org-todo
    )
 
   (general-define-key
