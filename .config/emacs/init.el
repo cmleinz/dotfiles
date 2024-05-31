@@ -118,6 +118,9 @@
 	)
       )
 
+(use-package transient
+  :ensure t)
+
 ;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
 ;; buffer from appearing
 (setq warning-minimum-level :error)
@@ -147,11 +150,10 @@
 
 (use-package exec-path-from-shell
   :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  (exec-path-from-shell-initialize))
 
 (use-package dashboard
-  :elpaca t
+  :ensure t
   :config
   (setq dashboard-banner-logo-title nil)
   (setq dashboard-center-content t)
@@ -246,7 +248,7 @@
   (vertico-mode))
 
 (use-package savehist
-  :elpaca nil
+  :ensure nil
   :init
   (savehist-mode))
 
@@ -320,18 +322,18 @@
 
 ;; Built-in Eglot as LSP
 (use-package eglot
-  :elpaca nil
+  :ensure nil
   :hook ((eglot-managed-mode . eldoc-mode)
 	 (eglot-managed-mode . flymake-mode))
   )
 
 (use-package ansi-color
-  :elpaca nil
+  :ensure nil
   :hook (compilation-filter . ansi-color-compilation-filter))
 
 ;; Packages for programming
 (use-package compile
-  :elpaca nil
+  :ensure nil
   :config
   (setq compilation-scroll-output t))
 
@@ -340,12 +342,12 @@
   :hook (prog-mode . apheleia-mode))
 
 (use-package hare-mode
-  :elpaca nil
+  :ensure nil
   :load-path "~/.config/emacs/hare-mode.el"
   :mode ("\\.ha\\'" . hare-mode))
 
 (use-package protobuf-mode
-  :elpaca nil
+  :ensure nil
   :load-path "~/.config/emacs/protobuf-mode.el"
   :mode ("\\.proto\\'" . protobuf-mode)
   :hook (protobuf-mode . (lambda () (set-fill-column 100))))
@@ -354,28 +356,28 @@
 
 (use-package python-ts-mode
   :mode ("\\.py\\'" . python-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (python-ts-mode . eglot-ensure))
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
 	 ("\\.h\\'" . c-ts-mode))
-  :elpaca nil
+  :ensure nil
   :hook (c-ts-mode . eglot-ensure))
 
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (java-ts-mode . eglot-ensure))
 
 (use-package hs-ts-mode
   :mode ("\\.hs\\'" . hs-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (hs-ts-mode . eglot-ensure))
 
 (use-package go-ts-mode
   :mode ("\\.go\\'" . go-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (go-ts-mode . eglot-ensure))
 
 (use-package odin-mode
@@ -386,7 +388,7 @@
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook ((rust-ts-mode . eglot-ensure)
 	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
