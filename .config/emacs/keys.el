@@ -105,7 +105,7 @@
    "pc" 'project-compile
    "pi" 'consult-imenu-multi
    "pf" 'project-find-file
-   "pf" 'fzf-find-file
+   "pF" 'fzf-find-file
    "pd" 'project-find-dir
    "pp" 'project-switch-project
    "pb" 'consult-project-buffer

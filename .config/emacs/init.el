@@ -469,6 +469,10 @@
 ;; Search via ripgrep
 (use-package ripgrep)
 
+(use-package dirvish
+  :config
+  (dirvish-override-dired-mode))
+
 (use-package fzf
   :config
   (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
