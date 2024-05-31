@@ -471,7 +471,9 @@
 
 (use-package dirvish
   :config
-  (dirvish-override-dired-mode))
+  (dirvish-peek-mode)
+  (dirvish-override-dired-mode)
+  (setq delete-by-moving-to-trash t))
 
 (use-package fzf
   :config
@@ -497,6 +499,8 @@
 (use-package magit
   :after seq
   :config
+  (with-eval-after-load 'magit-mode
+    (add-hook 'after-save-hook 'magit-after-save-refresh-status t))
   (setq magit-show-long-lines-warning nil))
 
 ;; Code completion
