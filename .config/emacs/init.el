@@ -248,7 +248,7 @@
   (vertico-mode))
 
 (use-package savehist
-  :ensure nil
+  :elpaca nil
   :init
   (savehist-mode))
 
@@ -322,18 +322,18 @@
 
 ;; Built-in Eglot as LSP
 (use-package eglot
-  :ensure nil
+  :elpaca nil
   :hook ((eglot-managed-mode . eldoc-mode)
 	 (eglot-managed-mode . flymake-mode))
   )
 
 (use-package ansi-color
-  :ensure nil
+  :elpaca nil
   :hook (compilation-filter . ansi-color-compilation-filter))
 
 ;; Packages for programming
 (use-package compile
-  :ensure nil
+  :elpaca nil
   :config
   (setq compilation-scroll-output t))
 
@@ -342,12 +342,12 @@
   :hook (prog-mode . apheleia-mode))
 
 (use-package hare-mode
-  :ensure nil
+  :elpaca nil
   :load-path "~/.config/emacs/hare-mode.el"
   :mode ("\\.ha\\'" . hare-mode))
 
 (use-package protobuf-mode
-  :ensure nil
+  :elpaca nil
   :load-path "~/.config/emacs/protobuf-mode.el"
   :mode ("\\.proto\\'" . protobuf-mode)
   :hook (protobuf-mode . (lambda () (set-fill-column 100))))
@@ -356,28 +356,28 @@
 
 (use-package python-ts-mode
   :mode ("\\.py\\'" . python-ts-mode)
-  :ensure nil
+  :elpaca nil
   :hook (python-ts-mode . eglot-ensure))
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
 	 ("\\.h\\'" . c-ts-mode))
-  :ensure nil
+  :elpaca nil
   :hook (c-ts-mode . eglot-ensure))
 
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
-  :ensure nil
+  :elpaca nil
   :hook (java-ts-mode . eglot-ensure))
 
 (use-package hs-ts-mode
   :mode ("\\.hs\\'" . hs-ts-mode)
-  :ensure nil
+  :elpaca nil
   :hook (hs-ts-mode . eglot-ensure))
 
 (use-package go-ts-mode
   :mode ("\\.go\\'" . go-ts-mode)
-  :ensure nil
+  :elpaca nil
   :hook (go-ts-mode . eglot-ensure))
 
 (use-package odin-mode
@@ -388,7 +388,7 @@
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
-  :ensure nil
+  :elpaca nil
   :hook ((rust-ts-mode . eglot-ensure)
 	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
@@ -411,7 +411,6 @@
 
 (use-package rst
   :elpaca nil
-  :ensure t
   :hook ((rst-mode . eglot-ensure)
 	 (rst-mode . display-line-numbers-mode)
 	 (rst-mode . flyspell-mode)
