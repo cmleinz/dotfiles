@@ -71,6 +71,7 @@
    "fd" 'dired-jump
    "fs" 'save-buffer
    "ff" 'find-file
+   "fF" 'fzf
    "fr" 'consult-recent-file
 
    "w"  '(:ignore t :which-key "Window")
@@ -104,6 +105,7 @@
    "pc" 'project-compile
    "pi" 'consult-imenu-multi
    "pf" 'project-find-file
+   "pf" 'fzf-find-file
    "pd" 'project-find-dir
    "pp" 'project-switch-project
    "pb" 'consult-project-buffer
