@@ -88,9 +88,9 @@ bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
 #interactive screenshot by pressing printscreen
-bindsym Print exec gnome-screenshot -i 
+bindsym --to-code Print exec 'grim -g "$(slurp)" ~/Screenshots/$(date +%Hh_%Mm_%Ss_%d_%B_%Y).png'
 #crop-area screenshot by pressing Mod + printscreen
-bindsym $mod+Print exec gnome-screenshot -a
+bindsym --to-code $mod+Print exec 'grim -g "$(slurp)" - | swappy -f -' 
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
