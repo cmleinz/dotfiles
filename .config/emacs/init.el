@@ -86,7 +86,6 @@
 
 (defun my-prog-mode-hook ()
   (setq truncate-lines t)
-  (flyspell-prog-mode)
   (display-fill-column-indicator-mode 1))
 
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
@@ -306,7 +305,6 @@
   :hook
   (org-mode . visual-line-mode)
   (org-mode . display-line-numbers-mode)
-  (org-mode . flyspell-mode)
   (org-mode . org-modern-mode)
   (org-mode . org-indent-mode)
   :config
@@ -319,6 +317,10 @@
   (setq org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
+
+;; An improved spell-checker
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode))
 
 ;; Built-in Eglot as LSP
 (use-package eglot
@@ -413,7 +415,6 @@
   :elpaca nil
   :hook ((rst-mode . eglot-ensure)
 	 (rst-mode . display-line-numbers-mode)
-	 (rst-mode . flyspell-mode)
 	 (rst-mode . display-fill-column-indicator-mode)
 	 (rst-mode . (lambda () (set-fill-column 80)))
 	 (rst-mode . flymake-mode))
