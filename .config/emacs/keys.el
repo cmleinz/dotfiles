@@ -93,12 +93,13 @@
    "cg" '(:ignore t :which-key "goto")
    "cC"  '(compile :which-key "compile")
    "cc"  '(recompile :which-key "recompile")
+   "ci" 'lsp-ui-imenu
    "cgd" '(eglot-find-typeDefinition :which-key "Find Definition")
    "ce" '(flycheck-list-errors :which-key "List Errors")
-   "ck" 'eldoc-doc-buffer
-   "ca" 'eglot-code-actions
-   "cr" 'eglot-rename
-   "cR" 'eglot-signal-didChangeConfiguration
+   "ck" 'lsp-describe-thing-at-point
+   "cK" 'lsp-ui-doc-glance
+   "ca" 'lsp-execute-code-action
+   "cr" 'lsp-rename
 
    "p"  '(:ignore t :which-key "Project")
    "pe" 'project-eshell

@@ -114,6 +114,14 @@
 	 (dedicated . t)
 	 (body-function . select-window)
 	 )
+
+	("\\*lsp-help*"
+	 (display-buffer-reuse-window
+	  display-buffer-at-bottom)
+	 (window-height . fit-window-to-buffer)
+	 (dedicated . t)
+	 (body-function . select-window)
+	 )
 	)
       )
 
@@ -322,11 +330,26 @@
 (use-package jinx
   :hook (emacs-startup . global-jinx-mode))
 
-;; Built-in Eglot as LSP
-(use-package eglot
-  :elpaca nil
-  :hook ((eglot-managed-mode . eldoc-mode)
-	 (eglot-managed-mode . flymake-mode))
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-l")
+  :commands lsp
+  :custom
+  (lsp-diagnostics-flycheck-enable t)
+  (lsp-idle-delay 0.5)
+  :hook
+  (lsp-mode . lsp-ui-mode)
+  )
+
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-sideline-show-hover nil)
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-show-with-cursor nil)
+  (lsp-ui-doc-show-with-mouse nil)
+  (lsp-ui-doc-position 'at-point)
   )
 
 (use-package ansi-color
@@ -391,24 +414,10 @@
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
   :elpaca nil
-  :hook ((rust-ts-mode . eglot-ensure)
+  :hook ((rust-ts-mode . lsp-deferred)
 	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
-  ;; Disable inlay hints for rust. A bit too noisy
-  (setq eglot-ignored-server-capabilities '(:inlayHintProvider))
-  ;; Set the default compile command
   (setq compile-command "cargo b")
-  ;; Tell eglot to prefer rust-analyzer, normally prompts for rust-analyzer of rls
-					; Also configure rust analyzer
-  (with-eval-after-load
-      'eglot (add-to-list
-	      'eglot-server-programs
-	      '(
-		rust-ts-mode .
-		("rust-analyzer" :initializationOptions (
-							 :check (:command "clippy")
-							 :cargo (:features "all")))))
-      )
   )
 
 (use-package rst
