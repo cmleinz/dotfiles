@@ -100,6 +100,9 @@
    "cK" 'lsp-ui-doc-glance
    "ca" 'lsp-execute-code-action
    "cr" 'lsp-rename
+   "cs" 'consult-lsp-file-symbols
+   "cS" 'consult-lsp-symbols
+   "cd" 'consult-lsp-diagnostics
 
    "p"  '(:ignore t :which-key "Project")
    "pe" 'project-eshell

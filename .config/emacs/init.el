@@ -264,6 +264,8 @@
 
 (use-package consult)
 
+(use-package consult-lsp)
+
 (use-package consult-todo
   :after hl-todo)
 
@@ -527,9 +529,8 @@
   (corfu-on-exact-match nil)      ; Don't auto expand tempel snippets
   ;; Optionally use TAB for cycling, default is `corfu-complete'.
   :bind (:map corfu-map
-	      ("TAB"        . corfu-next)
-	      ([tab]        . corfu-next)
-	      ("S-TAB"      . corfu-previous)
+	      ("C-n"        . corfu-next)
+	      ("C-p"      . corfu-previous)
 	      ("RET"        . corfu-insert))
   :init
   (global-corfu-mode)
