@@ -390,7 +390,7 @@
   :mode (("\\.c\\'" . c-ts-mode)
 	 ("\\.h\\'" . c-ts-mode))
   :elpaca nil
-  :hook (c-ts-mode . eglot-ensure))
+  :hook (c-ts-mode . lsp-deferred))
 
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
@@ -412,6 +412,12 @@
 		 :host github
 		 :repo "mattt-b/odin-mode"
 		 :depth nil))
+
+(use-package markdown-mode
+  :ensure nil
+  :hook ((markdown-mode . (lambda () (set-fill-column 80)))
+	 (markdown-mode . display-fill-column-indicator-mode))
+  )
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
@@ -481,6 +487,8 @@
 (use-package ripgrep)
 
 (use-package dirvish
+  :hook
+  (dired-mode . auto-revert-mode)
   :config
   (dirvish-peek-mode)
   (dirvish-override-dired-mode)
