@@ -369,8 +369,7 @@
   :hook (prog-mode . apheleia-mode))
 
 (use-package hare-mode
-  :elpaca nil
-  :load-path "~/.config/emacs/hare-mode.el"
+  :ensure (:host github :repo "nikita-popov/hare-mode")
   :mode ("\\.ha\\'" . hare-mode))
 
 (use-package protobuf-mode
