@@ -1,9 +1,10 @@
-.config/emacs/*
-!.config/emacs/init.el
-!.config/emacs/hare-mode.el
-!.config/emacs/protobuf-mode.el
-!.config/emacs/keys.el
-!.config/emacs/modeline.el
-!.config/emacs/early-init.el
+# Emacs things
+emacs/.config/emacs/*
+!emacs/.config/emacs/init.el
+!emacs/.config/emacs/hare-mode.el
+!emacs/.config/emacs/protobuf-mode.el
+!emacs/.config/emacs/keys.el
+!emacs/.config/emacs/modeline.el
+!emacs/.config/emacs/early-init.el
 
-.config/nushell/history.txt
+nushell/.config/nushell/history.txt
