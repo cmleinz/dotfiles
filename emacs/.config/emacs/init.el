@@ -48,9 +48,9 @@
 
 ;; Install use-package support
 (elpaca elpaca-use-package
-  ;; Enable :elpaca use-package keyword.
+  ;; Enable :ensure use-package keyword.
   (elpaca-use-package-mode)
-  ;; Assume :elpaca t unless otherwise specified.
+  ;; Assume :ensure t unless otherwise specified.
   (setq elpaca-use-package-by-default t))
 
 ;; Block until current queue processed.
@@ -155,10 +155,6 @@
 (when (eq system-type 'darwin)
   (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
-(use-package exec-path-from-shell
-  :config
-  (exec-path-from-shell-initialize))
-
 (use-package dashboard
   :ensure t
   :config
@@ -255,7 +251,7 @@
   (vertico-mode))
 
 (use-package savehist
-  :elpaca nil
+  :ensure nil
   :init
   (savehist-mode))
 
@@ -296,7 +292,7 @@
   (marginalia-mode))
 
 (use-package hl-todo
-  :elpaca (:type git
+  :ensure (:type git
 		 :host github
 		 :repo "tarsius/hl-todo"
 		 :version elpaca-latest-tag
@@ -355,12 +351,12 @@
   )
 
 (use-package ansi-color
-  :elpaca nil
+  :ensure nil
   :hook (compilation-filter . ansi-color-compilation-filter))
 
 ;; Packages for programming
 (use-package compile
-  :elpaca nil
+  :ensure nil
   :config
   (setq compilation-scroll-output t))
 
@@ -373,7 +369,7 @@
   :mode ("\\.ha\\'" . hare-mode))
 
 (use-package protobuf-mode
-  :elpaca nil
+  :ensure nil
   :load-path "~/.config/emacs/protobuf-mode.el"
   :mode ("\\.proto\\'" . protobuf-mode)
   :hook (protobuf-mode . (lambda () (set-fill-column 100))))
@@ -382,32 +378,32 @@
 
 (use-package python-ts-mode
   :mode ("\\.py\\'" . python-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (python-ts-mode . eglot-ensure))
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
 	 ("\\.h\\'" . c-ts-mode))
-  :elpaca nil
+  :ensure nil
   :hook (c-ts-mode . lsp-deferred))
 
 (use-package java-ts-mode
   :mode ("\\.java\\'" . java-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (java-ts-mode . eglot-ensure))
 
 (use-package hs-ts-mode
   :mode ("\\.hs\\'" . hs-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (hs-ts-mode . eglot-ensure))
 
 (use-package go-ts-mode
   :mode ("\\.go\\'" . go-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook (go-ts-mode . eglot-ensure))
 
 (use-package odin-mode
-  :elpaca (:type git
+  :ensure (:type git
 		 :host github
 		 :repo "mattt-b/odin-mode"
 		 :depth nil))
@@ -420,7 +416,7 @@
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
-  :elpaca nil
+  :ensure nil
   :hook ((rust-ts-mode . lsp-deferred)
 	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
@@ -428,7 +424,7 @@
   )
 
 (use-package rst
-  :elpaca nil
+  :ensure nil
   :hook ((rst-mode . eglot-ensure)
 	 (rst-mode . display-line-numbers-mode)
 	 (rst-mode . display-fill-column-indicator-mode)
@@ -505,10 +501,6 @@
         ;; If nil, the fzf buffer will appear at the top of the window
         fzf/position-bottom t
         fzf/window-height 15))
-
-(use-package vterm
-  :config
-  (setq vterm-shell "nu"))
 
 (use-package seq
   :ensure t)			      
