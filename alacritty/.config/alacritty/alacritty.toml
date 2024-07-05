@@ -10,7 +10,7 @@ import = [
 size = 11.0
 
 [font.normal]
-family = "Comic Code Ligatures"
+family = "ComicShannsMono Nerd Font Mono"
 
 [[keyboard.bindings]]
 action = "Paste"
