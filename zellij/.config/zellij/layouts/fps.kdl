@@ -1,0 +1,37 @@
+layout {
+	cwd "/Users/cleinz/Documents/git/fps/"
+    tab_template name="strider_tab" {
+		children
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+	}
+	strider_tab name="Byte-I/O" cwd="rust.fps.bytes-io" focus=true {
+		pane {
+			command "hx"
+			args "."
+		}
+		floating_panes {
+			pane cwd="rust.fps.bytes-io" command="gitui" focus=false {
+				x "10%"
+				y "10%"
+				width "80%"
+				height "80%"
+			}
+		}
+	}
+	strider_tab name="Cloud App" cwd="rust.fps.cloud-app" {
+		pane {
+			command "hx"
+			args "."
+		}
+		floating_panes {
+			pane cwd="rust.fps.cloud-app" command="gitui" focus=false {
+				x "10%"
+				y "10%"
+				width "80%"
+				height "80%"
+			}
+		}
+	}
+}

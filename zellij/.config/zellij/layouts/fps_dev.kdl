@@ -1,0 +1,77 @@
+layout {
+	cwd "/Users/cleinz/Documents/git"
+    default_tab_template {
+        // the default zellij tab-bar and status bar plugins
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+    tab_template name="strider_tab" {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        pane split_direction="Vertical" {
+            pane size="15%" {
+                // TODO: when we support sending CWD to plugins, this should start in ./zellij-derver
+                plugin location="zellij:strider"
+            }
+            children
+        }
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+	}
+    pane_template name="cargo_utils_under_files" {
+        pane split_direction="horizontal" {
+            children
+			pane stacked=true size="20%" {
+	            pane name="build" command="cargo" {
+	                args "build"
+					start_suspended true
+	            }
+	            pane name="clippy" command="cargo" {
+	                args "clippy"
+					start_suspended true
+	            }
+	            pane name="test" command="cargo" {
+	                args "test"
+					start_suspended true
+	            }
+	            pane name="doc" command="cargo" {
+	                args "doc"
+					start_suspended true
+	            }
+			}
+        }
+    }
+	strider_tab name="rust.fps.bytes-io" cwd="rust.fps.bytes-io" focus=true {
+		cargo_utils_under_files split_direction="vertical" {
+			pane name="Helix" edit="frame-translator/src/lib.rs"
+		}
+		floating_panes {
+			pane cwd="rust.fps.bytes-io" command="gitui" focus=false {
+				x "10%"
+				y "10%"
+				width "80%"
+				height "80%"
+			}
+		}
+	}
+	strider_tab name="rust.fps.cli" cwd="rust.fps.cli" {
+		cargo_utils_under_files split_direction="vertical" {
+			pane name="Helix" edit="src/main.rs"
+		}
+		floating_panes {
+			pane cwd="rust.fps.bytes-io" command="gitui" focus=false {
+				x "10%"
+				y "10%"
+				width "80%"
+				height "80%"
+			}
+		}
+	}
+}
