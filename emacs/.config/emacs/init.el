@@ -354,7 +354,10 @@
 
 ;; Apheleia for code formatting
 (use-package apheleia
-  :hook (prog-mode . apheleia-mode))
+  :hook (prog-mode . apheleia-mode)
+  :config
+  (add-to-list 'apheleia-formatters '(rustfmt . ("rustfmt" "--quiet" "--emit" "stdout" "--edition" "2021")))
+  )
 
 (use-package hare-mode
   :ensure (:host github :repo "nikita-popov/hare-mode")
