@@ -252,14 +252,12 @@
 
 (use-package consult)
 
+(use-package consult-denote)
+
 (use-package consult-lsp)
 
 (use-package consult-todo
   :after hl-todo)
-
-(use-package consult-notes
-  :config
-  (consult-notes-denote-mode))
 
 (use-package orderless
   :init
