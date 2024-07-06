@@ -23,6 +23,7 @@
    "e" 'end-of-buffer
    "d" 'xref-find-definitions
    "r" 'xref-find-references
+   "s" 'avy-goto-char-timer
    )
 
   (general-define-key

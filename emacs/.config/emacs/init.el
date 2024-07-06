@@ -352,6 +352,11 @@
   :config
   (setq compilation-scroll-output t))
 
+;; Avy for jumping to characters quickly
+(use-package avy
+  :config
+  (setq avy-all-windows t))
+
 ;; Apheleia for code formatting
 (use-package apheleia
   :hook (prog-mode . apheleia-mode)
