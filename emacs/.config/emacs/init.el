@@ -125,6 +125,10 @@
 	)
       )
 
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package transient
   :ensure t)
 
@@ -421,6 +425,8 @@
 	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
   (setq compile-command "cargo b")
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  (setq lsp-rust-features "all")
   )
 
 (use-package rst
