@@ -15,7 +15,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -47,13 +46,15 @@
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "elegant-sddm";
+  };
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbVariant = "";
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
-    displayManager.sddm.theme = "elegant-sddm";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
   services.dbus.enable = true;
   services.pipewire = {
@@ -97,17 +98,15 @@
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "steam"
-    "steam-original"
-    "steam-run"
-  ];
 
   environment.systemPackages = with pkgs; [
     firefox
 
     # Dev Tools
     emacs
+    enchant
+    hunspell
+    dconf
     helix
     neovim
     fzf
@@ -128,12 +127,28 @@
     hypridle
     hyprpaper
     networkmanagerapplet
+    nwg-look
     elegant-sddm
     ironbar
     pcmanfm
     dunst
     fuzzel
     zathura
+    waybar
+
+    # Programming
+    rustup
+    clang
+    clang-tools
+    hare
+    haredoc
+
+    # Themeing
+    la-capitaine-icon-theme
+    capitaine-cursors
+    pop-gtk-theme
+    gtk4
+    libadwaita
 
     # Applications
     discord
