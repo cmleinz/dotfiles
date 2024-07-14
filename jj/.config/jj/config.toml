@@ -1,0 +1,18 @@
+[user]
+name = "Caleb Leinz"
+email = "cleinz+github@pm.me"
+
+[ui]
+color = "always"
+diff.format = "color-words"
+editor = "nvim"
+paginate = "never"
+
+[revset-aliases]
+"immutable_heads()" = "main@origin | (main@origin.. & ~mine())"
+
+[template-aliases]
+'format_short_signature(signature)' = 'signature.username()'
+
+[git]
+auto-local-branch = true
