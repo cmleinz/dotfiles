@@ -110,8 +110,13 @@
 
     # Dev Tools
     emacs
-    enchant
+    # Can't seem to get jinx to compile natively
+    emacsPackages.jinx
     hunspell
+    hunspellDicts.en_US
+    hunspellDicts.en_US-large
+
+    enchant
     dconf
     helix
     neovim
@@ -127,6 +132,7 @@
     jujutsu
     git
     stow
+    pkg-config
 
     # Desktop Environment
     hyprlock
