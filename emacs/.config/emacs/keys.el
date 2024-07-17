@@ -21,8 +21,8 @@
    "l" 'evil-end-of-line
    "g" 'beginning-of-buffer
    "e" 'end-of-buffer
-   "d" 'xref-find-definitions
-   "r" 'xref-find-references
+   "d" 'lsp-find-definition
+   "r" 'lsp-find-references
    "s" 'avy-goto-char-timer
    )
 
@@ -62,6 +62,7 @@
 
    "b"  '(:ignore t :which-key "Buffers")
    "br" '(rename-buffer :which-key "Rename buffer")
+   "bw" '(toggle-truncate-lines :which-key "Truncate lines")
    "bb" '(consult-buffer :which-key "Switch buffer")
    "bn" '(evil-next-buffer :which-key "Next buffer")
    "bp" '(evil-prev-buffer :which-key "Previous buffer")
