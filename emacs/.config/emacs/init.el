@@ -248,7 +248,9 @@
   (savehist-mode))
 
 ;; Denote for note taking
-(use-package denote)
+(use-package denote
+  :config
+  (setq denote-directory "~/Nextcloud/Documents/Notes/"))
 
 (use-package consult)
 
