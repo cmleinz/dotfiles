@@ -55,7 +55,7 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    theme = "elegant-sddm";
+    theme = "chili";
   };
   services.xserver = {
     enable = true;
@@ -134,7 +134,7 @@
     hyprpaper
     networkmanagerapplet
     nwg-look
-    elegant-sddm
+    sddm-chili-theme
     ironbar
     pcmanfm
     dunst
