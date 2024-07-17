@@ -82,10 +82,9 @@
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
 
-(global-display-line-numbers-mode 1)
-
 (defun my-prog-mode-hook ()
   (setq truncate-lines t)
+  (display-line-numbers-mode 1)
   (display-fill-column-indicator-mode 1))
 
 (add-hook 'prog-mode-hook 'my-prog-mode-hook)
@@ -474,6 +473,10 @@
   (add-hook 'eshell-load-hook #'eat-eshell-mode)
   (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
   :config
+  ;; Disable line wrapping
+  (setq truncate-partial-width-windows nil)
+  (setq truncate-lines nil)
+  (setq )
   (setq eat-shell "nu")
   ;; Fix flickering
   (when (eq system-type 'darwin)
