@@ -167,6 +167,7 @@
     spotify
     telegram-desktop
     nextcloud-client
+    rustdesk
   ];
 
   system.stateVersion = "24.05"; # Did you read the comment?
