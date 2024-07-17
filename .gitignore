@@ -8,3 +8,4 @@ emacs/.config/emacs/*
 !emacs/.config/emacs/early-init.el
 
 nushell/.config/nushell/history.txt
+nushell/.config/nushell/private.nu
