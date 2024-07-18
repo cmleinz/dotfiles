@@ -48,7 +48,7 @@
    :keymaps 'override
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-   "e"  'eshell
+   "e"  'eat
    "/"  'evilnc-comment-or-uncomment-lines
    "x"  'execute-extended-command
    "d"  '(:ignore t :which-key "Diagnostics")
@@ -107,7 +107,7 @@
    "cd" 'consult-lsp-diagnostics
 
    "p"  '(:ignore t :which-key "Project")
-   "pe" 'project-eshell
+   "pe" 'eat-project
    "pc" 'project-compile
    "pi" 'consult-imenu-multi
    "pf" 'project-find-file
