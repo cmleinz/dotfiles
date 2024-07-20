@@ -175,7 +175,8 @@
 
 (use-package ef-themes
   :config
-  (load-theme 'ef-autumn t))
+  (setq ef-themes-to-toggle '(ef-autumn ef-melissa-light))
+  (ef-themes-select 'ef-autumn))
 
 (use-package doom-modeline
   :ensure t
