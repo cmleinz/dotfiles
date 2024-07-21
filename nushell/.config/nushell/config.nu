@@ -802,5 +802,4 @@ def wallpaper [path: string@wallpaper_folder] {
     let conf = "~/.config/hypr/hyprpaper.conf"
     open $conf | lines | skip 1 | prepend $"$default = ($path)" | save -f $conf
 }
-alias hx = helix
 $env.PATH = ($env.PATH | append "~/.cargo/bin")

@@ -159,7 +159,7 @@ symbol = " "
 [rust]
 symbol = " "
 style = 'bold red'
-format = 'via [$symbol($numver )]($style)[$toolchain](bold red)'
+format = 'via [$symbol($numver )]($style)[$toolchain ](bold red)'
 detect_files = ['Cargo.toml']
 detect_extensions = ['rs']
 
