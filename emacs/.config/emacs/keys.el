@@ -55,8 +55,8 @@
    "dd" 'flymake-show-buffer-diagnostics
    "dD" 'flymake-show-project-diagnostics
    "D"  'consult-flymake
-   "s"  'consult-imenu
-   "S"  'consult-imenu-multi
+   "s" 'consult-lsp-file-symbols
+   "S" 'consult-lsp-symbols
    "l"  'consult-line
    "L"  'consult-line-multi
 
@@ -102,8 +102,8 @@
    "cK" 'lsp-ui-doc-glance
    "ca" 'lsp-execute-code-action
    "cr" 'lsp-rename
-   "cs" 'consult-lsp-file-symbols
-   "cS" 'consult-lsp-symbols
+   "cs" 'consult-imenu
+   "cS" 'consult-imenu-multi
    "cd" 'consult-lsp-diagnostics
 
    "p"  '(:ignore t :which-key "Project")
