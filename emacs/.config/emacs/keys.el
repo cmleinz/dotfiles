@@ -9,7 +9,6 @@
    :keymaps 'override
    "U"  'evil-redo
    "C"  'evil-mc-make-cursor-move-next-line
-   "s"  'avy-goto-char-time
    "%"  'mark-whole-buffer
    )
 

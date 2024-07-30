@@ -383,7 +383,7 @@
 (use-package python-ts-mode
   :mode ("\\.py\\'" . python-ts-mode)
   :ensure nil
-  :hook (python-ts-mode . eglot-ensure))
+  :hook (python-ts-mode . lsp-deferred))
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
@@ -417,6 +417,13 @@
   :hook ((markdown-mode . (lambda () (set-fill-column 80)))
 	 (markdown-mode . display-fill-column-indicator-mode))
   )
+
+(use-package direnv
+  :config
+  (direnv-mode))
+
+(use-package nix-ts-mode
+  :mode "\\.nix\\'")
 
 (use-package rust-ts-mode
   :mode ("\\.rs\\'" . rust-ts-mode)
