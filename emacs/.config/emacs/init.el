@@ -320,8 +320,11 @@
   :mode ("\\.ha\\'" . hare-mode))
 
 (use-package protobuf-mode
-  :ensure nil
-  :load-path "~/.config/emacs/protobuf-mode.el"
+  :ensure (:type git
+		 :host github
+		 :repo "protocolbuffers/protobuf"
+		 :files (:defaults "editors/*.el") 
+		 :depth 1)
   :mode ("\\.proto\\'" . protobuf-mode)
   :hook (protobuf-mode . (lambda () (set-fill-column 100))))
 
@@ -357,7 +360,7 @@
   :ensure (:type git
 		 :host github
 		 :repo "mattt-b/odin-mode"
-		 :depth nil))
+		 :depth 1))
 
 (use-package markdown-mode
   :ensure nil
