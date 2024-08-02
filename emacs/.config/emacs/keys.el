@@ -10,6 +10,8 @@
    "U"  'evil-redo
    "C"  'evil-mc-make-cursor-move-next-line
    "%"  'mark-whole-buffer
+   "_"  'expreg-expand
+   "-"  'expreg-contract
    )
 
   (general-define-key

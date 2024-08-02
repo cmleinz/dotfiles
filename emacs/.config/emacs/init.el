@@ -1,10 +1,8 @@
-;; Minimize garbage collection during startup
-(setq gc-cons-threshold most-positive-fixnum)
-
 ;; Specify specific custom-file location to avoid flooding init.el
 (setq custom-file "~/.config/emacs/custom.el")
 (load custom-file t)
 
+;; Load elpaca
 (load "~/.config/emacs/elpaca-setup.el")
 
 (setq user-full-name "Caleb Leinz"
@@ -19,16 +17,6 @@
     (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 160)
   (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
   )
-
-;; Disable menu bar
-(menu-bar-mode -1)
-
-;; Disable tool bar
-(tool-bar-mode -1)
-
-;; Disable scroll bar
-(setq-default cursor-type 'bar) 
-(scroll-bar-mode -1)
 
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
@@ -76,7 +64,8 @@
       )
 
 (use-package transient
-  :ensure t)
+  :ensure t
+  )
 
 ;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
 ;; buffer from appearing
@@ -141,7 +130,8 @@
 (use-package nerd-icons
   :config
   (setq nerd-icons-scale-factor 1.1)
-  (setq nerd-icons-font-family "ComicShannsMono Nerd Font Mono"))
+  (setq nerd-icons-font-family "ComicShannsMono Nerd Font Mono")
+  )
 
 ;; evil-mode configuration
 (use-package evil
@@ -154,28 +144,36 @@
   :config
   (setq evil-auto-indent t)
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-  (evil-set-undo-system 'undo-redo))
+  (evil-set-undo-system 'undo-redo)
+  
+  )
 
-(use-package evil-nerd-commenter)
+(use-package evil-nerd-commenter
+  )
 
 ;; Additional evil-mode bindings
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  )
 
 ;; Evil mode multi-cursor support
 (use-package evil-mc
   :init
   (global-evil-mc-mode 1)
   :config
-  (setq evil-mc-mode-line-text-cursor-color t))
+  (setq evil-mc-mode-line-text-cursor-color t)
+  
+  )
 
 ;; Evil surround
 (use-package evil-surround
   :ensure t
   :config
-  (global-evil-surround-mode 1))
+  (global-evil-surround-mode 1)
+  
+  )
 
 (use-package which-key
   :config
@@ -183,7 +181,8 @@
   (which-key-mode))
 
 ;; Visual undo tree
-(use-package vundo)
+(use-package vundo
+  )
 
 ;; Vertico for minibuffer magic!
 (use-package vertico
@@ -191,26 +190,33 @@
   (setq vertico-cycle t)
   (setq vertico-count 10)
   :init
-  (vertico-mode))
+  (vertico-mode)
+  )
 
 (use-package savehist
   :ensure nil
   :init
-  (savehist-mode))
+  (savehist-mode)
+  )
 
 ;; Denote for note taking
 (use-package denote
   :config
-  (setq denote-directory "~/Nextcloud/Documents/Notes/"))
+  (setq denote-directory "~/Nextcloud/Documents/Notes/")
+  )
 
-(use-package consult)
+(use-package consult
+  )
 
-(use-package consult-denote)
+(use-package consult-denote
+  )
 
-(use-package consult-lsp)
+(use-package consult-lsp
+  )
 
 (use-package consult-todo
-  :after hl-todo)
+  :after hl-todo
+  )
 
 (use-package orderless
   :init
@@ -227,7 +233,8 @@
   :after marginalia
   :config
   (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
+  )
 
 ;; Add additional information to completions
 (use-package marginalia
@@ -245,10 +252,12 @@
 
 (use-package magit-todos
   :after magit
-  :config (magit-todos-mode 1))
+  :config (magit-todos-mode 1)
+  )
 
 (use-package org-modern
-  :after org)
+  :after org
+  )
 
 (use-package org
   :hook
@@ -267,9 +276,11 @@
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
-;; An improved spell-checker
-(use-package jinx
-  :hook (emacs-startup . global-jinx-mode))
+;; On NixOS jinx doesn't play nicely with the libraries
+;; ;; An improved spell-checker
+;; (use-package jinx
+;;   :hook (emacs-startup . global-jinx-mode)
+;;   )
 
 (use-package lsp-mode
   :init
@@ -280,6 +291,7 @@
   (lsp-idle-delay 0.5)
   :hook
   (lsp-mode . lsp-ui-mode)
+  
   )
 
 (use-package lsp-ui
@@ -291,6 +303,7 @@
   (lsp-ui-doc-show-with-cursor nil)
   (lsp-ui-doc-show-with-mouse nil)
   (lsp-ui-doc-position 'at-point)
+  
   )
 
 (use-package ansi-color
@@ -312,55 +325,59 @@
 (use-package apheleia
   :hook (prog-mode . apheleia-mode)
   :config
+  ;; This removes the need to add rustfmt.toml files into the project root
   (add-to-list 'apheleia-formatters '(rustfmt . ("rustfmt" "--quiet" "--emit" "stdout" "--edition" "2021")))
+  
   )
 
-(use-package hare-mode
-  :ensure (:repo "https://git.sr.ht/~laumann/hare-mode" :depth 1)
-  :mode ("\\.ha\\'" . hare-mode))
+(use-package pyvenv
+  
+  )
 
-(use-package protobuf-mode
-  :ensure (:type git
-		 :host github
-		 :repo "protocolbuffers/protobuf"
-		 :files (:defaults "editors/*.el") 
-		 :depth 1)
-  :mode ("\\.proto\\'" . protobuf-mode)
-  :hook (protobuf-mode . (lambda () (set-fill-column 100))))
-
-(use-package pyvenv)
-
-(use-package python-ts-mode
-  :mode ("\\.py\\'" . python-ts-mode)
-  :ensure nil
-  :hook (python-ts-mode . lsp-deferred))
+;; Syntax Highlighting and Tree Sitter 🌳 Integrations
+;; ---------------------------------------------------
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
 	 ("\\.h\\'" . c-ts-mode))
   :ensure nil
-  :hook (c-ts-mode . lsp-deferred))
+  :hook (c-ts-mode . lsp-deferred)
+  )
 
-(use-package java-ts-mode
-  :mode ("\\.java\\'" . java-ts-mode)
-  :ensure nil
-  :hook (java-ts-mode . eglot-ensure))
-
-(use-package hs-ts-mode
-  :mode ("\\.hs\\'" . hs-ts-mode)
-  :ensure nil
-  :hook (hs-ts-mode . eglot-ensure))
+;; Dockerfile integration
+(use-package dockerfile-mode
+  )
 
 (use-package go-ts-mode
   :mode ("\\.go\\'" . go-ts-mode)
   :ensure nil
-  :hook (go-ts-mode . eglot-ensure))
+  :hook (go-ts-mode . lsp-deferrde)
+  )
 
-(use-package odin-mode
-  :ensure (:type git
-		 :host github
-		 :repo "mattt-b/odin-mode"
-		 :depth 1))
+;; Hare
+(use-package hare-mode
+  :ensure (:repo "https://git.sr.ht/~laumann/hare-mode" :depth 1)
+  :mode ("\\.ha\\'" . hare-mode)
+  )
+
+;; Haskell
+(use-package hs-ts-mode
+  :mode ("\\.hs\\'" . hs-ts-mode)
+  :ensure nil
+  :hook (hs-ts-mode . lsp-deferred)
+  )
+
+;; ☕ Java
+(use-package java-ts-mode
+  :after lsp-java
+  :mode ("\\.java\\'" . java-ts-mode)
+  :ensure nil
+  :hook (java-ts-mode . lsp-deferred)
+  )
+
+;; Justfile integration
+(use-package just-mode
+  )
 
 (use-package markdown-mode
   :ensure nil
@@ -368,24 +385,39 @@
 	 (markdown-mode . display-fill-column-indicator-mode))
   )
 
-(use-package direnv
-  :config
-  (direnv-mode))
-
 (use-package nix-ts-mode
   :mode "\\.nix\\'")
 
-(use-package rust-ts-mode
-  :mode ("\\.rs\\'" . rust-ts-mode)
-  :ensure nil
-  :hook ((rust-ts-mode . lsp-deferred)
-	 (rust-ts-mode . (lambda () (set-fill-column 100))))
-  :config
-  (setq compile-command "cargo b")
-  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
-  (setq lsp-rust-features "all")
+;; Nushell script mode
+(use-package nushell-mode
   )
 
+(use-package odin-mode
+  :ensure (:type git
+		 :host github
+		 :repo "mattt-b/odin-mode"
+		 :depth 1)
+  )
+
+;; Google Protobufs
+(use-package protobuf-mode
+  :ensure (:type git
+		 :host github
+		 :repo "protocolbuffers/protobuf"
+		 :files (:defaults "editors/*.el") 
+		 :depth 1)
+  :mode ("\\.proto\\'" . protobuf-mode)
+  :hook (protobuf-mode . (lambda () (set-fill-column 100)))
+  )
+
+;; 🐍 Python
+(use-package python-ts-mode
+  :mode ("\\.py\\'" . python-ts-mode)
+  :ensure nil
+  :hook (python-ts-mode . lsp-deferred)
+  )
+
+;; Restructured text
 (use-package rst
   :ensure nil
   :hook ((rst-mode . eglot-ensure)
@@ -404,6 +436,28 @@
       )
   )
 
+;; Rust
+(use-package rust-ts-mode
+  :mode ("\\.rs\\'" . rust-ts-mode)
+  :ensure nil
+  :hook ((rust-ts-mode . lsp-deferred)
+	 (rust-ts-mode . (lambda () (set-fill-column 100))))
+  :config
+  (setq compile-command "cargo b --all-features")
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  (setq lsp-rust-features "all")
+  )
+
+;; ---------------------------------------------------
+
+;; Support for direnv
+(use-package direnv
+  :config
+  (direnv-mode)
+  )
+
+(use-package expreg)
+
 ;; Templating system
 (use-package yasnippet
   :ensure
@@ -413,7 +467,8 @@
   (yas-reload-all)
   (setq yas-triggers-in-field t)
   :hook
-  (prog-mode . yas-minor-mode))
+  (prog-mode . yas-minor-mode)
+  )
 
 ;; Common templates
 (use-package yasnippet-snippets)
@@ -518,14 +573,5 @@
   ;; Ensure that pcomplete does not write to the buffer
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
-
-;; Dockerfile integration
-(use-package dockerfile-mode)
-
-;; Justfile integration
-(use-package just-mode)
-
-;; Nushell script mode
-(use-package nushell-mode)
 
 (load "~/.config/emacs/keys.el")
