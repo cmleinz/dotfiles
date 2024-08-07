@@ -148,15 +148,13 @@
   
   )
 
-(use-package evil-nerd-commenter
-  )
+(use-package evil-nerd-commenter)
 
 ;; Additional evil-mode bindings
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init)
-  )
+  (evil-collection-init))
 
 ;; Evil mode multi-cursor support
 (use-package evil-mc
@@ -171,9 +169,7 @@
 (use-package evil-surround
   :ensure t
   :config
-  (global-evil-surround-mode 1)
-  
-  )
+  (global-evil-surround-mode 1))
 
 (use-package which-key
   :config
@@ -181,8 +177,7 @@
   (which-key-mode))
 
 ;; Visual undo tree
-(use-package vundo
-  )
+(use-package vundo)
 
 ;; Vertico for minibuffer magic!
 (use-package vertico
@@ -205,18 +200,14 @@
   (setq denote-directory "~/Nextcloud/Documents/Notes/")
   )
 
-(use-package consult
-  )
+(use-package consult)
 
-(use-package consult-denote
-  )
+(use-package consult-denote)
 
-(use-package consult-lsp
-  )
+(use-package consult-lsp)
 
 (use-package consult-todo
-  :after hl-todo
-  )
+  :after hl-todo)
 
 (use-package orderless
   :init
@@ -233,8 +224,7 @@
   :after marginalia
   :config
   (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)
-  )
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
 
 ;; Add additional information to completions
 (use-package marginalia
@@ -252,12 +242,10 @@
 
 (use-package magit-todos
   :after magit
-  :config (magit-todos-mode 1)
-  )
+  :config (magit-todos-mode 1))
 
 (use-package org-modern
-  :after org
-  )
+  :after org)
 
 (use-package org
   :hook
@@ -302,9 +290,7 @@
   (lsp-ui-doc-enable t)
   (lsp-ui-doc-show-with-cursor nil)
   (lsp-ui-doc-show-with-mouse nil)
-  (lsp-ui-doc-position 'at-point)
-  
-  )
+  (lsp-ui-doc-position 'at-point))
 
 (use-package ansi-color
   :ensure nil
@@ -330,12 +316,10 @@
   
   )
 
-(use-package pyvenv
-  
-  )
+(use-package pyvenv)
 
-;; Syntax Highlighting and Tree Sitter 🌳 Integrations
-;; ---------------------------------------------------
+;; Language Support and Tree Sitter 🌳 Integrations
+;; ------------------------------------------------
 
 (use-package c-ts-mode
   :mode (("\\.c\\'" . c-ts-mode)
@@ -415,6 +399,7 @@
   :mode ("\\.py\\'" . python-ts-mode)
   :ensure nil
   :hook (python-ts-mode . lsp-deferred)
+  :defer 30
   )
 
 ;; Restructured text
@@ -434,6 +419,7 @@
 	      'eglot-server-programs
 	      '(rst-mode . ("esbonio")))
       )
+  :defer 30
   )
 
 ;; Rust
@@ -445,16 +431,14 @@
   :config
   (setq compile-command "cargo b --all-features")
   (setq lsp-rust-analyzer-cargo-watch-command "clippy")
-  (setq lsp-rust-features "all")
-  )
+  (setq lsp-rust-features "all"))
 
-;; ---------------------------------------------------
+;; ------------------------------------------------
 
 ;; Support for direnv
 (use-package direnv
   :config
-  (direnv-mode)
-  )
+  (direnv-mode))
 
 (use-package expreg)
 
@@ -560,7 +544,6 @@
 
 (use-package cape
   :ensure t
-  :defer 10
   :bind ("C-c f" . cape-file)
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
