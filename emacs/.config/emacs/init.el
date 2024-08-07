@@ -114,6 +114,10 @@
   (setq ef-themes-to-toggle '(ef-autumn ef-melissa-light))
   (ef-themes-select 'ef-autumn))
 
+(use-package catppuccin-theme)
+
+(use-package doom-themes)
+
 (use-package doom-modeline
   :ensure t
   :init
