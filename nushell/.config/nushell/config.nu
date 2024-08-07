@@ -266,7 +266,13 @@ $env.config = {
     highlight_resolved_externals: false # true enables highlighting of external commands in the repl resolved by which.
 
     hooks: {
-        pre_prompt: [{ null }] # run before the prompt is shown
+        pre_prompt: [{ ||
+	    if (which direnv | is-empty) {
+		return
+	    }
+
+	    direnv export json | from json | default {} | load-env
+    	}]
         pre_execution: [{ null }] # run before the repl input is run
         env_change: {
             PWD: [{|before, after| null }] # run if the PWD environment is different since the last repl input
