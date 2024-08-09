@@ -173,7 +173,23 @@
 (use-package evil-surround
   :ensure t
   :config
-  (global-evil-surround-mode 1))
+  (global-evil-surround-mode 1)
+  ;; The default behavior is to have a space between the delimiters
+  ;; if you use the opening version of the paren, and no-space if
+  ;; you use the closing paren. I prefer the opposite behavior
+  (setq-default evil-surround-pairs-alist
+		'(
+		  (?\( . ("(" . ")"))
+		  (?\< . ("<" . ">"))
+		  (?\[ . ("[" . "]"))
+		  (?\{ . ("{" . "}"))
+		  (?\) . ("( " . " )"))
+		  (?\> . ("< " . " >"))
+		  (?\] . ("[ " . " ]"))
+		  (?\} . ("{ " . " }"))
+		  (?\` . ("`" . "`"))
+		  ))
+  )
 
 (use-package which-key
   :config
