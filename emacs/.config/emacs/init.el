@@ -279,6 +279,7 @@
         '(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
           ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
   ;; Add these files to the agenda
+  (setq org-clock-sound "~/.config/emacs/timer.wav")
   (setq org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))

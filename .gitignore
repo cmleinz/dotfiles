@@ -1,6 +1,7 @@
 # Emacs things
 emacs/.config/emacs/*
 !emacs/.config/emacs/init.el
+!emacs/.config/emacs/timer.wav
 !emacs/.config/emacs/elpaca-setup.el
 !emacs/.config/emacs/hare-mode.el
 !emacs/.config/emacs/protobuf-mode.el
