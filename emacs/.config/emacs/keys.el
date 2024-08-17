@@ -35,9 +35,8 @@
    "l" 'dired-find-file
    )
 
-
   (general-define-key
-   :states '(normal visual emacs)
+   :states 'visual
    :keymaps 'override
    :prefix "m"
    "s" 'evil-surround-region
@@ -64,6 +63,7 @@
 
    "b"  '(:ignore t :which-key "Buffers")
    "br" '(rename-buffer :which-key "Rename buffer")
+   "bR" '(revert-buffer :which-key "Revert buffer")
    "bw" '(toggle-truncate-lines :which-key "Truncate lines")
    "bb" '(consult-buffer :which-key "Switch buffer")
    "bn" '(evil-next-buffer :which-key "Next buffer")
@@ -75,7 +75,6 @@
    "fd" 'dired-jump
    "fs" 'save-buffer
    "ff" 'find-file
-   "fF" 'fzf
    "fr" 'consult-recent-file
 
    "w"  '(:ignore t :which-key "Window")
@@ -113,7 +112,6 @@
    "pc" 'project-compile
    "pi" 'consult-imenu-multi
    "pf" 'project-find-file
-   "pF" 'fzf-find-file
    "pd" 'project-find-dir
    "pp" 'project-switch-project
    "pb" 'consult-project-buffer
@@ -137,6 +135,9 @@
    "gs" '(magit-stage-modified :which-key "magit-stage-modified")
    "gc" '(magit-commit :which-key "magit-commit")
 
+   "t"  '(:ignore t :which-key "Text Manipulation")
+   "tf" 'fill-region
+
    "r"  '(:ignore t :which-key "Configuration changes")
    "rr" '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :which-key "Reload init.el")
    "re" 'eval-buffer
@@ -144,6 +145,7 @@
    "!"  'shell-command
 
    "o"  '(:ignore t :which-key "Org")
+   "ot" 'org-timer-set-timer
    "oa" '(org-agenda :which-key "org-agenda")
    "oc" 'org-clock-in
    "oC" 'org-clock-out
@@ -158,13 +160,5 @@
    "of" '(org-open-at-point :which-key "org-open-at-point")
    "oi" '(org-insert-link :which-key "org-insert-link")
    "t"  'org-todo
-   )
-
-  (general-define-key
-   :states '(normal visual emacs)
-   :keymaps '(magit-mode-map)
-   "m" 'magit-merge
-   "g" '(:ignore t :which-key "G")
-   "gr" 'magit-refresh
    )
   )
