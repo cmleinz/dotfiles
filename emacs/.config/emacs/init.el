@@ -13,10 +13,7 @@
 
 ;; Basic configuration tweaks
 ;; Set font
-(if (eq system-type 'darwin)
-    (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 160)
-  (set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
-  )
+(set-face-attribute 'default nil :font "ComicShannsMono Nerd Font Mono" :height 120)
 
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
@@ -89,10 +86,6 @@
       '((".*" "~/.config/emacs/auto-save-list/" t))
       backup-directory-alist
       '((".*", "~/.config/emacs/backups")))
-
-;; Some weird dired issues with ls
-(when (eq system-type 'darwin)
-  (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
 (use-package dashboard
   :ensure t
@@ -479,13 +472,6 @@
   (setq truncate-lines nil)
   (setq )
   (setq eat-shell "nu")
-  ;; Fix flickering
-  (when (eq system-type 'darwin)
-    (setopt eat-very-visible-cursor-type '(t nil nil))
-    (setopt eat-default-cursor-type '(t nil nil))
-    (setopt eat-shell-prompt-annotation-correction-delay 0)
-    (setopt eat-shell-prompt-annotation-delay 0)
-    )
   )
 
 ;; Search via ripgrep
