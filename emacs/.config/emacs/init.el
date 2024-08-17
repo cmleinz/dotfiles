@@ -255,14 +255,22 @@
   :after magit
   :config (magit-todos-mode 1))
 
-(use-package org-modern
-  :after org)
+(use-package org-superstar
+  :after org
+  :config
+  (setq org-hide-leading-stars nil)
+  ;; This line is necessary.
+  (setq org-superstar-leading-bullet ?\s)
+  ;; If you use Org Indent you also need to add this, otherwise the
+  ;; above has no effect while Indent is enabled.
+  (setq org-indent-mode-turns-on-hiding-stars nil)
+  )
 
 (use-package org
   :hook
   (org-mode . visual-line-mode)
   (org-mode . display-line-numbers-mode)
-  (org-mode . org-modern-mode)
+  (org-mode . (lambda () (org-superstar-mode 1)))
   (org-mode . org-indent-mode)
   :config
   (setq org-todo-keywords
@@ -478,13 +486,17 @@
 ;; Search via ripgrep
 (use-package ripgrep)
 
-(use-package dirvish
-  :hook
-  (dired-mode . auto-revert-mode)
-  :config
-  (dirvish-peek-mode)
-  (dirvish-override-dired-mode)
-  (setq delete-by-moving-to-trash t))
+;; (use-package dirvish
+;;   :hook
+;;   (dired-mode . auto-revert-mode)
+;;   :config
+;;   (setq dirvish-attributes
+;;         '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg))
+;;   (dirvish-peek-mode)
+;;   (setq delete-by-moving-to-trash t)
+;;   :init
+;;   (dirvish-override-dired-mode)
+;;   )
 
 (use-package seq
   :ensure t)			      

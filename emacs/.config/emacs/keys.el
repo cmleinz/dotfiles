@@ -29,7 +29,7 @@
    )
 
   (general-define-key
-   :states '(normal visual emacs)
+   :states '(normal)
    :keymaps '(dired-mode-map)
    "h" 'dired-up-directory
    "l" 'dired-find-file
