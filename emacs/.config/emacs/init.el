@@ -496,12 +496,21 @@
     (add-hook 'after-save-hook 'magit-after-save-refresh-status t))
   (setq magit-show-long-lines-warning nil))
 
+;; I've used company for a long time, in 2024 I switched to corfu for
+;; a while, but after about 6 months I found the experience
+;; inconsistent, sometimes triggering crashes when used with lsp-mode
+;; I've switched back to company mode and all is well
 (use-package company
   :ensure t
-  :custom
-  (company-idle-delay 0.1) ;; how long to wait until popup
-  ;; (company-begin-commands nil) ;; uncomment to disable popup
   :hook (prog-mode . company-mode)
+  :config
+  (setq company-idle-delay 0.2) 
+  (setq company-minimum-prefix-length 2) 
+  (setq company-tooltip-align-annotations t)
+  (setq company-tooltip-limit 5)
+  (setq company-tooltip-minimum 5)
+  (setq company-tooltip-offset-display 'lines)
+  (setq company-format-margin-function 'company-vscode-dark-icons-margin)
   :bind
   (:map company-active-map
         ("<tab>" . company-complete-selection)
@@ -511,15 +520,15 @@
         ("M->" . company-select-last))
   )
 
-(use-package kind-icon
-  :ensure t
-  :after company
-  :config
-  (let* ((kind-func (lambda (cand) (company-call-backend 'kind cand)))
-         (formatter (kind-icon-margin-formatter `((company-kind . ,kind-func)))))
-    (defun my-company-kind-icon-margin (cand _selected)
-      (funcall formatter cand))
-    (setq company-format-margin-function #'my-company-kind-icon-margin)))
+;; (use-package kind-icon
+;;   :ensure t
+;;   :after company
+;;   :config
+;;   (let* ((kind-func (lambda (cand) (company-call-backend 'kind cand)))
+;;          (formatter (kind-icon-margin-formatter `((company-kind . ,kind-func)))))
+;;     (defun my-company-kind-icon-margin (cand _selected)
+;;       (funcall formatter cand))
+;;     (setq company-format-margin-function #'my-company-kind-icon-margin)))
 
 (use-package cape
   :ensure t
