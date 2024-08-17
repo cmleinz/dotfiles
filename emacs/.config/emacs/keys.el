@@ -101,7 +101,7 @@
    "cgd" '(eglot-find-typeDefinition :which-key "Find Definition")
    "ce" '(flycheck-list-errors :which-key "List Errors")
    "ck" 'lsp-describe-thing-at-point
-   "cK" 'lsp-ui-doc-glance
+   "cK" 'lsp-rust-analyzer-open-external-docs
    "ca" 'lsp-execute-code-action
    "cr" 'lsp-rename
    "cs" 'consult-imenu
