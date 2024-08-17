@@ -102,6 +102,8 @@
   (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
   (dashboard-setup-startup-hook))
 
+(use-package colorful-mode)
+
 (use-package ef-themes
   :config
   (setq ef-themes-to-toggle '(ef-autumn ef-melissa-light))
@@ -140,7 +142,6 @@
   (setq evil-auto-indent t)
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
   (evil-set-undo-system 'undo-redo)
-  
   )
 
 (use-package evil-nerd-commenter)
@@ -224,7 +225,7 @@
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
+  (setq completion-styles '(basic orderless)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))
 	read-buffer-completion-ignore-case t))
