@@ -164,7 +164,6 @@
   (global-evil-mc-mode 1)
   :config
   (setq evil-mc-mode-line-text-cursor-color t)
-  
   )
 
 ;; Evil surround
@@ -292,23 +291,10 @@
   :init
   (setq lsp-keymap-prefix "C-l")
   :commands lsp
-  :custom
-  (lsp-diagnostics-flycheck-enable t)
-  (lsp-idle-delay 0.5)
-  :hook
-  (lsp-mode . lsp-ui-mode)
-  
+  :config
+  (setq lsp-diagnostics-flycheck-enable t)
+  (setq lsp-idle-delay 0.5)
   )
-
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-sideline-show-hover nil)
-  (lsp-ui-doc-enable nil)
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-show-with-cursor nil)
-  (lsp-ui-doc-show-with-mouse nil)
-  (lsp-ui-doc-position 'at-point))
 
 (use-package ansi-color
   :ensure nil
@@ -442,8 +428,8 @@
 
 ;; Rust
 (use-package rust-ts-mode
-  :mode ("\\.rs\\'" . rust-ts-mode)
   :ensure nil
+  :mode ("\\.rs\\'" . rust-ts-mode)
   :hook ((rust-ts-mode . lsp-deferred)
 	 (rust-ts-mode . (lambda () (set-fill-column 100))))
   :config
