@@ -27,14 +27,12 @@ set notification-fg             "#5294e2" #00
 
 set recolor-lightcolor          "#1d1f21" #00
 set recolor-darkcolor           "#d3dae3" #06
-set recolor                     "true"
+set recolor                     "false"
 
 set selection-clipboard			clipboard
 
 # setting recolor-keep true will keep any color your pdf has.
 # if it is false, it'll just be black and white
 set recolor-keephue             "false"
-
-# Rest of your configs go here:
 
 map v recolor
