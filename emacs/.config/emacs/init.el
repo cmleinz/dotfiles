@@ -298,11 +298,16 @@
   (setq lsp-idle-delay 0.5)
   )
 
-(use-package ansi-color
-  :ensure nil
-  :hook (compilation-filter . ansi-color-compilation-filter))
-
 ;; Packages for programming
+(use-package fancy-compilation
+  :after compile
+  :commands (fancy-compilation-mode)
+  :init
+  (with-eval-after-load 'compile
+    (fancy-compilation-mode))
+  )
+
+
 (use-package compile
   :ensure nil
   :config
