@@ -486,17 +486,18 @@
 ;; Search via ripgrep
 (use-package ripgrep)
 
-;; (use-package dirvish
-;;   :hook
-;;   (dired-mode . auto-revert-mode)
-;;   :config
-;;   (setq dirvish-attributes
-;;         '(all-the-icons file-time file-size collapse subtree-state vc-state git-msg))
-;;   (dirvish-peek-mode)
-;;   (setq delete-by-moving-to-trash t)
-;;   :init
-;;   (dirvish-override-dired-mode)
-;;   )
+(use-package openwith)
+
+(use-package dired
+  :ensure nil
+  :hook
+  (dired-mode . openwith-mode)
+  :config
+  (setq openwith-associations
+	'(
+	  ("\\.pdf\\'" "zathura" (file)))
+	)
+  )
 
 (use-package seq
   :ensure t)			      
