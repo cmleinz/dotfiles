@@ -87,21 +87,6 @@
       backup-directory-alist
       '((".*", "~/.config/emacs/backups")))
 
-(use-package dashboard
-  :ensure t
-  :config
-  (setq dashboard-banner-logo-title nil)
-  (setq dashboard-center-content t)
-  (setq dashboard-startup-banner 2)
-  (setq dashboard-items '((projects . 5)
-                          (recents . 5)
-                          (bookmarks . 5)))
-  (setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
-  (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
-  (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
-  (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
-  (dashboard-setup-startup-hook))
-
 (use-package colorful-mode)
 
 (use-package ef-themes
