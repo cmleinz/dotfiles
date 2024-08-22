@@ -288,6 +288,8 @@
 (use-package fancy-compilation
   :after compile
   :commands (fancy-compilation-mode)
+  :config
+  (setq fancy-compilation-override-colors nil)
   :init
   (with-eval-after-load 'compile
     (fancy-compilation-mode))
