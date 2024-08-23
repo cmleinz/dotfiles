@@ -502,7 +502,7 @@
   (blamer-idle-time 0.3)
   (blamer-min-offset 70)
   :custom-face
-  (blamer-face ((t :foreground "#7a88cf"
+  (blamer-face ((t :foreground "#484741"
                    :background nil
                    :height 120
                    :italic t))))

@@ -129,7 +129,7 @@
    "g"  '(:ignore t :which-key "Magit")
    "gg" '(magit-status :which-key "magit-status")
    "gi" 'blamer-show-posframe-commit-info
-   "gb" 'blamer-mode
+   "gb" 'global-blamer-mode
    "gf" '(magit-fetch :which-key "magit-fetch") 
    "gF" '(magit-fetch-all :which-key "magit-fetch-all") 
    "gp" '(magit-push-to-remote :which-key "magit-push")
