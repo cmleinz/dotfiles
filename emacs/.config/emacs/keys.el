@@ -129,9 +129,9 @@
    "g"  '(:ignore t :which-key "Magit")
    "gg" '(magit-status :which-key "magit-status")
    "gi" 'blamer-show-posframe-commit-info
+   "gb" 'blamer-mode
    "gf" '(magit-fetch :which-key "magit-fetch") 
    "gF" '(magit-fetch-all :which-key "magit-fetch-all") 
-   "gb" '(magit-branch :which-key "magit-branch")
    "gp" '(magit-push-to-remote :which-key "magit-push")
    "gs" '(magit-stage-modified :which-key "magit-stage-modified")
    "gc" '(magit-commit :which-key "magit-commit")

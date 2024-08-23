@@ -505,9 +505,7 @@
   (blamer-face ((t :foreground "#7a88cf"
                    :background nil
                    :height 120
-                   :italic t)))
-  :config
-  (global-blamer-mode 1))
+                   :italic t))))
 
 ;; Magit for obvious reasons
 (use-package magit
