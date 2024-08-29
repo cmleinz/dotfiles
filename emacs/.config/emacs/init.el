@@ -60,6 +60,8 @@
 	)
       )
 
+(load "~/.config/emacs/private.el")
+
 (use-package transient
   :ensure t
   )
@@ -268,12 +270,6 @@
   (setq org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
-
-;; On NixOS jinx doesn't play nicely with the libraries
-;; ;; An improved spell-checker
-;; (use-package jinx
-;;   :hook (emacs-startup . global-jinx-mode)
-;;   )
 
 (use-package lsp-mode
   :init
