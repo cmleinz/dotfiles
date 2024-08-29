@@ -401,6 +401,9 @@
   :defer 30
   )
 
+;; Groovy script
+(use-package groovy-mode)
+
 ;; Restructured text
 (use-package rst
   :ensure nil
