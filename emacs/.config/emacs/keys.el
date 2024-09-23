@@ -121,6 +121,7 @@
    "p!" 'project-shell-command
 
    "h"  '(:ignore t :which-key "Helper")
+   "he" '(emoji-search :which-key "Emoji Search")
    "ht" '(consult-theme :which-key "Load theme")
    "hk" '(describe-key :which-key "Describe key")
    "hv" '(describe-variable :which-key "Describe variable")
