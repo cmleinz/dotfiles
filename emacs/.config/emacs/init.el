@@ -365,7 +365,14 @@
   )
 
 (use-package nix-ts-mode
-  :mode "\\.nix\\'")
+  :mode
+  (("\\.nix\\'" . nix-ts-mode)
+   ("flake.lock\\'" . js-json-mode))
+  )
+
+(use-package js-json-mode
+  :ensure nil
+  :mode ("\\.json\\'"))
 
 ;; Nushell script mode
 (use-package nushell-mode
