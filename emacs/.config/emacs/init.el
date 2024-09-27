@@ -441,9 +441,10 @@
 ;; ------------------------------------------------
 
 ;; Support for direnv
-(use-package direnv
-  :config
-  (direnv-mode))
+;;
+;; This seems to work way better than direnv, since direnv does a 
+(use-package envrc
+  :hook (prog-mode . envrc-mode))
 
 (use-package expreg)
 
