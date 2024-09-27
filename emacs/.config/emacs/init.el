@@ -354,6 +354,10 @@
   :hook (java-ts-mode . lsp-deferred)
   )
 
+(use-package svelte-mode
+  :config
+  (setq svelte-basic-offset 2))
+
 ;; Justfile integration
 (use-package just-mode
   )
