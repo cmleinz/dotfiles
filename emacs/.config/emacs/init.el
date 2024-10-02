@@ -512,7 +512,13 @@
   :ensure nil
   :hook
   (dired-mode . openwith-mode)
+  (dired-mode . dired-hide-details-mode)
   :config
+  (setq dired-auto-revert-buffer #'dired-directory-changed-p)
+  (setq dired-free-space nil)
+  (setq dired-free-space nil)
+  (setq dired-listing-switches
+        "-AGFhlv --group-directories-first --time-style=long-iso")
   (setq openwith-associations
 	'(
 	  ("\\.pdf\\'" "zathura" (file)))
