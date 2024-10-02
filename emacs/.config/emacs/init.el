@@ -259,6 +259,7 @@
   (org-mode . display-line-numbers-mode)
   (org-mode . (lambda () (org-superstar-mode 1)))
   (org-mode . org-indent-mode)
+  (org-mode . yas-minor-mode)
   :config
   (setq org-todo-keywords
         '((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
@@ -442,6 +443,11 @@
   (setq lsp-rust-analyzer-cargo-watch-command "clippy")
   (setq lsp-rust-features "all"))
 
+;; Typescript mode
+(use-package typescript-ts-mode
+  :ensure nil
+  :mode ("\\.ts\\'" . typescript-ts-mode))
+
 ;; ------------------------------------------------
 
 ;; Support for direnv
@@ -567,7 +573,8 @@
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   ;; (defalias 'dabbrev-after-2 (cape-capf-prefix-length #'cape-dabbrev 2))
   ;; (add-to-list 'completion-at-point-functions 'dabbrev-after-2 t)
-  (cl-pushnew #'cape-file completion-at-point-functions)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-emoji)
   :config
   ;; Silence then pcomplete capf, no errors or messages!
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
