@@ -551,7 +551,7 @@
   (setq magit-show-long-lines-warning nil))
 
 ;; I've used company for a long time, in 2024 I switched to corfu for
-;; a while, but after about 6 months I found the experience
+;; a while, but after about 8 months I found the experience
 ;; inconsistent, sometimes triggering crashes when used with lsp-mode
 ;; I've switched back to company mode and all is well
 (use-package company
@@ -578,9 +578,6 @@
   :ensure t
   :bind ("C-c f" . cape-file)
   :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  ;; (defalias 'dabbrev-after-2 (cape-capf-prefix-length #'cape-dabbrev 2))
-  ;; (add-to-list 'completion-at-point-functions 'dabbrev-after-2 t)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-emoji)
   :config
@@ -590,4 +587,5 @@
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 
+;; Load my keybindings
 (load (expand-file-name "keys.el" user-emacs-directory))
