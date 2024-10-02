@@ -101,6 +101,8 @@
 
 (use-package colorful-mode)
 
+(use-package gruber-darker-theme)
+
 (use-package ef-themes
   :config
   (setq ef-themes-to-toggle '(ef-autumn ef-melissa-light))
