@@ -2,18 +2,6 @@
 ;;  Author: Caleb Leinz
 ;;; Commentary:
 ;;; Code:
-(menu-bar-mode -1)
-
-;; Disable menu bar
-(menu-bar-mode -1)
-
-;; Disable tool bar
-(tool-bar-mode -1)
-
-;; Disable scroll bar
-(setq-default cursor-type 'bar) 
-(scroll-bar-mode -1)
-
 (defvar file-name-handler-alist-original file-name-handler-alist)
 
 (setq gc-cons-threshold most-positive-fixnum

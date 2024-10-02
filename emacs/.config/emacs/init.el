@@ -1,12 +1,22 @@
 ;; Specify specific custom-file location to avoid flooding init.el
-(setq custom-file "~/.config/emacs/custom.el")
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
 ;; Load elpaca
-(load "~/.config/emacs/elpaca-setup.el")
+(load (expand-file-name "elpaca-setup.el" user-emacs-directory))
 
 (setq user-full-name "Caleb Leinz"
       user-mail-address "caleb@leinz.io")
+
+;; Disable menu bar
+(menu-bar-mode -1)
+
+;; Disable tool bar
+(tool-bar-mode -1)
+
+;; Disable scroll bar
+(setq-default cursor-type 'bar) 
+(scroll-bar-mode -1)
 
 ;; Set recentf mode
 (recentf-mode 1)
@@ -60,7 +70,7 @@
 	)
       )
 
-(load "~/.config/emacs/private.el")
+(load (expand-file-name "private.el" user-emacs-directory))
 
 (use-package transient
   :ensure t
@@ -267,7 +277,7 @@
         '(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
           ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
   ;; Add these files to the agenda
-  (setq org-clock-sound "~/.config/emacs/timer.wav")
+  (setq org-clock-sound (expand-file-name "timer.wav" user-emacs-directory))
   (setq org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
@@ -556,16 +566,6 @@
         ("M->" . company-select-last))
   )
 
-;; (use-package kind-icon
-;;   :ensure t
-;;   :after company
-;;   :config
-;;   (let* ((kind-func (lambda (cand) (company-call-backend 'kind cand)))
-;;          (formatter (kind-icon-margin-formatter `((company-kind . ,kind-func)))))
-;;     (defun my-company-kind-icon-margin (cand _selected)
-;;       (funcall formatter cand))
-;;     (setq company-format-margin-function #'my-company-kind-icon-margin)))
-
 (use-package cape
   :ensure t
   :bind ("C-c f" . cape-file)
@@ -582,4 +582,4 @@
   ;; and behaves as a pure `completion-at-point-function'.
   (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 
-(load "~/.config/emacs/keys.el")
+(load (expand-file-name "keys.el" user-emacs-directory))
