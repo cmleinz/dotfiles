@@ -14,6 +14,9 @@
 ;; Disable tool bar
 (tool-bar-mode -1)
 
+;; Remove the splash screen
+(setq-default inhibit-splash-screen t)
+
 ;; Disable scroll bar
 (setq-default cursor-type 'bar) 
 (scroll-bar-mode -1)
@@ -514,10 +517,8 @@
   :ensure nil
   :hook
   (dired-mode . openwith-mode)
-  (dired-mode . dired-hide-details-mode)
   :config
   (setq dired-auto-revert-buffer #'dired-directory-changed-p)
-  (setq dired-free-space nil)
   (setq dired-free-space nil)
   (setq dired-listing-switches
         "-AGFhlv --group-directories-first --time-style=long-iso")
