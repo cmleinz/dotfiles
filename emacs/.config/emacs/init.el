@@ -2,11 +2,12 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
+;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
+;; buffer from appearing
+(setq warning-minimum-level :error)
+
 ;; Load elpaca
 (load (expand-file-name "elpaca-setup.el" user-emacs-directory))
-
-(setq user-full-name "Caleb Leinz"
-      user-mail-address "caleb@leinz.io")
 
 ;; Disable menu bar
 (menu-bar-mode -1)
@@ -21,6 +22,22 @@
 (setq-default cursor-type 'bar) 
 (scroll-bar-mode -1)
 
+;; Lock files cause issues on emacs-mac
+(setq create-lockfiles nil)
+
+;; Standardize autosave files to common directory
+(setq auto-save-file-name-transforms
+      '((".*" "~/.config/emacs/auto-save-list/" t))
+      backup-directory-alist
+      '((".*", "~/.config/emacs/backups/")))
+
+;; Use scroll offset
+(pixel-scroll-precision-mode 1)
+(setq scroll-margin 5
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
+
 ;; Set recentf mode
 (recentf-mode 1)
 
@@ -30,16 +47,6 @@
 
 ;; Use relative line numbers
 (setq display-line-numbers-type 'relative)
-
-(defun my-prog-mode-hook ()
-  (setq truncate-lines t)
-  (display-line-numbers-mode 1)
-  (display-fill-column-indicator-mode 1))
-
-(add-hook 'prog-mode-hook 'my-prog-mode-hook)
-
-(electric-pair-mode 1)
-(electric-indent-mode 1)
 
 (setq display-buffer-alist
       '(
@@ -75,32 +82,24 @@
 
 (load (expand-file-name "private.el" user-emacs-directory))
 
+(use-package prog-mode
+  :ensure nil
+  :config
+  (setq truncate-lines t)
+  :hook
+  (prog-mode . (lambda ()
+		 (apheleia-mode)
+		 (company-mode)
+		 (display-line-numbers-mode)
+		 (display-fill-column-indicator-mode)
+		 (diff-hl-mode)
+		 (electric-indent-mode)
+		 (electric-pair-mode)
+		 (envrc-mode)
+		 (yas-minor-mode))))
+
 (use-package transient
-  :ensure t
-  )
-
-;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
-;; buffer from appearing
-(setq warning-minimum-level :error)
-
-;; Use scroll offset
-(pixel-scroll-precision-mode 1)
-(setq scroll-margin 5
-      scroll-step 1
-      scroll-conservatively 10000
-      scroll-preserve-screen-position 1)
-
-;; Avoid making backup files
-(setq make-backup-files nil)
-
-;; Lock files cause issues on emacs-mac
-(setq create-lockfiles nil)
-
-;; Standardize autosave files to common directory
-(setq auto-save-file-name-transforms
-      '((".*" "~/.config/emacs/auto-save-list/" t))
-      backup-directory-alist
-      '((".*", "~/.config/emacs/backups")))
+  :ensure t)
 
 (use-package colorful-mode)
 
@@ -119,34 +118,35 @@
   (doom-modeline-mode 1)
   (display-time-mode t)
   :config
-  (setq doom-modeline-project-detection 'auto)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-analogue-clock nil)
-  (setq doom-modeline-lsp-icon t)
-  (setq doom-modeline-modal t)
-  (setq doom-modeline-modal-modern-icon t))
+  (setq doom-modeline-project-detection 'auto
+	doom-modeline-icon t
+	doom-modeline-analogue-clock nil
+	doom-modeline-lsp-icon t
+	doom-modeline-modal t
+	doom-modeline-modal-modern-icon t))
 
 (use-package nerd-icons
   :config
-  (setq nerd-icons-scale-factor 1.1)
-  (setq nerd-icons-font-family "ComicShannsMono Nerd Font Mono")
+  (setq nerd-icons-scale-factor 1.1
+	nerd-icons-font-family "ComicShannsMono Nerd Font Mono")
   )
 
 ;; evil-mode configuration
 (use-package evil
   :init
-  (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  (evil-mode)
   :config
-  (setq evil-auto-indent t)
+  (setq evil-want-integration t
+	evil-vsplit-window-right t
+	evil-auto-indent t
+	evil-split-window-below t)
+  (evil-mode)
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-  (evil-set-undo-system 'undo-redo)
-  )
+  (evil-set-undo-system 'undo-redo))
 
-(use-package evil-nerd-commenter)
+(use-package evil-nerd-commenter
+  :after evil
+  :defer 5)
 
 ;; Additional evil-mode bindings
 (use-package evil-collection
@@ -156,15 +156,15 @@
 
 ;; Evil mode multi-cursor support
 (use-package evil-mc
-  :init
-  (global-evil-mc-mode 1)
+  :after evil
+  :defer 5
   :config
   (setq evil-mc-mode-line-text-cursor-color t)
-  )
+  (global-evil-mc-mode 1))
 
 ;; Evil surround
 (use-package evil-surround
-  :ensure t
+  :after evil
   :config
   (global-evil-surround-mode 1)
   ;; The default behavior is to have a space between the delimiters
@@ -195,38 +195,33 @@
 ;; Vertico for minibuffer magic!
 (use-package vertico
   :config
-  (setq vertico-cycle t)
-  (setq vertico-count 10)
-  :init
-  (vertico-mode)
-  )
+  (setq vertico-cycle t
+	vertico-count 10)
+  (vertico-mode))
 
 (use-package savehist
   :ensure nil
-  :init
-  (savehist-mode)
-  )
+  :config
+  (savehist-mode))
 
 ;; Denote for note taking
 (use-package denote
   :config
-  (setq denote-directory "~/Nextcloud/Documents/Notes/")
-  )
+  (setq denote-directory "~/Nextcloud/Documents/Notes/"))
 
 (use-package consult)
 
-(use-package consult-denote)
+(use-package consult-denote
+  :defer 10)
 
-(use-package consult-lsp)
+(use-package consult-lsp
+  :defer 5)
 
 (use-package consult-todo
   :after hl-todo)
 
 (use-package orderless
-  :init
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
-  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  :config
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))
@@ -236,12 +231,13 @@
 (use-package nerd-icons-completion
   :after marginalia
   :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  (nerd-icons-completion-mode))
 
 ;; Add additional information to completions
 (use-package marginalia
-  :init
+  :hook
+  (marginalia-mode . #'nerd-icons-completion-marginalia-setup)
+  :config
   (marginalia-mode))
 
 (use-package hl-todo
@@ -255,7 +251,8 @@
 
 (use-package magit-todos
   :after magit
-  :config (magit-todos-mode 1))
+  :config
+  (magit-todos-mode 1))
 
 (use-package org-superstar
   :after org
@@ -265,16 +262,16 @@
   (setq org-superstar-leading-bullet ?\s)
   ;; If you use Org Indent you also need to add this, otherwise the
   ;; above has no effect while Indent is enabled.
-  (setq org-indent-mode-turns-on-hiding-stars nil)
-  )
+  (setq org-indent-mode-turns-on-hiding-stars nil))
 
 (use-package org
   :hook
-  (org-mode . visual-line-mode)
-  (org-mode . display-line-numbers-mode)
-  (org-mode . (lambda () (org-superstar-mode 1)))
-  (org-mode . org-indent-mode)
-  (org-mode . yas-minor-mode)
+  (org-mode . (lambda ()
+		(visual-line-mode)
+		(display-line-numbers-mode)
+		(org-superstar-mode)
+		(org-indent-mode)
+		(yas-minor-mode)))
   :config
   (setq org-todo-keywords
         '((sequence "TODO(t)" "PROG(p)" "PROJ(j)" "SENT(s)" "|" "DONE(d)" "CANC(c)" "PASS(a)")))
@@ -282,18 +279,17 @@
         '(("TODO" . "#ff5555") ("PROG" . "#ffb86c") ("PROJ" . "#8be9fd") ("SENT" . "#ff79c6")
           ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
   ;; Add these files to the agenda
-  (setq org-clock-sound (expand-file-name "timer.wav" user-emacs-directory))
-  (setq org-agenda-files '("~/org/agenda"))
+  (setq org-clock-sound (expand-file-name "timer.wav" user-emacs-directory)
+	org-agenda-files '("~/org/agenda"))
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
 (use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-l")
   :commands lsp
   :config
-  (setq lsp-diagnostics-flycheck-enable t)
-  (setq lsp-idle-delay 0.5)
+  (setq lsp-diagnostics-flycheck-enable t
+	lsp-keymap-prefix "C-l"
+	lsp-idle-delay 0.5)
   )
 
 ;; Packages for programming
@@ -307,7 +303,6 @@
     (fancy-compilation-mode))
   )
 
-
 (use-package compile
   :ensure nil
   :config
@@ -320,12 +315,9 @@
 
 ;; Apheleia for code formatting
 (use-package apheleia
-  :hook (prog-mode . apheleia-mode)
   :config
   ;; This removes the need to add rustfmt.toml files into the project root
-  (add-to-list 'apheleia-formatters '(rustfmt . ("rustfmt" "--quiet" "--emit" "stdout" "--edition" "2021")))
-  
-  )
+  (add-to-list 'apheleia-formatters '(rustfmt . ("rustfmt" "--quiet" "--emit" "stdout" "--edition" "2021"))))
 
 (use-package pyvenv)
 
@@ -371,6 +363,7 @@
   )
 
 (use-package svelte-mode
+  :after company
   :config
   (setq svelte-basic-offset 2))
 
@@ -468,8 +461,7 @@
 ;; Support for direnv
 ;;
 ;; This seems to work way better than direnv, since direnv does a 
-(use-package envrc
-  :hook (prog-mode . envrc-mode))
+(use-package envrc) 
 
 (use-package expreg)
 
@@ -477,13 +469,9 @@
 (use-package yasnippet
   :ensure
   :config
-  (setq yas-snippet-dirs
-        '("~/.config/emacs/snippets/"))
-  (yas-reload-all)
-  (setq yas-triggers-in-field t)
-  :hook
-  (prog-mode . yas-minor-mode)
-  )
+  (setq yas-snippet-dirs '("~/.config/emacs/snippets/")
+	yas-triggers-in-field t)
+  (yas-reload-all))
 
 ;; Common templates
 (use-package yasnippet-snippets)
@@ -492,21 +480,20 @@
 (use-package diff-hl
   :config
   (diff-hl-dired-mode t)
-  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
-  :hook (prog-mode . diff-hl-mode))
+  :hook
+  (magit-pre-refresh . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
 
 (use-package eat
   :init
-  (add-hook 'eshell-load-hook #'eat-eshell-mode)
-  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
+  :hook
+  (eshell-load . (lambda ()
+		   (#'eat-eshell-mode)
+		   (#'eat-eshell-visiual-command-mode)))
   :config
-  ;; Disable line wrapping
-  (setq truncate-partial-width-windows nil)
-  (setq truncate-lines nil)
-  (setq )
-  (setq eat-shell "nu")
-  )
+  (setq truncate-partial-width-windows nil
+	truncate-lines nil
+	eat-shell "nu"))
 
 ;; Search via ripgrep
 (use-package ripgrep)
@@ -518,25 +505,21 @@
   :hook
   (dired-mode . openwith-mode)
   :config
-  (setq dired-auto-revert-buffer #'dired-directory-changed-p)
-  (setq dired-free-space nil)
-  (setq dired-listing-switches
-        "-AGFhlv --group-directories-first --time-style=long-iso")
-  (setq openwith-associations
-	'(
-	  ("\\.pdf\\'" "zathura" (file)))
-	)
-  )
+  (setq dired-auto-revert-buffer #'dired-directory-changed-p
+	dired-free-space nil
+	dired-listing-switches "-AGFhlv --group-directories-first --time-style=long-iso"
+	openwith-associations '(
+				("\\.pdf\\'" "zathura" (file)))))
 
 (use-package seq
-  :ensure t)			      
+  :ensure t)
 
 (use-package blamer
   :ensure t
   :defer 10
-  :custom
-  (blamer-idle-time 0.3)
-  (blamer-min-offset 70)
+  :config
+  (setq blamer-idle-time 0.3
+	blamer-min-offset 70)
   :custom-face
   (blamer-face ((t :foreground "#484741"
                    :background nil
@@ -559,20 +542,20 @@
   :ensure t
   :hook (prog-mode . company-mode)
   :config
-  (setq company-idle-delay 0.2) 
-  (setq company-minimum-prefix-length 2) 
-  (setq company-tooltip-align-annotations t)
-  (setq company-tooltip-limit 5)
-  (setq company-tooltip-minimum 5)
-  (setq company-tooltip-offset-display 'lines)
-  (setq company-format-margin-function 'company-vscode-dark-icons-margin)
+  (setq company-idle-delay 0.2 
+	company-minimum-prefix-length 2
+	company-tooltip-align-annotations t
+	company-tooltip-limit 5
+	company-tooltip-minimum 5
+	company-tooltip-offset-display 'lines
+	company-format-margin-function 'company-vscode-dark-icons-margin)
   :bind
   (:map company-active-map
-        ("<tab>" . company-complete-selection)
-        ("C-n" . company-select-next)
-        ("C-p" . company-select-previous)
-        ("M-<" . company-select-first)
-        ("M->" . company-select-last))
+	("<tab>" . company-complete-selection)
+	("C-n" . company-select-next)
+	("C-p" . company-select-previous)
+	("M-<" . company-select-first)
+	("M->" . company-select-last))
   )
 
 (use-package cape
