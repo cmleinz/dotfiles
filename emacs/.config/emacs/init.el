@@ -2,8 +2,8 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
-;; Change error level to errors. Warnings are so noisy and there doesn't seem to be a way to stop the
-;; buffer from appearing
+;; change error level to errors. warnings are so noisy and there
+;; doesn't seem to be a way to stop the buffer from appearing
 (setq warning-minimum-level :error)
 
 ;; Load elpaca
@@ -26,10 +26,8 @@
 (setq create-lockfiles nil)
 
 ;; Standardize autosave files to common directory
-(setq auto-save-file-name-transforms
-      '((".*" "~/.config/emacs/auto-save-list/" t))
-      backup-directory-alist
-      '((".*", "~/.config/emacs/backups/")))
+(setq backup-directory-alist
+      '((".*" . "~/.config/emacs/backups/")))
 
 ;; Use scroll offset
 (pixel-scroll-precision-mode 1)
@@ -517,7 +515,7 @@
 	blamer-min-offset 70)
   :custom-face
   (blamer-face ((t :foreground "#484741"
-                   :background nil
+                   :background unspecified
                    :height 120
                    :italic t))))
 
