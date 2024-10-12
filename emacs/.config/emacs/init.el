@@ -86,6 +86,7 @@
   (setq truncate-lines t)
   :hook
   (prog-mode . (lambda ()
+		 (indent-bars-mode)
 		 (apheleia-mode)
 		 (company-mode)
 		 (display-line-numbers-mode)
@@ -196,6 +197,13 @@
   (setq vertico-cycle t
 	vertico-count 10)
   (vertico-mode))
+
+(use-package indent-bars
+  :ensure (:type git
+		 :host github
+		 :repo "jdtsmith/indent-bars"
+		 :files (:defaults "*.el") 
+		 :depth nil))
 
 (use-package savehist
   :ensure nil
@@ -411,7 +419,7 @@
   :mode ("\\.py\\'" . python-ts-mode)
   :ensure nil
   :hook (python-ts-mode . lsp-deferred)
-  :defer 30
+  :defer 5
   )
 
 ;; Groovy script
