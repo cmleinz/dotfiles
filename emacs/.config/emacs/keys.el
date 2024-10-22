@@ -25,7 +25,7 @@
    "e" 'end-of-buffer
    "d" 'lsp-find-definition
    "r" 'lsp-find-references
-   "s" 'avy-goto-char-timer
+   "s" 'avy-goto-char-2
    )
 
   (general-define-key
