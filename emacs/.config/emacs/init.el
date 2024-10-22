@@ -79,6 +79,13 @@
       )
 
 (load (expand-file-name "private.el" user-emacs-directory))
+(load (expand-file-name "custom-fn.el" user-emacs-directory))
+
+(use-package ediff
+  :ensure nil
+  :config
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package prog-mode
   :ensure nil
@@ -94,7 +101,7 @@
 		 (diff-hl-mode)
 		 (electric-indent-mode)
 		 (electric-pair-mode)
-		 (envrc-mode)
+		 (direnv-mode)
 		 (yas-minor-mode))))
 
 (use-package transient

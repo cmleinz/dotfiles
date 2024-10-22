@@ -127,14 +127,14 @@
    "hf" '(describe-function :which-key "Describe function")
 
    "g"  '(:ignore t :which-key "Magit")
-   "gg" '(magit-status :which-key "magit-status")
+   "gg" 'magit-status
    "gi" 'blamer-show-posframe-commit-info
    "gb" 'global-blamer-mode
-   "gf" '(magit-fetch :which-key "magit-fetch") 
-   "gF" '(magit-fetch-all :which-key "magit-fetch-all") 
-   "gp" '(magit-push-to-remote :which-key "magit-push")
-   "gs" '(magit-stage-modified :which-key "magit-stage-modified")
-   "gc" '(magit-commit :which-key "magit-commit")
+   "gf" 'magit-fetch
+   "gF" 'magit-fetch-all
+   "gp" 'magit-push-to-remote
+   "gs" 'magit-stage-modified
+   "gc" 'magit-commit
 
    "t"  '(:ignore t :which-key "Text Manipulation")
    "tf" 'fill-region
