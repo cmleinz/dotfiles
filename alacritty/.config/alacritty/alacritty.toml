@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+=======
+[terminal]
+shell = "nu"
+
+[general]
+import = [
+    "~/.config/alacritty/themes/gruvbox_material.toml"
+]
+live_config_reload = true
+>>>>>>> b7dad4b (alacritty: Update configuration to remove deprecated features)
 
 [window]
 opacity = 1.0
