@@ -29,7 +29,7 @@
    "l" 'evil-end-of-line
    "g" 'beginning-of-buffer
    "e" 'end-of-buffer
-   "d" 'lsp-find-definition
+   "d" 'xref-find-definitions
    "r" 'lsp-find-references
    "s" 'avy-goto-char-2
    )
@@ -69,6 +69,7 @@
 
    "b"  '(:ignore t :which-key "Buffers")
    "br" '(rename-buffer :which-key "Rename buffer")
+   "bi" '(ibuffer :which-key "Ibuffer")
    "bR" '(revert-buffer :which-key "Revert buffer")
    "bw" '(toggle-truncate-lines :which-key "Truncate lines")
    "bb" '(consult-buffer :which-key "Switch buffer")
@@ -82,6 +83,7 @@
    "fs" 'save-buffer
    "ff" 'find-file
    "fr" 'consult-recent-file
+   "fD" '((lambda () (interactive) (find-file "~/Notes/day-book.org")) :which-key "Open daybook")
 
    "w"  '(:ignore t :which-key "Window")
    "ws" '(evil-window-split :which-key "H Split")
@@ -156,6 +158,8 @@
    "oa" '(org-agenda :which-key "org-agenda")
    "oc" 'org-clock-in
    "oC" 'org-clock-out
+   "os" 'org-schedule
+   "od" 'org-deadline
    "oy" '(org-store-link :which-key "org-store-link")
    )
 
