@@ -16,6 +16,12 @@
 
   (general-define-key
    :states '(normal visual emacs)
+   :keymaps '(normal prog-mode-map)
+   "s" 'avy-goto-char-2
+   )
+
+  (general-define-key
+   :states '(normal visual emacs)
    :keymaps 'override
    :prefix "g"
    "a" 'evil-switch-to-windows-last-buffer
