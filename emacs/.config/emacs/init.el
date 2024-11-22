@@ -383,6 +383,8 @@
 (use-package just-mode
   )
 
+(use-package yaml-mode)
+
 (use-package markdown-mode
   :ensure nil
   :hook ((markdown-mode . (lambda () (set-fill-column 80)))
