@@ -293,7 +293,8 @@
           ("DONE" . "#50fa7b") ("CANC" . "#a4fcba") ("PASS" . "#44475a")))
   ;; Add these files to the agenda
   (setq org-clock-sound (expand-file-name "timer.wav" user-emacs-directory)
-	org-agenda-files '("~/org/agenda"))
+	org-agenda-files '("~/Notes/day-book.org")
+	org-src-fontify-natively t)
   ;; Save Org buffers after refiling!
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
@@ -304,6 +305,8 @@
 	lsp-keymap-prefix "C-l"
 	lsp-idle-delay 0.5)
   )
+
+(use-package zen-mode)
 
 ;; Packages for programming
 (use-package fancy-compilation
@@ -366,13 +369,12 @@
   :hook (hs-ts-mode . lsp-deferred)
   )
 
+
 ;; ☕ Java
 (use-package java-ts-mode
-  :after lsp-java
   :mode ("\\.java\\'" . java-ts-mode)
-  :ensure nil
-  :hook (java-ts-mode . lsp-deferred)
-  )
+  :hook (java-ts-mode . eglot-java-mode)
+  :ensure nil)
 
 (use-package svelte-mode
   :after company
@@ -432,7 +434,9 @@
   )
 
 ;; Groovy script
-(use-package groovy-mode)
+(use-package groovy-mode
+  :config
+  (setq groovy-indent-offset 2))
 
 ;; Restructured text
 (use-package rst
@@ -473,9 +477,9 @@
 ;; ------------------------------------------------
 
 ;; Support for direnv
-;;
-;; This seems to work way better than direnv, since direnv does a 
-(use-package envrc) 
+(use-package direnv
+  :config
+  (direnv-mode)) 
 
 (use-package expreg)
 
