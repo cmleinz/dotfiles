@@ -774,3 +774,11 @@ def wallpaper [path: string@wallpaper_folder] {
     open $conf | lines | skip 1 | prepend $"$default = ($path)" | save -f $conf
 }
 $env.PATH = ($env.PATH | append "~/.cargo/bin")
+$env.PATH = ($env.PATH | append "~/.wasmtime/bin")
+
+alias e = emacsclient
+
+use std
+ssh-add ~/.ssh/id_atlasspace o+e> (std null-device)
+ssh-add ~/.ssh/codecommit_rsa o+e> (std null-device)
+source $"($nu.home-path)/.cargo/env.nu"

@@ -57,6 +57,7 @@ $env.PROMPT_INDICATOR = {|| "> " }
 $env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
 $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
+$env.EDITOR = "emacs"
 
 # If you want previously entered commands to have a different prompt from the usual one,
 # you can uncomment one or more of the following lines.
@@ -98,8 +99,33 @@ $env.NU_PLUGIN_DIRS = [
 ]
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-$env.PATH = ($env.PATH | split row (char esep) | prepend '/home/caleb/.local/bin')
 
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
+
+# SSH agent
+do --env {
+    let ssh_agent_file = (
+        $nu.temp-path | path join $"ssh-agent-($env.USER?).nuon"
+    )
+
+    if ($ssh_agent_file | path exists) {
+        let ssh_agent_env = open ($ssh_agent_file)
+        if ($"/proc/($ssh_agent_env.SSH_AGENT_PID)" | path exists) {
+            load-env $ssh_agent_env
+            return
+        } else {
+            rm $ssh_agent_file
+        }
+    }
+
+    let ssh_agent_env = ^ssh-agent -c
+        | lines
+        | first 2
+        | parse "setenv {name} {value};"
+        | transpose --header-row
+        | into record
+    load-env $ssh_agent_env
+    $ssh_agent_env | save --force $ssh_agent_file
+}
+
