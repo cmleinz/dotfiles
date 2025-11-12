@@ -197,6 +197,8 @@ screens = [
                 ),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
                 # widget.StatusNotifier(),
+                widget.Clock(format="%Y-%m-%d %H:%M:%S UTC", timezone="UTC"),
+                widget.Spacer(width=bar.STRETCH),
                 widget.Systray(),
                 widget.Battery(format="{char} {percent:2.0%}"),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
