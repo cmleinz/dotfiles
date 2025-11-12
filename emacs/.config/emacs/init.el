@@ -90,7 +90,7 @@
 (use-package prog-mode
   :ensure nil
   :config
-  (setq truncate-lines t)
+  (setq truncate-lines nil)
   :hook
   (prog-mode . (lambda ()
 		 (indent-bars-mode)
@@ -543,6 +543,13 @@
 ;; Magit for obvious reasons
 (use-package magit
   :after seq
+  ;; The upstream recipe appears to be borked, building from source
+  ;; 2024-12-13
+  :ensure (:type git
+		 :host github
+		 :repo "magit/magit"
+		 :files (:defaults "*.el") 
+		 :depth nil)
   :config
   (with-eval-after-load 'magit-mode
     (add-hook 'after-save-hook 'magit-after-save-refresh-status t))
